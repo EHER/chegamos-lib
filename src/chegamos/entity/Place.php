@@ -1,8 +1,8 @@
 <?php
 
-namespace app\models;
+namespace chegamos\entity;
 
-use lithium\util\Inflector;
+use chegamos\util\Inflector;
 
 class Place {
 
@@ -156,19 +156,19 @@ class Place {
 
 	public function getAverageRatingString() {
 		switch ($this->getAverageRating()) {
-			case 1:
-				return "Péssimo";
-			case 2:
-				return "Ruim";
-			case 3:
-				return "Regular";
-			case 4:
-				return "Bom";
-			case 5:
-				return "Excelente";
-			default:
-				return '';
-				break;
+		case 1:
+			return "Péssimo";
+		case 2:
+			return "Ruim";
+		case 3:
+			return "Regular";
+		case 4:
+			return "Bom";
+		case 5:
+			return "Excelente";
+		default:
+			return '';
+			break;
 		}
 	}
 
@@ -260,8 +260,8 @@ class Place {
 		return ROOT_URL .
 			\strtolower(Inflector::slug($this->getAddress()->getCity()->getState())) .
 			'/' . \strtolower(Inflector::slug($this->getAddress()->getCity()->getName())) .
-					'/' . \strtolower(Inflector::slug($this->getCategory())) .
-					'/' . \strtolower(Inflector::slug($this->getName())) .
+			'/' . \strtolower(Inflector::slug($this->getCategory())) .
+			'/' . \strtolower(Inflector::slug($this->getName())) .
 			'/' . $this->getId() .
 			'.html';
 	}

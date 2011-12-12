@@ -1,7 +1,7 @@
 <?php
 
-namespace app\models;
-use lithium\util\Inflector;
+namespace chegamos\entity;
+use chegamos\util\Inflector;
 
 class City {
 

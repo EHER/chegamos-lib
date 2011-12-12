@@ -1,8 +1,8 @@
 <?php
 
-namespace app\models;
+namespace chegamos\entity;
 
-use lithium\util\Inflector;
+use chegamos\util\Inflector;
 
 class Category {
 

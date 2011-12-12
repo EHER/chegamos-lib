@@ -7,8 +7,8 @@ help:
 
 test:
 	@echo "Rodando testes e gerando relatório de cobertura..."
-	cd app/tests; phpunit
+	cd tests; phpunit
 
 coverage:
 	@echo "Abrindo relatório de cobertura de código..."
-	open app/tests/web/coverage/index.html
+	open tests/web/coverage/index.html

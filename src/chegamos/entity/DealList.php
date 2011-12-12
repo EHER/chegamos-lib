@@ -8,8 +8,6 @@ class DealList extends ItemsList {
 
 	public function __construct($data = null) {
 		if (!empty($data)) {
-//			$this->setNumFound($data->result_count);
-//			$this->setCurrentPage($data->current_page);
 			foreach ($data->deals as $deal) {
 				$this->add(New Deal($deal->deal));
 			}
@@ -23,5 +21,4 @@ class DealList extends ItemsList {
 	public function getCurrentPage() {
 		return $this->currentPage;
 	}
-
 }

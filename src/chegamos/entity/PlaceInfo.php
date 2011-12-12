@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace chegamos\entity;
 
 class PlaceInfo {
 
@@ -23,5 +23,4 @@ class PlaceInfo {
 	public function getGasStation() {
 		return $this->gasStation;
 	}
-
 }
