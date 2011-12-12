@@ -1,7 +1,7 @@
 <?php 
 
 $pear_path = trim(`pear config-get php_dir`);
-set_include_path('../src' 
+set_include_path('src' 
         . PATH_SEPARATOR . $pear_path 
         . PATH_SEPARATOR . get_include_path());
 

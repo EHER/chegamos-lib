@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace chegamos\entity;
 
 class PlayerProfileTest extends \PHPUnit_Framework_TestCase
 {

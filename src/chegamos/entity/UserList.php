@@ -1,6 +1,8 @@
 <?php
 
-namespace app\models;
+namespace chegamos\entity;
+
+use chegamos\util\ItemsList;
 
 class UserList extends ItemsList {
 

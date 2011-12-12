@@ -7,7 +7,7 @@ help:
 
 test:
 	@echo "Rodando testes e gerando relatório de cobertura..."
-	cd tests; phpunit
+	phpunit
 
 coverage:
 	@echo "Abrindo relatório de cobertura de código..."

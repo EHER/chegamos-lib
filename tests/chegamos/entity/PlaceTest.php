@@ -14,11 +14,11 @@ class PlaceTest extends \PHPUnit_Framework_TestCase {
 	protected $object;
 
 	protected function setUp() {
-		$this->object = new Place;
+		$this->place = new Place;
 	}
 
 	protected function tearDown() {
-		unset($this->object);
+		unset($this->place);
 	}
 
 	public function testPopulate() {
@@ -40,7 +40,7 @@ class PlaceTest extends \PHPUnit_Framework_TestCase {
 		$address = new Address();
 		$address->setCity($city);
 		$address->setComplement("1 Andar");
-   		$address->setDistrict("Vila Olímpia");
+   		$address->setDistrict("Vila Olimpia");
 		$address->setNumber("129");
 		$address->setStreet("Rua Funchal");
 		$address->setZipcode("04551-069");
@@ -75,100 +75,100 @@ class PlaceTest extends \PHPUnit_Framework_TestCase {
 		$data->num_visitors = 1024;
 		$data->num_photos = 5;
 
-		$this->object->populate($data);
+		$this->place->populate($data);
 
-		$this->assertEquals(123, $this->object->getId());
-		$this->assertEquals("Chegamos!", $this->object->getName());
-		$this->assertEquals(4, $this->object->getAverageRating());
-		$this->assertEquals("Bom", $this->object->getAverageRatingString());
-		$this->assertEquals(3, $this->object->getReviewCount());
-		$this->assertEquals("chegamos\entity\Category", \get_class((object) $this->object->getCategory()));
-		$this->assertEquals("Restaurantes - Self Service", (string) $this->object->getCategory());
-		$this->assertEquals("chegamos\entity\Address", \get_class((object) $this->object->getAddress()));
-		$this->assertEquals("Rua Funchal, 129 - Vila Olímpia<br/>São Paulo - SP", (string) $this->object->getAddress());
-		$this->assertEquals("-23.529366,-47.467117", (string) $this->object->getPoint());
-		$this->assertEquals("http://chegamos.com/", $this->object->getMainUrl());
-		$this->assertEquals("http://chegamos.com.br/", $this->object->getOtherUrl());
-		$this->assertEquals("http://chegamos.com/img/icon.png", $this->object->getIconUrl());
-		$this->assertEquals("Description", $this->object->getDescription());
-		$this->assertEquals("01/12/2010 16:19", $this->object->getCreated());
-		$this->assertEquals("11 2222-3333", $this->object->getPhone());
-		$this->assertEquals("chegamos\entity\PlaceInfo", \get_class((object) $this->object->getPlaceInfo()));
-		$this->assertEquals(1024, $this->object->getNumVisitors());
-		$this->assertEquals(5, $this->object->getNumPhotos());
+		$this->assertEquals(123, $this->place->getId());
+		$this->assertEquals("Chegamos!", $this->place->getName());
+		$this->assertEquals(4, $this->place->getAverageRating());
+		$this->assertEquals("Bom", $this->place->getAverageRatingString());
+		$this->assertEquals(3, $this->place->getReviewCount());
+		$this->assertEquals("chegamos\entity\Category", \get_class((object) $this->place->getCategory()));
+		$this->assertEquals("Restaurantes - Self Service", (string) $this->place->getCategory());
+		$this->assertEquals("chegamos\entity\Address", \get_class((object) $this->place->getAddress()));
+		$this->assertEquals("Rua Funchal, 129 - Vila Olimpia<br/>São Paulo - SP", (string) $this->place->getAddress());
+		$this->assertEquals("-23.529366,-47.467117", (string) $this->place->getPoint());
+		$this->assertEquals("http://chegamos.com/", $this->place->getMainUrl());
+		$this->assertEquals("http://chegamos.com.br/", $this->place->getOtherUrl());
+		$this->assertEquals("http://chegamos.com/img/icon.png", $this->place->getIconUrl());
+		$this->assertEquals("Description", $this->place->getDescription());
+		$this->assertEquals("01/12/2010 16:19", $this->place->getCreated());
+		$this->assertEquals("11 2222-3333", $this->place->getPhone());
+		$this->assertEquals("chegamos\entity\PlaceInfo", \get_class((object) $this->place->getPlaceInfo()));
+		$this->assertEquals(1024, $this->place->getNumVisitors());
+		$this->assertEquals(5, $this->place->getNumPhotos());
 	}
 
 	public function testSetGetId() {
-		$this->object->setId(123);
-		$this->assertEquals(123, $this->object->getId());
+		$this->place->setId(123);
+		$this->assertEquals(123, $this->place->getId());
 	}
 
 	public function testSetGetNumVisitors() {
-		$this->object->setNumVisitors(1024);
-		$this->assertEquals(1024, $this->object->getNumVisitors());
+		$this->place->setNumVisitors(1024);
+		$this->assertEquals(1024, $this->place->getNumVisitors());
 	}
 
 	public function testSetGetNumPhotos() {
-		$this->object->setNumPhotos(5);
-		$this->assertEquals(5, $this->object->getNumPhotos());
+		$this->place->setNumPhotos(5);
+		$this->assertEquals(5, $this->place->getNumPhotos());
 	}
 
 	public function testSetGetName() {
-		$this->object->setName("Chegamos!");
-		$this->assertEquals("Chegamos!", $this->object->getName());
+		$this->place->setName("Chegamos!");
+		$this->assertEquals("Chegamos!", $this->place->getName());
 	}
 
 	public function testSetGetCreated() {
-		$this->object->setCreated("01/12/2010 13:27");
-		$this->assertEquals("01/12/2010 13:27", $this->object->getCreated());
+		$this->place->setCreated("01/12/2010 13:27");
+		$this->assertEquals("01/12/2010 13:27", $this->place->getCreated());
 	}
 
 	public function testSetGetPlaceInfo() {
-		$this->object->setPlaceInfo("Place Info?");
-		$this->assertEquals("Place Info?", $this->object->getPlaceInfo());
+		$this->place->setPlaceInfo("Place Info?");
+		$this->assertEquals("Place Info?", $this->place->getPlaceInfo());
 	}
 
 	public function testSetGetPhone() {
-		$this->object->setPhone("Place Info?");
-		$this->assertEquals("Place Info?", $this->object->getPhone());
+		$this->place->setPhone("Place Info?");
+		$this->assertEquals("Place Info?", $this->place->getPhone());
 	}
 
 	public function testSetGetDescription() {
-		$this->object->setDescription("Description");
-		$this->assertEquals("Description", $this->object->getDescription());
+		$this->place->setDescription("Description");
+		$this->assertEquals("Description", $this->place->getDescription());
 	}
 
 	public function testSetGetAverageRating() {
-		$this->object->setAverageRating(1);
-		$this->assertEquals(1, $this->object->getAverageRating());
-		$this->object->setAverageRating(2);
-		$this->assertEquals(2, $this->object->getAverageRating());
-		$this->object->setAverageRating(3);
-		$this->assertEquals(3, $this->object->getAverageRating());
-		$this->object->setAverageRating(4);
-		$this->assertEquals(4, $this->object->getAverageRating());
-		$this->object->setAverageRating(5);
-		$this->assertEquals(5, $this->object->getAverageRating());
+		$this->place->setAverageRating(1);
+		$this->assertEquals(1, $this->place->getAverageRating());
+		$this->place->setAverageRating(2);
+		$this->assertEquals(2, $this->place->getAverageRating());
+		$this->place->setAverageRating(3);
+		$this->assertEquals(3, $this->place->getAverageRating());
+		$this->place->setAverageRating(4);
+		$this->assertEquals(4, $this->place->getAverageRating());
+		$this->place->setAverageRating(5);
+		$this->assertEquals(5, $this->place->getAverageRating());
 	}
 
 //	public function testSetGetAverageRatingString() {
-//		$this->object->setAverageRatingString("String");
-//		$this->assertEquals("String", $this->object->getAverageRatingString());
+//		$this->place->setAverageRatingString("String");
+//		$this->assertEquals("String", $this->place->getAverageRatingString());
 //	}
 
 	public function testSetGetReviewCount() {
-		$this->object->setReviewCount(3);
-		$this->assertEquals(3, $this->object->getReviewCount());
+		$this->place->setReviewCount(3);
+		$this->assertEquals(3, $this->place->getReviewCount());
 	}
 
 	public function testSetGetCategory() {
-		$this->object->setCategory("String");
-		$this->assertEquals("String", $this->object->getCategory());
+		$this->place->setCategory("String");
+		$this->assertEquals("String", $this->place->getCategory());
 	}
 
 	public function testSetGetAddress() {
-		$this->object->setAddress("Address");
-		$this->assertEquals("Address", $this->object->getAddress());
+		$this->place->setAddress("Address");
+		$this->assertEquals("Address", $this->place->getAddress());
 	}
 
 	public function testSetGetPoint() {
@@ -176,30 +176,27 @@ class PlaceTest extends \PHPUnit_Framework_TestCase {
 		$point->setLat("-23.529366");
 		$point->setLng("-47.467117");
 
-		$this->object->setPoint($point);
-		$this->assertEquals("-23.529366,-47.467117", (string) $this->object->getPoint());
+		$this->place->setPoint($point);
+		$this->assertEquals("-23.529366,-47.467117", (string) $this->place->getPoint());
 	}
 
 	public function testSetGetMainUrl() {
-		$this->object->setMainUrl("http://chegamos.com/");
-		$this->assertEquals("http://chegamos.com/", $this->object->getMainUrl());
+		$this->place->setMainUrl("http://chegamos.com/");
+		$this->assertEquals("http://chegamos.com/", $this->place->getMainUrl());
 	}
 
 	public function testSetGetOtherUrl() {
-		$this->object->setOtherUrl("http://chegamos.com/");
-		$this->assertEquals("http://chegamos.com/", $this->object->getOtherUrl());
+		$this->place->setOtherUrl("http://chegamos.com/");
+		$this->assertEquals("http://chegamos.com/", $this->place->getOtherUrl());
 	}
 
 	public function testSetGetIconUrl() {
-		$this->object->setIconUrl("http://chegamos.com/img/logo.jpg");
-		$this->assertEquals("http://chegamos.com/img/logo.jpg", $this->object->getIconUrl());
+		$this->place->setIconUrl("http://chegamos.com/img/logo.jpg");
+		$this->assertEquals("http://chegamos.com/img/logo.jpg", $this->place->getIconUrl());
 	}
 
 	public function testGetRouteUrl() {
-
-		//$this->assertEquals("http://chegamos.com/img/logo.jpg", $this->object->getIconUrl());
+		//$this->assertEquals("http://chegamos.com/img/logo.jpg", $this->place->getIconUrl());
 	}
 
 }
-
-?>
