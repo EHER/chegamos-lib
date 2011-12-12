@@ -11,4 +11,4 @@ test:
 
 coverage:
 	@echo "Abrindo relatório de cobertura de código..."
-	open tests/web/coverage/index.html
+	open reports/coverage/index.html
