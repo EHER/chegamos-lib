@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+	colors="true"
+	bootstrap="./config/bootstrap.php"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	stopOnFailure="false">
+
+	<filter>
+		<whitelist>
+			<directory suffix=".php">./src</directory>
+		</whitelist>
+	</filter>
+
+	<testsuites>
+		<testsuite name="Unit Tests">
+			<directory>./tests</directory>
+		</testsuite>
+	</testsuites>
+
+	<logging>
+		<log type="coverage-html" target="./reports/coverage" charset="UTF-8" yui="false" highlight="true" lowUpperBound="65" highLowerBound="85"/>
+	</logging>
+</phpunit>
