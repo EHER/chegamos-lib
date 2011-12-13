@@ -2,8 +2,11 @@ default: help
 
 help:
 	@echo "Comandos disponíveis:"
+	@echo "depends\t\t Instala/atualiza as dependências do projeto"
 	@echo "test\t\t Roda os teste e gera relatório"
 	@echo "coverage\t Abre o relatório de cobertura"
+	@echo "md\t\t Roda o PHPHMD para identificar problemas no código"
+	@echo "showmess\t Abre o relatório do PHPMD"
 
 depends:
 	@echo "Atualizando dependências do projeto..."
