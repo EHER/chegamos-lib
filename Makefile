@@ -7,7 +7,7 @@ help:
 
 depends:
 	@echo "Atualizando dependências do projeto..."
-	git submodule update
+	git submodule update --init
 	pear config-set auto_discover 1
 	pear install pear.phpunit.de/PHPUnit
 	pear channel-discover pear.phpmd.org
