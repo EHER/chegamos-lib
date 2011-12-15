@@ -11,7 +11,7 @@ class PlaceTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @var Place
 	 */
-	protected $object;
+	protected $place;
 
 	protected function setUp() {
 		$this->place = new Place;
@@ -75,7 +75,7 @@ class PlaceTest extends \PHPUnit_Framework_TestCase {
 		$data->num_visitors = 1024;
 		$data->num_photos = 5;
 
-		$this->place->populate($data);
+		$this->place = PlaceFactory::generate($data);
 
 		$this->assertEquals(123, $this->place->getId());
 		$this->assertEquals("Chegamos!", $this->place->getName());
