@@ -36,3 +36,4 @@ showmess:
 
 commit: test
 	@echo "Commitando alterações..."
+	git commit
