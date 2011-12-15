@@ -2,8 +2,11 @@ default: help
 
 help:
 	@echo "Comandos disponíveis:"
+	@echo "depends\t\t Instala as atualizações do projeto"
 	@echo "test\t\t Roda os teste e gera relatório"
 	@echo "coverage\t Abre o relatório de cobertura"
+	@echo "md\t\t Procura problemas no código e gera relatório"
+	@echo "showmess\t Abre o relatório de problemas no código"
 
 depends:
 	@echo "Atualizando dependências do projeto..."
