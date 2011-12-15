@@ -7,6 +7,7 @@ help:
 	@echo "coverage\t Abre o relatório de cobertura"
 	@echo "md\t\t Procura problemas no código e gera relatório"
 	@echo "showmess\t Abre o relatório de problemas no código"
+	@echo "commit\t Faz o git commit depois de rodar os testes"
 
 depends:
 	@echo "Atualizando dependências do projeto..."
@@ -33,3 +34,5 @@ showmess:
 	@echo "Abrindo relatório de coisas estranhas..."
 	open reports/mess/index.html
 
+commit: test
+	@echo "Commitando alterações..."
