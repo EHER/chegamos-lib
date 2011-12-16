@@ -43,7 +43,7 @@ commit: test
 
 cs:
 	@echo "Verificando violações ao padrão de escrita do código.código.."
-	phpcs app/controllers/ --standard=PEAR --encoding=utf-8
+	phpcs src/chegamos/ --standard=PEAR --encoding=utf-8
 
 save: test cs md
 	@echo "Executando tasks do save..."
