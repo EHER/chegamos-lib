@@ -19,8 +19,7 @@ depends:
 	pear channel-discover pear.phpmd.org
 	pear channel-discover pear.pdepend.org
 	pear install --alldeps phpmd/PHP_PMD
-	wget -O /tmp/PhpCheckstyle.zip http://phpcheckstyle.googlecode.com/files/PhpCheckstyle.zip
-	unzip /tmp/PhpCheckstyle.zip -d vendor
+	pear install PHP_CodeSniffer-1.3.2
 
 test:
 	@echo "Rodando testes e gerando relatório de cobertura..."
@@ -42,13 +41,9 @@ commit: test
 	@echo "Commitando alterações..."
 	git commit
 
-checkstyle:
-	@echo "Verificando violações ao padrão de escrita do código..."
-	@php vendor/PhpCheckstyle/run.php --src src/chegamos/ --format html --outdir reports/style
+cs:
+	@echo "Verificando violações ao padrão de escrita do código.código.."
+	phpcs app/controllers/ --standard=PEAR --encoding=utf-8
 
-showstyle:
-	@echo "Abrindo relatório de violações de escrita de código..."
-	open reports/style/index.html
-
-save: test checkstyle md
+save: test cs md
 	@echo "Executando tasks do save..."
