@@ -1,6 +1,7 @@
 <?php
 
 namespace chegamos\entity;
+
 use chegamos\util\Inflector;
 
 class City {
@@ -31,8 +32,8 @@ class City {
 
 	}
 
-	public function setFormatter($formater) {
-		$this->formatter = $formater;
+	public function setFormatter($formatter) {
+		$this->formatter = $formatter;
 	}
 
 	public function format($string = '', $type = 'formatTitle') {
