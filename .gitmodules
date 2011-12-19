@@ -4,3 +4,6 @@
 [submodule "vendor/lithium"]
 	path = vendor/lithium
 	url = git://github.com/UnionOfRAD/lithium.git
+[submodule "vendor/docblox"]
+	path = vendor/docblox
+	url = https://github.com/docblox/docblox.git
