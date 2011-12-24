@@ -3,7 +3,8 @@ default: help
 help:
 	@echo "Comandos disponíveis:"
 	@echo "depends\t\t Instala as dependências do projeto"
-	@echo "test\t\t Roda os teste e gera relatório de cobertura"
+	@echo "test\t\t Roda os testes"
+	@echo "coveraget\t\t Gera relatório de cobertura de testes"
 	@echo "showcoverage\t Abre o relatório de cobertura de testes"
 	@echo "md\t\t Procura problemas no código e gera relatório"
 	@echo "showmd\t Abre o relatório de problemas no código"
@@ -35,8 +36,12 @@ brew-install:
 	brew install GraphViz
 
 test:
-	@echo "Rodando testes e gerando relatório de cobertura..."
+	@echo "Rodando testes..."
 	phpunit -c config/phpunit.xml
+
+coverage:
+	@echo "Gerando relatório de cobertura de testes..."
+	phpunit -c config/phpunit.xml --coverage-html reports/coverage
 
 showcoverage:
 	@echo "Abrindo relatório de cobertura de código..."

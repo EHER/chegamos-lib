@@ -18,8 +18,4 @@
 			<directory>../tests</directory>
 		</testsuite>
 	</testsuites>
-
-	<logging>
-		<log type="coverage-html" target="../reports/coverage" charset="UTF-8" yui="false" highlight="true" lowUpperBound="65" highLowerBound="85"/>
-	</logging>
 </phpunit>
