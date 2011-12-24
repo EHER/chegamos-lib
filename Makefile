@@ -10,9 +10,10 @@ help:
 	@echo "commit\t\t Faz o git commit depois de rodar os testes"
 	@echo "checkstyle\t Verifica violações ao padrão de escrita"
 	@echo "showstyle\t Abre o relatório violações ao padrão de código"
-	@echo "doc\t\t"
+	@echo "doc\t\t Gera documentação do projeto"
+	@echo "showdoc\t\t Abre a documentação do projeto"
 
-depends: git-submodules pear-config pear-install
+depends: git-submodules pear-config pear-install brew-install
 	@echo "Atualizando dependências do projeto..."
 
 git-submodules:
@@ -32,9 +33,12 @@ pear-install:
 	pear install --alldeps phpmd/PHP_PMD
 	pear install PHP_CodeSniffer-1.3.2
 
+brew-install:
+	brew install GraphViz
+
 test:
 	@echo "Rodando testes e gerando relatório de cobertura..."
-	phpunit
+	phpunit -c config/phpunit.xml
 
 coverage:
 	@echo "Abrindo relatório de cobertura de código..."
@@ -54,11 +58,15 @@ commit: test
 
 cs:
 	@echo "Verificando violações ao padrão de escrita do código.código.."
-	phpcs src/chegamos/ --standard=PEAR --encoding=utf-8
+	phpcs src/chegamos/ --encoding=utf-8 -p --report=summary -s --standard=config/phpcs.xml
 
 doc:
 	@echo "Gerando documentação..."
-	php vendor/docblox/bin/docblox.php run -d src/chegamos -t reports/doc 
+	php vendor/docblox/bin/docblox.php run -d src/chegamos -t reports/docblox 
+
+showdoc:
+	@echo "Abrindo documentação..."
+	open reports/docblox/index.html
 
 save: test cs md
 	@echo "Executando tasks do save..."
