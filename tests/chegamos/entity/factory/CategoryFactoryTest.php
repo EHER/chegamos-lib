@@ -25,6 +25,7 @@ class CategoryFactoryTest extends \PHPUnit_Framework_TestCase
         $data = new \stdClass;
         $data->id = 123;
         $data->name = "Restaurantes";
+        $data->subcategory = new \stdClass;
         $data->subcategory->id = 321;
         $data->subcategory->name = "Fastfood";
 

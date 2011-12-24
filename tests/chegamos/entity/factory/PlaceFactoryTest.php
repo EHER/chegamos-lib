@@ -54,6 +54,7 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
         $data->category = $category;
         $data->subcategory = $subCategory;
         $data->address = $address;
+        $data->point = new \stdClass();
         $data->point->lat = "-23.529366";
         $data->point->lng = "-47.467117";
         $data->main_url = "http://chegamos.com/";
