@@ -1,5 +1,8 @@
 <?php 
 
+error_reporting(E_ALL | E_STRICT);
+ini_set('display_errors','On');
+
 $pear_path = trim(`pear config-get php_dir`);
 set_include_path('src' 
         . PATH_SEPARATOR . 'vendor'
