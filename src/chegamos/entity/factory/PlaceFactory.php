@@ -10,11 +10,11 @@ use chegamos\entity\PlaceInfo;
 use chegamos\util\Inflector;
 use chegamos\exception\ChegamosException;
 
-class PlaceFactory 
+class PlaceFactory
 {
-    public static function generate($data) 
+    public static function generate($data)
     {
-        if(is_object($data)) {
+        if (is_object($data)) {
             $place = new Place();
 
             $place->setId($data->id);

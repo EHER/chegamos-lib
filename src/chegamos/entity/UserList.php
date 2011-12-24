@@ -4,33 +4,37 @@ namespace chegamos\entity;
 
 use chegamos\util\ItemsList;
 
-class UserList extends ItemsList {
+class UserList extends ItemsList
+{
+    private $currentPage;
 
-	private $currentPage;
+    public function __construct($data)
+    {
+        $this->populate($data);
+    }
 
-	public function __construct($data) {
-		$this->populate($data);
-	}
+    public function populate($data)
+    {
+        if (isset($data->result_count)) {
+            $this->setNumFound($data->result_count);
+        }
+        if (isset($data->current_page)) {
+            $this->setCurrentPage($data->current_page);
+        }
+        if (isset($data->users)) {
+            foreach ($data->users as $user) {
+                $this->add(new User($user->user));
+            }
+        }
+    }
 
-	public function populate($data) {
-		if (isset($data->result_count)) {
-			$this->setNumFound($data->result_count);
-		}
-		if (isset($data->current_page)) {
-			$this->setCurrentPage($data->current_page);
-		}
-		if (isset($data->users)) {
-			foreach ($data->users as $user) {
-				$this->add(new User($user->user));
-			}
-		}
-	}
-	
-	public function setCurrentPage($currentPage) {
-		$this->currentPage = $currentPage;
-	}
+    public function setCurrentPage($currentPage)
+    {
+        $this->currentPage = $currentPage;
+    }
 
-	public function getCurrentPage() {
-		return $this->currentPage;
-	}
+    public function getCurrentPage()
+    {
+        return $this->currentPage;
+    }
 }

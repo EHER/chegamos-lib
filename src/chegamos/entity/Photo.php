@@ -1,24 +1,30 @@
 <?php
 
-namespace app\models;
-use lithium\util\Inflector;
+namespace chegamos\entity;
 
-class Photo {
-	var $url = '';
+use chegamos\util\Inflector;
 
-	public function __construct($data) {
-		$this->populate($data);
-	}
+class Photo
+{
+    var $url = '';
 
-	public function populate($data) {
-		$this->setUrl($data);
-	}
+    public function __construct($data)
+    {
+        $this->populate($data);
+    }
 
-	public function getUrl() {
-		return $this->url;
-	}
+    public function populate($data)
+    {
+        $this->setUrl($data);
+    }
 
-	public function setUrl($url) {
-		$this->url = $url;
-	}
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
 }

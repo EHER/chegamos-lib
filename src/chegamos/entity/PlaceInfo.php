@@ -2,25 +2,30 @@
 
 namespace chegamos\entity;
 
-class PlaceInfo {
+class PlaceInfo
+{
 
-	var $gasStation = "";
+    private $gasStation = "";
 
-	public function __construct($data=null) {
-		$this->populate($data);
-	}
-	
-	public function populate($data) {
-		if(isset($data->gas_station)) {
-			$this->setGasStation(new GasStation($data->gas_station));
-		}
-	}
-	
-	public function setGasStation($gasStation) {
-		$this->gasStation = $gasStation;
-	}
-	
-	public function getGasStation() {
-		return $this->gasStation;
-	}
+    public function __construct($data=null)
+    {
+        $this->populate($data);
+    }
+
+    public function populate($data)
+    {
+        if (isset($data->gas_station)) {
+            $this->setGasStation(new GasStation($data->gas_station));
+        }
+    }
+
+    public function setGasStation($gasStation)
+    {
+        $this->gasStation = $gasStation;
+    }
+
+    public function getGasStation()
+    {
+        return $this->gasStation;
+    }
 }

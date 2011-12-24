@@ -6,11 +6,11 @@ use chegamos\entity\Category;
 use chegamos\entity\Subcategory;
 use chegamos\exception\ChegamosException;
 
-class CategoryFactory 
+class CategoryFactory
 {
-    public static function generate($data) 
+    public static function generate($data)
     {
-        if(is_object($data)) {
+        if (is_object($data)) {
             $category = new Category();
             if (isset($data->id)) {
                 $category->setId($data->id);
