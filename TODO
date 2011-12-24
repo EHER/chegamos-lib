@@ -1,4 +1,5 @@
 * Terminar de importar as entidades do Chegamos
 * Criar task para gerar o pacote PEAR
 * Criar task para fazer o deploy do pacote PEAR no repositório
-
+* Criar modo de acesso Repository
+* Testar com um projeto em produção
