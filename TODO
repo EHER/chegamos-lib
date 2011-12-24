@@ -3,3 +3,6 @@
 * Criar task para fazer o deploy do pacote PEAR no repositório
 * Criar modo de acesso Repository
 * Testar com um projeto em produção
+* Habilitar o Travis para exibir status dos testes no Git-hub
+* Ter o Makefile preparado para CI
+* Ter um servidor de CI guardando histórico dos builds
