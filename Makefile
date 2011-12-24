@@ -43,11 +43,11 @@ showcoverage:
 	open reports/coverage/index.html
 
 md:
-	@echo "Procurando coisas estranhas no código..."
+	@echo "Procurando problemas no código..."
 	phpmd src/ html codesize,unusedcode,design --reportfile reports/md/index.html
 
 showmd:
-	@echo "Abrindo relatório de coisas estranhas..."
+	@echo "Abrindo relatório de problemas no código..."
 	open reports/md/index.html
 
 cs:
