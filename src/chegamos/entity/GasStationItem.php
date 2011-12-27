@@ -4,11 +4,10 @@ namespace chegamos\entity;
 
 class GasStationItem
 {
-
-    var $label;
-    var $value;
-    var $averageValue;
-    var $collectDate;
+    private $label;
+    private $value;
+    private $averageValue;
+    private $collectDate;
 
     public function __toString()
     {
