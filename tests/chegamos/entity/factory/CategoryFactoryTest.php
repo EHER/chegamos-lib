@@ -5,22 +5,21 @@ namespace chegamos\entity\factory;
 use chegamos\entity\Category;
 use chegamos\exception\ChegamosException;
 
-class CategoryFactoryTest extends \PHPUnit_Framework_TestCase 
+class CategoryFactoryTest extends \PHPUnit_Framework_TestCase
 {
-
     protected $category;
 
-    protected function setUp() 
+    protected function setUp()
     {
         $this->category = new Category;
     }
 
-    protected function tearDown() 
+    protected function tearDown()
     {
         unset($this->category);
     }
 
-    public function testGenerate() 
+    public function testGenerate()
     {
         $data = new \stdClass;
         $data->id = 123;

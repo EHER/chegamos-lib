@@ -10,10 +10,10 @@ use chegamos\entity\Category;
 use chegamos\entity\Subcategory;
 use chegamos\exception\ChegamosException;
 
-class PlaceFactoryTest extends \PHPUnit_Framework_TestCase 
+class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    public function testGenerate() {
-
+    public function testGenerate()
+    {
         $subCategory = new Subcategory();
         $subCategory->setId(1234);
         $subCategory->setName("Self Service");
@@ -74,23 +74,50 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(4, $this->place->getAverageRating());
         $this->assertEquals("Bom", $this->place->getAverageRatingString());
         $this->assertEquals(3, $this->place->getReviewCount());
-        $this->assertEquals("chegamos\entity\Category", \get_class((object) $this->place->getCategory()));
-        $this->assertEquals("Restaurantes - Self Service", (string) $this->place->getCategory());
-        $this->assertEquals("chegamos\entity\Address", \get_class((object) $this->place->getAddress()));
-        $this->assertEquals("Rua Funchal, 129 - Vila Olimpia<br/>São Paulo - SP", (string) $this->place->getAddress());
-        $this->assertEquals("-23.529366,-47.467117", (string) $this->place->getPoint());
-        $this->assertEquals("http://chegamos.com/", $this->place->getMainUrl());
-        $this->assertEquals("http://chegamos.com.br/", $this->place->getOtherUrl());
-        $this->assertEquals("http://chegamos.com/img/icon.png", $this->place->getIconUrl());
+        $this->assertEquals(
+            "chegamos\entity\Category",
+            \get_class((object) $this->place->getCategory())
+        );
+        $this->assertEquals(
+            "Restaurantes - Self Service",
+            (string) $this->place->getCategory()
+        );
+        $this->assertEquals(
+            "chegamos\entity\Address",
+            \get_class((object) $this->place->getAddress())
+        );
+        $this->assertEquals(
+            "Rua Funchal, 129 - Vila Olimpia<br/>São Paulo - SP",
+            (string) $this->place->getAddress()
+        );
+        $this->assertEquals(
+            "-23.529366,-47.467117",
+            (string) $this->place->getPoint()
+        );
+        $this->assertEquals(
+            "http://chegamos.com/",
+            $this->place->getMainUrl()
+        );
+        $this->assertEquals(
+            "http://chegamos.com.br/",
+            $this->place->getOtherUrl()
+        );
+        $this->assertEquals(
+            "http://chegamos.com/img/icon.png",
+            $this->place->getIconUrl()
+        );
         $this->assertEquals("Description", $this->place->getDescription());
         $this->assertEquals("01/12/2010 16:19", $this->place->getCreated());
         $this->assertEquals("11 2222-3333", $this->place->getPhone());
-        $this->assertEquals("chegamos\entity\PlaceInfo", \get_class((object) $this->place->getPlaceInfo()));
+        $this->assertEquals(
+            "chegamos\entity\PlaceInfo",
+            \get_class((object) $this->place->getPlaceInfo())
+        );
         $this->assertEquals(1024, $this->place->getNumVisitors());
         $this->assertEquals(5, $this->place->getNumPhotos());
     }
 
-    public function testGenerateWithoutData() 
+    public function testGenerateWithoutData()
     {
         try {
             PlaceFactory::generate(null);
