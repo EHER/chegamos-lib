@@ -3,6 +3,10 @@
 error_reporting(E_ALL | E_STRICT);
 ini_set('display_errors','On');
 
+date_default_timezone_set("America/Sao_Paulo");
+
+ini_set("default_charset", "utf-8");
+
 $pear_path = trim(`pear config-get php_dir`);
 set_include_path('src' 
         . PATH_SEPARATOR . 'vendor'
