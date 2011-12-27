@@ -118,6 +118,7 @@ JSON;
         $this->assertEquals(1.89, $gasStationItem->getValue());
         $this->assertEquals(1.76, $gasStationItem->getAverageValue());
         $this->assertEquals("23/10 03:22", $gasStationItem->getCollectDate());
+        $this->assertEquals("Álcool: R$ 1.89 (média R$ 1.76)", (string) $gasStationItem);
     }
 
     /**
