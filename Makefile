@@ -4,12 +4,12 @@ help:
 	@echo "Comandos disponíveis:"
 	@echo "depends\t\t Instala as dependências do projeto"
 	@echo "test\t\t Roda os testes"
-	@echo "coveraget\t\t Gera relatório de cobertura de testes"
+	@echo "coverage\t\t Gera relatório de cobertura de testes"
 	@echo "showcoverage\t Abre o relatório de cobertura de testes"
-	@echo "md\t\t Procura problemas no código e gera relatório"
-	@echo "showmd\t Abre o relatório de problemas no código"
 	@echo "doc\t\t Gera documentação do projeto"
 	@echo "showdoc\t\t Abre a documentação do projeto"
+	@echo "md\t\t Procura problemas no código"
+	@echo "cs\t\t Procura violações ao padrão de escrita do código"
 	@echo "commit\t\t Faz o git commit depois de rodar os testes"
 
 depends: git-submodules pear-config pear-install brew-install
@@ -47,29 +47,28 @@ showcoverage:
 	@echo "Abrindo relatório de cobertura de código..."
 	open reports/coverage/index.html
 
-md:
-	@echo "Procurando problemas no código..."
-	phpmd src/ html codesize,unusedcode,design --reportfile reports/md/index.html
-
-showmd:
-	@echo "Abrindo relatório de problemas no código..."
-	open reports/md/index.html
-
-cs:
-	@echo "Verificando violações ao padrão de escrita do código.código.."
-	phpcs src/chegamos/ --encoding=utf-8 -p --report=summary -s --standard=config/phpcs.xml
-
 doc:
 	@echo "Gerando documentação..."
-	php vendor/docblox/bin/docblox.php run -d src/chegamos -t reports/docblox 
+	php vendor/docblox/bin/docblox.php run -d src/chegamos -t reports/docblox
 
 showdoc:
 	@echo "Abrindo documentação..."
 	open reports/docblox/index.html
 
+md:
+	@echo "Procurando problemas no código..."
+	phpmd src/ text codesize,unusedcode,design
+
+cs:
+	@echo "Verificando violações ao padrão de escrita do código..."
+	phpcs src/chegamos/ --encoding=utf-8 -p --report=summary -s --standard=config/phpcs.xml
+
 commit: test
 	@echo "Commitando alterações..."
 	git commit
 
-save: test cs md
+save: test cs
 	@echo "Executando tasks do save..."
+
+build: coverage cs md
+	@echo "Executando tasks do build..."
