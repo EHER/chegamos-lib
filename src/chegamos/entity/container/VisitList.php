@@ -1,8 +1,6 @@
 <?php
 
-namespace chegamos\entity;
-
-use chegamos\util\ItemsList;
+namespace chegamos\entity\container;
 
 class VisitList extends ItemsList
 {

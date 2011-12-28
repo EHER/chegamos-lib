@@ -1,10 +1,8 @@
 <?php
 
-namespace chegamos\entity;
+namespace chegamos\entity\container;
 
-use chegamos\util\ItemsList;
-
-class FollowingList extends ItemsList
+class FollowersList extends ItemsList
 {
     var $userId = '';
     var $currentPage = 0;

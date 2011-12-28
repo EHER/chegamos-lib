@@ -1,6 +1,6 @@
 <?php
 
-namespace chegamos\util;
+namespace chegamos\entity\container;
 
 class ItemsList
 {

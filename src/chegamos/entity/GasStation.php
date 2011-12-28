@@ -2,9 +2,7 @@
 
 namespace chegamos\entity;
 
-use chegamos\util\ItemsList;
-
-class GasStation extends ItemsList
+class GasStation
 {
 
     public function __construct($data=null)
