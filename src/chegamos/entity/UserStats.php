@@ -4,10 +4,9 @@ namespace chegamos\entity;
 
 class UserStats
 {
-
-    var $places = 0;
-    var $photos = 0;
-    var $reviews = 0;
+    private $places = 0;
+    private $photos = 0;
+    private $reviews = 0;
 
     public function __construct($data)
     {
