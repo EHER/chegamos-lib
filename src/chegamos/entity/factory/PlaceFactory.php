@@ -12,28 +12,28 @@ use chegamos\exception\ChegamosException;
 
 class PlaceFactory
 {
-    public static function generate($data)
+    public static function generate($placeJsonObject)
     {
-        if (is_object($data)) {
+        if (is_object($placeJsonObject)) {
             $place = new Place();
 
-            $place->setId($data->id);
-            $place->setName($data->name);
-            $place->setAverageRating($data->average_rating);
-            $place->setReviewCount($data->review_count);
-            $place->setCategory(new Category($data->category));
-            $place->setSubcategory(new Category($data->subcategory));
-            $place->setAddress(new Address($data->address));
-            $place->setPoint(new Point($data->point));
-            $place->setMainUrl($data->main_url);
-            $place->setOtherUrl($data->other_url);
-            $place->setIconUrl($data->icon_url);
-            $place->setDescription($data->description);
-            $place->setCreated($data->created);
-            $place->setPhone($data->phone);
-            $place->setPlaceInfo(new PlaceInfo($data->extended));
-            $place->setNumVisitors($data->num_visitors);
-            $place->setNumPhotos($data->num_photos);
+            $place->setId($placeJsonObject->id);
+            $place->setName($placeJsonObject->name);
+            $place->setAverageRating($placeJsonObject->average_rating);
+            $place->setReviewCount($placeJsonObject->review_count);
+            $place->setCategory(new Category($placeJsonObject->category));
+            $place->setSubcategory(new Category($placeJsonObject->subcategory));
+            $place->setAddress(new Address($placeJsonObject->address));
+            $place->setPoint(new Point($placeJsonObject->point));
+            $place->setMainUrl($placeJsonObject->main_url);
+            $place->setOtherUrl($placeJsonObject->other_url);
+            $place->setIconUrl($placeJsonObject->icon_url);
+            $place->setDescription($placeJsonObject->description);
+            $place->setCreated($placeJsonObject->created);
+            $place->setPhone($placeJsonObject->phone);
+            $place->setPlaceInfo(new PlaceInfo($placeJsonObject->extended));
+            $place->setNumVisitors($placeJsonObject->num_visitors);
+            $place->setNumPhotos($placeJsonObject->num_photos);
 
             return $place;
         } else {
