@@ -1,9 +1,9 @@
 [submodule "vendor/ClassLoader"]
 	path = vendor/ClassLoader
 	url = https://github.com/symfony/ClassLoader.git
-[submodule "vendor/lithium"]
-	path = vendor/lithium
-	url = git://github.com/UnionOfRAD/lithium.git
 [submodule "vendor/docblox"]
 	path = vendor/docblox
 	url = https://github.com/docblox/docblox.git
+[submodule "vendor/guzzle"]
+	path = vendor/guzzle
+	url = https://github.com/guzzle/guzzle.git
