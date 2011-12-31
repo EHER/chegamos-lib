@@ -8,18 +8,20 @@ use chegamos\exception\ChegamosException;
 
 class CategoryFactory
 {
-    public static function generate($data)
+    public static function generate($categoryJsonObject)
     {
-        if (is_object($data)) {
+        if (is_object($categoryJsonObject)) {
             $category = new Category();
-            if (isset($data->id)) {
-                $category->setId($data->id);
+            if (isset($categoryJsonObject->id)) {
+                $category->setId($categoryJsonObject->id);
             }
-            if (isset($data->name)) {
-                $category->setName($data->name);
+            if (isset($categoryJsonObject->name)) {
+                $category->setName($categoryJsonObject->name);
             }
-            if (isset($data->subcategory)) {
-                $category->setSubcategory(new Subcategory($data->subcategory));
+            if (isset($categoryJsonObject->subcategory)) {
+                $category->setSubcategory(
+                    new Subcategory($categoryJsonObject->subcategory)
+                );
             }
             return $category;
         } else {
