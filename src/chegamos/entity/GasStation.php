@@ -13,7 +13,7 @@ class GasStation
     public function populate($data)
     {
         if (isset($data) && is_array(new GasStation)) {
-            foreach ($data as $itemName => $value) {
+            foreach (array_keys($data) as $itemName) {
                 if (strstr($itemName, 'price_') !== false) {
                     $this->add(GasStationItemFactory::generate($itemName, $data));
                 }
