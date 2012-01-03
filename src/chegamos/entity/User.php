@@ -17,57 +17,6 @@ class User
     private $photos = null;
     private $lastVisit = null;
 
-    public function __construct($data)
-    {
-        $this->populate($data);
-    }
-
-    public function populate($data)
-    {
-        $this->setId($data->id);
-        $this->setName($data->name);
-        $this->setBirthday(isset($data->birthday) ? $data->birthday : '');
-        $this->setGender(isset($data->gender) ? $data->gender : '');
-
-        if (isset($data->photo_medium_url)) {
-            $this->setPhotoMediumUrl($data->photo_medium_url);
-        } else if (isset($data->photo_medium)) {
-            $this->setPhotoMediumUrl($data->photo_medium);
-        }
-
-        if (isset($data->photo_url)) {
-            $this->setPhotoUrl($data->photo_url);
-        } else if (isset($data->photo)) {
-            $this->setPhotoUrl($data->photo);
-        }
-
-        if (isset($data->photo_small_url)) {
-            $this->setPhotoSmallUrl($data->photo_small_url);
-        } else if (isset($data->photo_small)) {
-            $this->setPhotoSmallUrl($data->photo_small);
-        }
-
-        if (isset($data->places)) {
-            $this->setPlaces(new PlaceList($data));
-        }
-
-        if (isset($data->reviews)) {
-            $this->setReviews(new ReviewList($data));
-        }
-
-        if (isset($data->photos)) {
-            $this->setPhotos(new PhotoList($data));
-        }
-
-        if (isset($data->last_visit->place)) {
-            $this->setLastVisit(new Place($data->last_visit->place));
-        } else {
-            $this->setLastVisit(new Place());
-        }
-
-        $this->setStats(isset($data->stats) ? new UserStats($data->stats) : null);
-    }
-
     public function getUserInfo()
     {
         $userInfo = array();
