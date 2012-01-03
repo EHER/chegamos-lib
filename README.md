@@ -1,20 +1,21 @@
-Chegamos-lib [![Build Status](https://secure.travis-ci.org/EHER/chegamos-lib.png)](http://travis-ci.org/EHER/chegamos-lib)
-============
+# Chegamos-lib [![Build Status](https://secure.travis-ci.org/EHER/chegamos-lib.png)](http://travis-ci.org/EHER/chegamos-lib)
 Utilize o make para interagir com o projeto.
 
 
-Exemplo de como pegar dados de um usuário:
+## Exemplo de como pegar dados de um usuário:
 
-use chegamos\rest\Guzzle as RestClient;
-use chegamos\entity\repository\UserRepository;
+    <?php 
 
-$key = "MinhaConsumerKey";
-$secret = "MinhaConsumerSecret";
+    use chegamos\rest\Guzzle as RestClient;
+    use chegamos\entity\repository\UserRepository;
 
-$restClient = new RestClient("http://api.apontador.com.br/v1/");
-$restClient->setAuth($key, $secret);
+    $key = "MinhaConsumerKey";
+    $secret = "MinhaConsumerSecret";
 
-$userRepository = new UserRepository($restClient);
-$user = $userRepository->get("8972911185");
+    $restClient = new RestClient("http://api.apontador.com.br/v1/");
+    $restClient->setAuth($key, $secret);
 
-var_dump($user);
+    $userRepository = new UserRepository($restClient);
+    $user = $userRepository->get("8972911185");
+
+    var_dump($user);
