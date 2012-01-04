@@ -4,9 +4,9 @@ Utilize o make para interagir com o projeto.
 
 ## Exemplo de como pegar dados de um usuário:
 
-    <?php 
+    <?php
 
-    use chegamos\rest\Guzzle as RestClient;
+    use chegamos\rest\Curl as RestClient;
     use chegamos\entity\repository\UserRepository;
 
     $key = "MinhaConsumerKey";
