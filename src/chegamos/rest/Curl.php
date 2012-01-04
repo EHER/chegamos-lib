@@ -14,12 +14,12 @@ class Curl extends Client
     {
         $this->url = $url;
         $this->client = curl_init($this->url);
-        curl_setopt ($this->client, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($this->client, CURLOPT_RETURNTRANSFER, 1);
     }
 
     public function setAuth($user, $password)
     {
-        curl_setopt($this->client,CURLOPT_USERPWD, $user . ':' . $password);
+        curl_setopt($this->client, CURLOPT_USERPWD, $user . ':' . $password);
     }
 
     public function getBody()
