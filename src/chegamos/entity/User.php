@@ -80,6 +80,12 @@ class User
         return $this->name;
     }
 
+    public function getFirstName()
+    {
+        $name = substr($this->name, 0, strpos($this->name, " "));
+        return $name != "" ? $name : $this->name;
+    }
+
     public function getAge()
     {
         if ($this->getBirthday()) {
@@ -200,10 +206,10 @@ class User
         $this->photos = $photos;
     }
 
-    public function getProfileUrl()
+    public function getMainUrl()
     {
         if ($this->getId()) {
-            return ROOT_URL . 'profile/show/' . $this->getId();
+            return 'http://www.apontador.com.br/profile/' . $this->getId() . '.html';
         }
         return false;
     }
