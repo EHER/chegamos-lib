@@ -17,5 +17,22 @@ Utilize o make para interagir com o projeto.
 
     $userRepository = new UserRepository($restClient);
     $user = $userRepository->get("8972911185");
-
     var_dump($user);
+
+## Exemplo de como pegar dados de um usuário com as avaliações:
+
+    <?php
+
+    use chegamos\rest\Curl as RestClient;
+    use chegamos\entity\repository\UserRepository;
+
+    $key = "MinhaConsumerKey";
+    $secret = "MinhaConsumerSecret";
+
+    $restClient = new RestClient("http://api.apontador.com.br/v1/");
+    $restClient->setAuth($key, $secret);
+
+    $userRepository = new UserRepository($restClient);
+    $user = $userRepository->getWithReviews("8972911185");
+    var_dump($user);
+
