@@ -2,7 +2,9 @@
 Utilize o make para interagir com o projeto.
 
 
-## Exemplo de como pegar dados de um usuário:
+## Exemplos
+
+### Pegar dados de um usuário:
 
     <?php
 
@@ -19,7 +21,7 @@ Utilize o make para interagir com o projeto.
     $user = $userRepository->get("8972911185");
     var_dump($user);
 
-## Exemplo de como pegar dados de um usuário com as avaliações:
+### Pegar dados de um usuário com as avaliações:
 
     <?php
 
