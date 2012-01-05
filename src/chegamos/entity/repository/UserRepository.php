@@ -2,9 +2,7 @@
 
 namespace chegamos\entity\repository;
 
-use chegamos\entity\User;
 use chegamos\entity\factory\UserFactory;
-use chegamos\exception\ChegamosException;
 
 class UserRepository
 {
@@ -18,6 +16,15 @@ class UserRepository
     public function get($userId)
     {
         $userJsonString = $this->restClient->get("users/" . $userId . '?type=json');
+        $userJsonObject = json_decode($userJsonString);
+        return UserFactory::generate($userJsonObject->user);
+    }
+
+    public function getWithReviews($userId)
+    {
+        $userJsonString = $this->restClient->get(
+            "users/" . $userId . '/reviews?type=json'
+        );
         $userJsonObject = json_decode($userJsonString);
         return UserFactory::generate($userJsonObject->user);
     }

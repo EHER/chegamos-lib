@@ -18,8 +18,12 @@ class UserFactory
 
             $user->setId($userJsonObject->id);
             $user->setName($userJsonObject->name);
-            $user->setBirthday($userJsonObject->birthday);
-            $user->setGender($userJsonObject->gender);
+            if (isset($userJsonObject->birthday)) {
+                $user->setBirthday($userJsonObject->birthday);
+            }
+            if (isset($userJsonObject->gender)) {
+                $user->setGender($userJsonObject->gender);
+            }
 
             if (isset($userJsonObject->photo_medium_url)) {
                 $user->setPhotoMediumUrl($userJsonObject->photo_medium_url);
@@ -59,7 +63,9 @@ class UserFactory
                 $user->setLastVisit(new Place());
             }
 
-            $user->setStats(new UserStats($userJsonObject->stats));
+            if (isset($userJsonObject->stats)) {
+                $user->setStats(new UserStats($userJsonObject->stats));
+            }
 
             return $user;
         } else {

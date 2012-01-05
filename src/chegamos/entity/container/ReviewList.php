@@ -2,6 +2,8 @@
 
 namespace chegamos\entity\container;
 
+use chegamos\entity\Review;
+
 class ReviewList extends ItemsList
 {
     private $id = "";
