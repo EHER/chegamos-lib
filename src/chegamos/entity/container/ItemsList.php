@@ -4,9 +4,9 @@ namespace chegamos\entity\container;
 
 class ItemsList
 {
-
     protected $items = array();
     protected $numFound = 0;
+    protected $currentPage = 1;
 
     public function getItem($index = 0)
     {
@@ -19,9 +19,19 @@ class ItemsList
         return $this->numFound;
     }
 
-    public function setNumFound($numFound = 0)
+    public function setNumFound($numFound)
     {
         $this->numFound = $numFound;
+    }
+
+    public function getCurrentPage()
+    {
+        return $this->currentPage;
+    }
+
+    public function setCurrentPage($currentPage)
+    {
+        $this->currentPage = $currentPage;
     }
 
     public function add($item)

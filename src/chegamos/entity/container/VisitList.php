@@ -4,9 +4,6 @@ namespace chegamos\entity\container;
 
 class VisitList extends ItemsList
 {
-
-    private $currentPage;
-
     public function __construct($data)
     {
         $this->populate($data);
@@ -35,16 +32,6 @@ class VisitList extends ItemsList
     public function getRadius()
     {
         return $this->radius;
-    }
-
-    public function setCurrentPage($currentPage)
-    {
-        $this->currentPage = $currentPage;
-    }
-
-    public function getCurrentPage()
-    {
-        return $this->currentPage;
     }
 
     public function addUnique($newItem)

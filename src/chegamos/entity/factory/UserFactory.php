@@ -16,42 +16,37 @@ class UserFactory
         if (is_object($userJsonObject)) {
             $user = new User;
 
+            $isFullUser = isset($userJsonObject->stats);
+            $isReviewList = isset($userJsonObject->reviews);
+            $isPlaceList = isset($userJsonObject->places);
+            $isPhotoList = isset($userJsonObject->photos);
+
             $user->setId($userJsonObject->id);
             $user->setName($userJsonObject->name);
-            if (isset($userJsonObject->birthday)) {
+
+            $user->setPhotoMediumUrl($userJsonObject->photo_medium_url);
+            $user->setPhotoUrl($userJsonObject->photo_url);
+            $user->setPhotoSmallUrl($userJsonObject->photo_small_url);
+
+            //$user->setPhotoMediumUrl($userJsonObject->photo_medium);
+            //$user->setPhotoUrl($userJsonObject->photo);
+            //$user->setPhotoSmallUrl($userJsonObject->photo_small);
+
+            if ($isFullUser) {
                 $user->setBirthday($userJsonObject->birthday);
-            }
-            if (isset($userJsonObject->gender)) {
                 $user->setGender($userJsonObject->gender);
+                $user->setStats(new UserStats($userJsonObject->stats));
             }
 
-            if (isset($userJsonObject->photo_medium_url)) {
-                $user->setPhotoMediumUrl($userJsonObject->photo_medium_url);
-            } else if (isset($userJsonObject->photo_medium)) {
-                $user->setPhotoMediumUrl($userJsonObject->photo_medium);
-            }
-
-            if (isset($userJsonObject->photo_url)) {
-                $user->setPhotoUrl($userJsonObject->photo_url);
-            } else if (isset($userJsonObject->photo)) {
-                $user->setPhotoUrl($userJsonObject->photo);
-            }
-
-            if (isset($userJsonObject->photo_small_url)) {
-                $user->setPhotoSmallUrl($userJsonObject->photo_small_url);
-            } else if (isset($userJsonObject->photo_small)) {
-                $user->setPhotoSmallUrl($userJsonObject->photo_small);
-            }
-
-            if (isset($userJsonObject->places)) {
-                $user->setPlaces(new PlaceList($userJsonObject));
-            }
-
-            if (isset($userJsonObject->reviews)) {
+            if ($isReviewList) {
                 $user->setReviews(new ReviewList($userJsonObject));
             }
 
-            if (isset($userJsonObject->photos)) {
+            if ($isPlaceList) {
+                $user->setPlaces(new PlaceList($userJsonObject));
+            }
+
+            if ($isPhotoList) {
                 $user->setPhotos(new PhotoList($userJsonObject));
             }
 
@@ -61,10 +56,6 @@ class UserFactory
                 );
             } else {
                 $user->setLastVisit(new Place());
-            }
-
-            if (isset($userJsonObject->stats)) {
-                $user->setStats(new UserStats($userJsonObject->stats));
             }
 
             return $user;

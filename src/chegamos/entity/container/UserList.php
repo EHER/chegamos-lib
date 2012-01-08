@@ -4,8 +4,6 @@ namespace chegamos\entity\container;
 
 class UserList extends ItemsList
 {
-    private $currentPage;
-
     public function __construct($data)
     {
         $this->populate($data);
@@ -24,15 +22,5 @@ class UserList extends ItemsList
                 $this->add(new User($user->user));
             }
         }
-    }
-
-    public function setCurrentPage($currentPage)
-    {
-        $this->currentPage = $currentPage;
-    }
-
-    public function getCurrentPage()
-    {
-        return $this->currentPage;
     }
 }

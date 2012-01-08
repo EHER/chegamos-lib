@@ -4,8 +4,6 @@ namespace chegamos\entity\container;
 
 class DealList extends ItemsList
 {
-    private $currentPage = 0;
-
     public function __construct($data = null)
     {
         if (!empty($data)) {
@@ -13,15 +11,5 @@ class DealList extends ItemsList
                 $this->add(New Deal($deal->deal));
             }
         }
-    }
-
-    public function setCurrentPage($currentPage)
-    {
-        $this->currentPage = $currentPage;
-    }
-
-    public function getCurrentPage()
-    {
-        return $this->currentPage;
     }
 }
