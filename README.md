@@ -38,3 +38,20 @@ Utilize o make para interagir com o projeto.
     $user = $userRepository->getWithReviews("8972911185");
     var_dump($user);
 
+### Pegar dados de um usuário com a segunda página de avaliações:
+
+    <?php
+
+    use chegamos\rest\Curl as RestClient;
+    use chegamos\entity\repository\UserRepository;
+
+    $key = "MinhaConsumerKey";
+    $secret = "MinhaConsumerSecret";
+
+    $restClient = new RestClient("http://api.apontador.com.br/v1/");
+    $restClient->setAuth($key, $secret);
+
+    $userRepository = new UserRepository($restClient);
+    $user = $userRepository->page(2)->getWithReviews("8972911185");
+    var_dump($user);
+
