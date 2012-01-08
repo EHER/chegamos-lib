@@ -575,7 +575,7 @@ JSON;
         $this->assertEquals("263", $user->getStats()->getPhotos());
         $this->assertEquals("104", $user->getStats()->getReviews());
     }
-    
+
     public function testGenerateReviewList()
     {
         $userJson = json_decode($this->jsonStringReviewList);
