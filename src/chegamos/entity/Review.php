@@ -2,8 +2,6 @@
 
 namespace chegamos\entity;
 
-use chegamos\entity\factory\PlaceFactory;
-
 class Review
 {
     private $id = "";
@@ -24,7 +22,10 @@ class Review
         }
 
         if (isset($data->place)) {
-            $this->setPlace(PlaceFactory::generate($data->place));
+            $place = new Place;
+            $place->setId($data->place->id);
+            $place->setName($data->place->name);
+            $this->setPlace($place);
         }
 
         if (isset($data->rating)) {
