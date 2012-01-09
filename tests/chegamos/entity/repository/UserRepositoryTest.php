@@ -67,4 +67,30 @@ JSON;
         $this->assertEquals("263", $user->getStats()->getPhotos());
         $this->assertEquals("104", $user->getStats()->getReviews());
     }
+
+    public function testGetUserWithReviewsById()
+    {
+        $user = $this->userRepository
+            ->withReviews()
+            ->get("8972911185");
+        $this->assertEquals("8972911185", $user->getId());
+        $this->assertEquals("Eher", $user->getName());
+        $this->assertEquals("02/07/83", $user->getBirthday());
+        $this->assertEquals("Masculino", $user->getGender());
+        $this->assertEquals(
+            "http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_b.jpg", 
+            $user->getPhotoUrl()
+        );
+        $this->assertEquals(
+            "http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_m.jpg", 
+            $user->getPhotoMediumUrl()
+        );
+        $this->assertEquals(
+            "http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_s.jpg", 
+            $user->getPhotoSmallUrl()
+        );
+        $this->assertEquals("61", $user->getStats()->getPlaces());
+        $this->assertEquals("263", $user->getStats()->getPhotos());
+        $this->assertEquals("104", $user->getStats()->getReviews());
+    }
 }

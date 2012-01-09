@@ -35,7 +35,7 @@ Utilize o make para interagir com o projeto.
     $restClient->setAuth($key, $secret);
 
     $userRepository = new UserRepository($restClient);
-    $user = $userRepository->getWithReviews("8972911185");
+    $user = $userRepository->withReviews()->get("8972911185");
     var_dump($user);
 
 ### Pegar dados de um usuário com a segunda página de avaliações:
@@ -52,6 +52,6 @@ Utilize o make para interagir com o projeto.
     $restClient->setAuth($key, $secret);
 
     $userRepository = new UserRepository($restClient);
-    $user = $userRepository->page(2)->getWithReviews("8972911185");
+    $user = $userRepository->withReviews()->page(2)->get("8972911185");
     var_dump($user);
 
