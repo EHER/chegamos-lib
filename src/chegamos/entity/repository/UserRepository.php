@@ -29,13 +29,13 @@ class UserRepository
 
     public function withDetails()
     {
-        $this->query['requestType'] = 'details';
+        $this->requestType = 'details';
         return $this;
     }
 
     public function withReviews()
     {
-        $this->query['requestType'] = 'reviews';
+        $this->requestType = 'reviews';
         return $this;
     }
 
