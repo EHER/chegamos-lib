@@ -13,8 +13,7 @@ class UserRepository
     public function __construct($restClient)
     {
         $this->restClient = $restClient;
-        $this->requestType = "details";
-        $this->query['type'] = 'json';
+        $this->setup();
     }
 
     public function get($userId)
@@ -22,6 +21,7 @@ class UserRepository
         $userJsonString = $this->restClient->get(
             $this->getPath($userId) . '?' . $this->getQueryString()
         );
+        $this->setup();
 
         $userJsonObject = json_decode($userJsonString);
         return UserFactory::generate($userJsonObject->user);
@@ -43,6 +43,13 @@ class UserRepository
     {
         $this->query['page'] = $page;
         return $this;
+    }
+
+    private function setup()
+    {
+        $this->requestType = "details";
+        $this->query = array();
+        $this->query['type'] = 'json';
     }
 
     private function getQueryString()
