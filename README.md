@@ -55,5 +55,3 @@ Utilize o make para interagir com o projeto.
     $user = $userRepository->withReviews()->page(2)->get("8972911185");
     var_dump($user);
 
-
-Isso vai fazer o Travis-ci acordar!
