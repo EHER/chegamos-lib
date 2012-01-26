@@ -16,7 +16,8 @@ class UserFactory
         if (is_object($userJsonObject)) {
             $user = new User;
 
-            $isFullUser = isset($userJsonObject->stats);
+            $isFullUser = isset($userJsonObject->birthday);
+            $isUserList = isset($userJsonObject->stats);
             $isReviewList = isset($userJsonObject->reviews);
             $isPlaceList = isset($userJsonObject->places);
             $isPhotoList = isset($userJsonObject->photos);
@@ -35,6 +36,10 @@ class UserFactory
             if ($isFullUser) {
                 $user->setBirthday($userJsonObject->birthday);
                 $user->setGender($userJsonObject->gender);
+                $user->setStats(new UserStats($userJsonObject->stats));
+            }
+
+            if ($isUserList) {
                 $user->setStats(new UserStats($userJsonObject->stats));
             }
 
