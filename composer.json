@@ -1,5 +1,6 @@
 {
     "name": "chegamos",
+    "type": "library",
         "require": {
             "php": ">=5.3.0",
             "guzzle/guzzle": "*"

@@ -25,7 +25,7 @@ Os exemplos esperam que você tenha um Autoloader configurado e que tenha suas c
 
 ### Pegar dados de um usuário:
 
-    $user = $userRepository->get("8972911185")
+    $user = $userRepository->get("8972911185");
     var_dump($user);
 
 ### Pegar dados de um usuário com as avaliações:
