@@ -13,8 +13,6 @@ Os exemplos esperam que você tenha um Autoloader configurado e que tenha suas c
     use chegamos\rest\Curl as RestClient;
     use chegamos\entity\repository\UserRepository;
 
-    // AutoLoader
-
     $key = "MinhaConsumerKey";
     $secret = "MinhaConsumerSecret";
 
@@ -55,3 +53,14 @@ Os exemplos esperam que você tenha um Autoloader configurado e que tenha suas c
     ->getAll();
     var_dump($userList);
 
+
+## Curl ou Guzzle
+
+O Guzzle é uma forma muito simpática de trabalhar com REST sem ter que lidar
+direto com o Curl. Nos exemplos acima, nós usamos o Curl por não depender de 
+outro projeto, mas é recomendado usar Guzzle.
+
+Para mudar de Curl para Guzzle basta mudar a linha:
+    use chegamos\rest\Curl as RestClient;
+para
+    use chegamos\rest\Guzzle as RestClient;
