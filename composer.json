@@ -11,7 +11,7 @@
             "chegamos": "src/"
         }
     },
-    authors: [
+    "authors": [
          {
             'name': "Alexandre Eher",
             'email': "alexandre@eher.com.br"
