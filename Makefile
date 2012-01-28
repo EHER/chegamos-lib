@@ -4,7 +4,7 @@ help:
 	@echo "Comandos disponíveis:"
 	@echo "depends\t\t Instala as dependências do projeto"
 	@echo "test\t\t Roda os testes"
-	@echo "coverage\t\t Gera relatório de cobertura de testes"
+	@echo "coverage\t Gera relatório de cobertura de testes"
 	@echo "showcoverage\t Abre o relatório de cobertura de testes"
 	@echo "doc\t\t Gera documentação do projeto"
 	@echo "showdoc\t\t Abre a documentação do projeto"
@@ -12,12 +12,17 @@ help:
 	@echo "cs\t\t Procura violações ao padrão de escrita do código"
 	@echo "commit\t\t Faz o git commit depois de rodar os testes"
 
-depends: git-submodules pear-config pear-install brew-install
+depends: composer-install docblox-config pear-config pear-install brew-install
 	@echo "Atualizando dependências do projeto..."
 
-git-submodules:
-	@echo "Inicializando submodules..."
-	git submodule update --init
+composer-install:
+	@echo "Baixando Composer"
+	wget http://getcomposer.org/composer.phar -O composer.phar
+	@echo "Instalando dependencias usando o Composer"
+	php composer.phar install
+
+docblox-config:
+	@echo "Configurando Template do Docblox"
 	php vendor/docblox/bin/docblox.php template:install new_black -v 1.0.1
 
 pear-config:
@@ -49,7 +54,7 @@ showcoverage:
 
 doc:
 	@echo "Gerando documentação..."
-	php vendor/docblox/bin/docblox.php run -d src/chegamos -t reports/docblox
+	php vendor/docblox/bin/docblox.php run -d src/chegamos -t reports/docblox -p
 
 showdoc:
 	@echo "Abrindo documentação..."
