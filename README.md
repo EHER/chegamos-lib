@@ -87,6 +87,9 @@ direto com o Curl. Nos exemplos acima, nós usamos o Curl por não depender de
 outro projeto, mas é recomendado usar Guzzle.
 
 Para mudar de Curl para Guzzle basta mudar a linha:
+
     use chegamos\rest\Curl as RestClient;
+
 para
+
     use chegamos\rest\Guzzle as RestClient;
