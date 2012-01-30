@@ -38,7 +38,7 @@ JSON;
 	"photo_medium_url":"http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_m.jpg",
 	"photo_small_url":"http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_s.jpg",
 	"result_count":"99",
-	"current_page":"1",
+	"current_page":"2",
 	"reviews":[
 		{"review":{
 			"id":"504795",
@@ -599,7 +599,7 @@ JSON;
             $user->getReviews()->getNumFound()
         );
         $this->assertEquals(
-            "1",
+            "2",
             $user->getReviews()->getCurrentPage()
         );
         $this->assertEquals(

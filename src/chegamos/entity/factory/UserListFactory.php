@@ -4,7 +4,6 @@ namespace chegamos\entity\factory;
 
 use chegamos\exception\ChegamosException;
 use chegamos\entity\container\UserList;
-use chegamos\entity\User;
 
 class UserListFactory
 {

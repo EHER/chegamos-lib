@@ -79,8 +79,24 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
             \get_class((object) $this->place->getCategory())
         );
         $this->assertEquals(
+            "12",
+            (string) $this->place->getCategory()->getId()
+        );
+        $this->assertEquals(
             "Restaurantes - Self Service",
             (string) $this->place->getCategory()
+        );
+        $this->assertEquals(
+            "chegamos\entity\Subcategory",
+            \get_class((object) $this->place->getSubcategory())
+        );
+        $this->assertEquals(
+            "1234",
+            (string) $this->place->getSubcategory()->getId()
+        );
+        $this->assertEquals(
+            "Self Service",
+            (string) $this->place->getSubcategory()
         );
         $this->assertEquals(
             "chegamos\entity\Address",

@@ -14,13 +14,13 @@ class UserFactory
     public static function generate($userJsonObject)
     {
         if (is_object($userJsonObject)) {
-            $user = new User;
-
             $isFullUser = isset($userJsonObject->birthday);
             $isUserList = isset($userJsonObject->stats);
             $isReviewList = isset($userJsonObject->reviews);
             $isPlaceList = isset($userJsonObject->places);
             $isPhotoList = isset($userJsonObject->photos);
+
+            $user = new User;
 
             $user->setId($userJsonObject->id);
             $user->setName($userJsonObject->name);
@@ -44,7 +44,7 @@ class UserFactory
             }
 
             if ($isReviewList) {
-                $user->setReviews(new ReviewList($userJsonObject));
+                $user->setReviews(ReviewListFactory::generate($userJsonObject));
             }
 
             if ($isPlaceList) {

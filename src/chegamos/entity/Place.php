@@ -24,6 +24,8 @@ class Place
     private $placeInfo = null;
     private $numVisitors = 0;
     private $numPhotos = 0;
+    private $reviews = null;
+    private $photos = null;
 
     public function setId($id)
     {
@@ -212,6 +214,26 @@ class Place
     public function getNumPhotos()
     {
         return $this->numPhotos;
+    }
+
+    public function setReviews($reviews)
+    {
+        $this->reviews = $reviews;
+    }
+
+    public function getReviews()
+    {
+        return $this->reviews;
+    }
+
+    public function setPhotos($photos)
+    {
+        $this->photos = $photos;
+    }
+
+    public function getPhotos()
+    {
+        return $this->photos;
     }
 
     public function getShortPlaceUrl()

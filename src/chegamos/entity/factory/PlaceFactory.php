@@ -4,9 +4,12 @@ namespace chegamos\entity\factory;
 
 use chegamos\entity\Place;
 use chegamos\entity\Category;
+use chegamos\entity\Subcategory;
 use chegamos\entity\Address;
 use chegamos\entity\Point;
 use chegamos\entity\PlaceInfo;
+use chegamos\entity\factory\PhotoListFactory;
+use chegamos\entity\factory\ReviewListFactory;
 use chegamos\util\Inflector;
 use chegamos\exception\ChegamosException;
 
@@ -15,25 +18,43 @@ class PlaceFactory
     public static function generate($placeJsonObject)
     {
         if (is_object($placeJsonObject)) {
-            $place = new Place();
+            $isFullPlace = isset($placeJsonObject->description);
+            $isPhotoList = isset($placeJsonObject->photos);
+            $isReviewList = isset($placeJsonObject->reviews);
+            $isExtendedPlace = isset($placeJsonObject->extended);
 
+            $place = new Place();
             $place->setId($placeJsonObject->id);
-            $place->setName($placeJsonObject->name);
-            $place->setAverageRating($placeJsonObject->average_rating);
-            $place->setReviewCount($placeJsonObject->review_count);
-            $place->setCategory(new Category($placeJsonObject->category));
-            $place->setSubcategory(new Category($placeJsonObject->subcategory));
-            $place->setAddress(new Address($placeJsonObject->address));
-            $place->setPoint(new Point($placeJsonObject->point));
-            $place->setMainUrl($placeJsonObject->main_url);
-            $place->setOtherUrl($placeJsonObject->other_url);
-            $place->setIconUrl($placeJsonObject->icon_url);
-            $place->setDescription($placeJsonObject->description);
-            $place->setCreated($placeJsonObject->created);
-            $place->setPhone($placeJsonObject->phone);
-            $place->setPlaceInfo(new PlaceInfo($placeJsonObject->extended));
-            $place->setNumVisitors($placeJsonObject->num_visitors);
-            $place->setNumPhotos($placeJsonObject->num_photos);
+
+            if ($isFullPlace) {
+                $place->setName($placeJsonObject->name);
+                $place->setAverageRating($placeJsonObject->average_rating);
+                $place->setReviewCount($placeJsonObject->review_count);
+                $place->setAddress(new Address($placeJsonObject->address));
+                $place->setPoint(new Point($placeJsonObject->point));
+                $place->setMainUrl($placeJsonObject->main_url);
+                $place->setOtherUrl($placeJsonObject->other_url);
+                $place->setIconUrl($placeJsonObject->icon_url);
+                $place->setCategory(new Category($placeJsonObject->category));
+                $place->setDescription($placeJsonObject->description);
+                $place->setCreated($placeJsonObject->created);
+                $place->setPhone($placeJsonObject->phone);
+                $place->setSubcategory(new Subcategory($placeJsonObject->subcategory));
+                $place->setNumVisitors($placeJsonObject->num_visitors);
+                $place->setNumPhotos($placeJsonObject->num_photos);
+            }
+
+            if ($isPhotoList) {
+                $place->setPhotos(PhotoListFactory::generate($placeJsonObject));
+            }
+
+            if ($isReviewList) {
+                $place->setReviews(ReviewListFactory::generate($placeJsonObject));
+            }
+
+            if ($isExtendedPlace) {
+                $place->setPlaceInfo(new PlaceInfo($placeJsonObject->extended));
+            }
 
             return $place;
         } else {

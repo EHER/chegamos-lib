@@ -9,37 +9,7 @@ class Review
     private $rating = 0;
     private $content = "";
     private $created = null;
-
-    public function __construct($data=null)
-    {
-        $this->populate($data);
-    }
-
-    public function populate($data)
-    {
-        if (isset($data->id)) {
-            $this->setId($data->id);
-        }
-
-        if (isset($data->place)) {
-            $place = new Place;
-            $place->setId($data->place->id);
-            $place->setName($data->place->name);
-            $this->setPlace($place);
-        }
-
-        if (isset($data->rating)) {
-            $this->setRating($data->rating);
-        }
-
-        if (isset($data->content)) {
-            $this->setContent($data->content);
-        }
-
-        if (isset($data->created)) {
-            $this->setCreated($data->created);
-        }
-    }
+    private $author = null;
 
     public function getId()
     {
@@ -89,5 +59,15 @@ class Review
     public function setCreated($created)
     {
         $this->created = $created;
+    }
+
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    public function setAuthor($author)
+    {
+        $this->author = $author;
     }
 }

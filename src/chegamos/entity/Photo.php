@@ -6,25 +6,59 @@ use chegamos\util\Inflector;
 
 class Photo
 {
-    var $url = '';
+    private $smallUrl = "";
+    private $mediumUrl = "";
+    private $largeUrl = "";
+    private $created = null;
+    private $author = null;
 
-    public function __construct($data)
+    public function getSmallUrl()
     {
-        $this->populate($data);
+        return $this->smallUrl;
     }
 
-    public function populate($data)
+    public function setSmallUrl($smallUrl)
     {
-        $this->setUrl($data);
+        $this->smallUrl = $smallUrl;
     }
 
-    public function getUrl()
+    public function getMediumUrl()
     {
-        return $this->url;
+        return $this->mediumUrl;
     }
 
-    public function setUrl($url)
+    public function setMediumUrl($mediumUrl)
     {
-        $this->url = $url;
+        $this->mediumUrl = $mediumUrl;
+    }
+
+    public function getLargeUrl()
+    {
+        return $this->largeUrl;
+    }
+
+    public function setLargeUrl($largeUrl)
+    {
+        $this->largeUrl = $largeUrl;
+    }
+
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    }
+
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    public function setAuthor($author)
+    {
+        $this->author = $author;
     }
 }
