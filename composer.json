@@ -2,23 +2,9 @@
     "name": "chegamos",
     "type": "library",
     "license": "BSD",
-    "repositories": {
-        "docblox": {
-            "package": {
-                "name": "docblox",
-                "version": "0.18.1",
-                "source": {
-                    "url": "git://github.com/docblox/docblox.git",
-                    "type": "git",
-                    "reference": "tag v0.18.1"
-                }
-            }
-        }
-    },
     "require": {
         "php": ">=5.3.0",
-        "guzzle/guzzle": "2.1.3",
-        "docblox": "0.18.1"
+        "guzzle/guzzle": "2.1.3"
     },
     "autoload": {
         "psr-0": {
@@ -26,9 +12,9 @@
         }
     },
     "authors": [
-    {
-        "name": "Alexandre Eher",
-        "email": "alexandre@eher.com.br"
-    }
+         {
+            "name": "Alexandre Eher",
+            "email": "alexandre@eher.com.br"
+         }
     ]
 }
