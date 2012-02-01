@@ -32,7 +32,7 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
         $gasStation->price_vodka = 23.45;
 
         $extended = new \stdClass();
-        $extended->gas_station = $gas_station;
+        $extended->gas_station = $gasStation;
 
         $subcategory = new \stdClass();
         $subcategory->id = 1234;
