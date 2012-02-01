@@ -6,7 +6,6 @@ use chegamos\entity\factory\PlaceFactory;
 
 class PlaceTest extends \PHPUnit_Framework_TestCase
 {
-
     protected $place;
 
     protected function setUp()
@@ -23,18 +22,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
     {
         $this->place->setId(123);
         $this->assertEquals(123, $this->place->getId());
-    }
-
-    public function testSetGetNumVisitors()
-    {
-        $this->place->setNumVisitors(1024);
-        $this->assertEquals(1024, $this->place->getNumVisitors());
-    }
-
-    public function testSetGetNumPhotos()
-    {
-        $this->place->setNumPhotos(5);
-        $this->assertEquals(5, $this->place->getNumPhotos());
     }
 
     public function testSetGetName()

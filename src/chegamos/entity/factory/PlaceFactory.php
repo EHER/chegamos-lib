@@ -10,6 +10,7 @@ use chegamos\entity\Point;
 use chegamos\entity\PlaceInfo;
 use chegamos\entity\factory\PhotoListFactory;
 use chegamos\entity\factory\ReviewListFactory;
+use chegamos\entity\factory\CategoryFactory;
 use chegamos\util\Inflector;
 use chegamos\exception\ChegamosException;
 
@@ -35,13 +36,12 @@ class PlaceFactory
                 $place->setMainUrl($placeJsonObject->main_url);
                 $place->setOtherUrl($placeJsonObject->other_url);
                 $place->setIconUrl($placeJsonObject->icon_url);
-                $place->setCategory(new Category($placeJsonObject->category));
+                $place->setCategory(
+                    CategoryFactory::generate($placeJsonObject->category)
+                );
                 $place->setDescription($placeJsonObject->description);
                 $place->setCreated($placeJsonObject->created);
                 $place->setPhone($placeJsonObject->phone);
-                $place->setSubcategory(new Subcategory($placeJsonObject->subcategory));
-                $place->setNumVisitors($placeJsonObject->num_visitors);
-                $place->setNumPhotos($placeJsonObject->num_photos);
             }
 
             if ($isPhotoList) {

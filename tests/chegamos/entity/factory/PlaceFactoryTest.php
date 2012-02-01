@@ -14,37 +14,34 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testGenerate()
     {
-        $subCategory = new Subcategory();
-        $subCategory->setId(1234);
-        $subCategory->setName("Self Service");
+        $city = new \stdClass();
+        $city->country = "Brasil";
+        $city->state = "SP";
+        $city->name = "São Paulo";
 
-        $category = new Category();
-        $category->setId(12);
-        $category->setName("Restaurantes");
-        $category->setSubCategory($subCategory);
+        $address = new \stdClass();
+        $address->city = $city;
+        $address->complement = "1 Andar";
+        $address->district = "Vila Olimpia";
+        $address->number = 129;
+        $address->street = "Rua Funchal";
+        $address->zipcode = "04551-069";
 
-        $city = new City();
-        $city->setCountry("Brasil");
-        $city->setState("SP");
-        $city->setName("São Paulo");
+        $gasStation = new \stdClass();
+        $gasStation->price_gas = 1.23;
+        $gasStation->price_vodka = 23.45;
 
-        $address = new Address();
-        $address->setCity($city);
-        $address->setComplement("1 Andar");
-        $address->setDistrict("Vila Olimpia");
-        $address->setNumber("129");
-        $address->setStreet("Rua Funchal");
-        $address->setZipcode("04551-069");
+        $extended = new \stdClass();
+        $extended->gas_station = $gas_station;
 
-        $gasStation = new GasStation(
-            array(
-                'price_gas' => 1,23,
-                'price_vodka' => 23,45
-            )
-        );
+        $subcategory = new \stdClass();
+        $subcategory->id = 1234;
+        $subcategory->name = "Self Service";
 
-        $placeInfo = new PlaceInfo();
-        $placeInfo->setGasStation($gasStation);
+        $category = new \stdClass();
+        $category->id = 12;
+        $category->name = "Restaurantes";
+        $category->subcategory = $subcategory;
 
         $data = new \stdClass();
         $data->id = 123;
@@ -52,7 +49,6 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
         $data->average_rating = 4;
         $data->review_count = 3;
         $data->category = $category;
-        $data->subcategory = $subCategory;
         $data->address = $address;
         $data->point = new \stdClass();
         $data->point->lat = "-23.529366";
@@ -63,7 +59,7 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
         $data->description = "Description";
         $data->created = "01/12/2010 16:19";
         $data->phone = "11 2222-3333";
-        $data->extended = $placeInfo;
+        $data->extended = $extended;
         $data->num_visitors = 1024;
         $data->num_photos = 5;
 
@@ -86,17 +82,18 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
             "Restaurantes - Self Service",
             (string) $this->place->getCategory()
         );
+        $this->assertTrue($this->place->getCategory()->getSubcategory() instanceof Subcategory);
         $this->assertEquals(
             "chegamos\entity\Subcategory",
-            \get_class((object) $this->place->getSubcategory())
+            \get_class((object) $this->place->getCategory()->getSubcategory())
         );
         $this->assertEquals(
             "1234",
-            (string) $this->place->getSubcategory()->getId()
+            (string) $this->place->getCategory()->getSubcategory()->getId()
         );
         $this->assertEquals(
             "Self Service",
-            (string) $this->place->getSubcategory()
+            (string) $this->place->getCategory()->getSubcategory()
         );
         $this->assertEquals(
             "chegamos\entity\Address",
@@ -129,8 +126,6 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
             "chegamos\entity\PlaceInfo",
             \get_class((object) $this->place->getPlaceInfo())
         );
-        $this->assertEquals(1024, $this->place->getNumVisitors());
-        $this->assertEquals(5, $this->place->getNumPhotos());
     }
 
     public function testGenerateWithoutData()

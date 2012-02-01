@@ -4,6 +4,7 @@ namespace chegamos\entity\factory;
 
 use chegamos\entity\Category;
 use chegamos\entity\Subcategory;
+use chegamos\entity\factory\SubcategoryFactory;
 use chegamos\exception\ChegamosException;
 
 class CategoryFactory
@@ -12,20 +13,14 @@ class CategoryFactory
     {
         if (is_object($categoryJsonObject)) {
             $category = new Category();
-            if (isset($categoryJsonObject->id)) {
-                $category->setId($categoryJsonObject->id);
-            }
-            if (isset($categoryJsonObject->name)) {
-                $category->setName($categoryJsonObject->name);
-            }
-            if (isset($categoryJsonObject->subcategory)) {
-                $category->setSubcategory(
-                    new Subcategory($categoryJsonObject->subcategory)
-                );
-            }
+            $category->setId($categoryJsonObject->id);
+            $category->setName($categoryJsonObject->name);
+            $category->setSubcategory(
+                SubcategoryFactory::generate($categoryJsonObject->subcategory)
+            );
             return $category;
         } else {
-            throw new ChegamosException("Parâmetro data não é um objeto.");
+            throw new ChegamosException("Parâmetro passado não é um objeto.");
         }
     }
 }

@@ -15,8 +15,12 @@ class ReviewFactory
             $review->setId($reviewJsonObject->id);
             $review->setRating($reviewJsonObject->rating);
             $review->setContent($reviewJsonObject->content);
-            $review->setCreated(new \DateTime($reviewJsonObject->created->timestamp));
-            $review->setAuthor(UserFactory::generate($reviewJsonObject->created->user));
+            $review->setCreated(
+                new \DateTime($reviewJsonObject->created->timestamp)
+            );
+            $review->setAuthor(
+                UserFactory::generate($reviewJsonObject->created->user)
+            );
 
             return $review;
         } else {

@@ -16,8 +16,12 @@ class PhotoFactory
             $photo->setSmallUrl($photoJsonObject->small_url);
             $photo->setMediumUrl($photoJsonObject->medium_url);
             $photo->setLargeUrl($photoJsonObject->large_url);
-            $photo->setCreated(new \DateTime($photoJsonObject->created->timestamp));
-            $photo->setAuthor(UserFactory::generate($photoJsonObject->created->user));
+            $photo->setCreated(
+                new \DateTime($photoJsonObject->created->timestamp)
+            );
+            $photo->setAuthor(
+                UserFactory::generate($photoJsonObject->created->user)
+            );
 
             return $photo;
         } else {

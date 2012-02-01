@@ -10,24 +10,6 @@ class Category
     private $name = "";
     private $subcategory = "";
 
-    public function __construct($data = null) 
-    {
-        $this->populate($data);
-    }
-
-    public function populate($data) 
-    {
-        if (isset($data->id)) {
-            $this->setId($data->id);
-        }
-        if (isset($data->name)) {
-            $this->setName($data->name);
-        }
-        if (isset($data->subcategory)) {
-            $this->setSubcategory(new Subcategory($data->subcategory));
-        }
-    }
-
     public function __toString() 
     {
         $category = $this->getName();

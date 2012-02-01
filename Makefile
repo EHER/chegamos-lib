@@ -66,7 +66,7 @@ md:
 
 cs:
 	@echo "Verificando violações ao padrão de escrita do código..."
-	phpcs src/chegamos/ --encoding=utf-8 -p --report=summary -s --standard=config/phpcs.xml
+	phpcs src/chegamos/ --encoding=utf-8 -p -s --standard=config/phpcs.xml
 
 commit: test
 	@echo "Commitando alterações..."

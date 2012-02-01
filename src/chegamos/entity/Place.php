@@ -12,7 +12,6 @@ class Place
     private $averageRating = 0;
     private $reviewCount = 0;
     private $category = null;
-    private $subcategory = null;
     private $address = null;
     private $point = null;
     private $mainUrl = "";
@@ -22,8 +21,6 @@ class Place
     private $created = null;
     private $phone = null;
     private $placeInfo = null;
-    private $numVisitors = 0;
-    private $numPhotos = 0;
     private $reviews = null;
     private $photos = null;
 
@@ -136,16 +133,6 @@ class Place
         return $this->category;
     }
 
-    public function getSubcategory()
-    {
-        return $this->subcategory;
-    }
-
-    public function setSubcategory($subcategory)
-    {
-        $this->subcategory = $subcategory;
-    }
-
     public function setAddress($address)
     {
         $this->address = $address;
@@ -194,26 +181,6 @@ class Place
     public function getIconUrl()
     {
         return $this->iconUrl;
-    }
-
-    public function setNumVisitors($numVisitors)
-    {
-        $this->numVisitors = $numVisitors;
-    }
-
-    public function getNumVisitors()
-    {
-        return $this->numVisitors;
-    }
-
-    public function setNumPhotos($numPhotos)
-    {
-        $this->numPhotos = $numPhotos;
-    }
-
-    public function getNumPhotos()
-    {
-        return $this->numPhotos;
     }
 
     public function setReviews($reviews)

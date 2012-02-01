@@ -42,7 +42,7 @@ class CategoryFactoryTest extends \PHPUnit_Framework_TestCase
         try {
             CategoryFactory::generate(null);
         } catch(ChegamosException $e) {
-            $this->assertEquals("Parâmetro data não é um objeto.", $e->getMessage());
+            $this->assertEquals("Parâmetro passado não é um objeto.", $e->getMessage());
             return;
         }
         $this->fail('An expected exception has not been raised.');
