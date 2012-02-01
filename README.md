@@ -29,14 +29,14 @@ Os exemplos esperam que você tenha um Autoloader configurado e que tenha suas c
     $place = $placeRepository->get("UCV34B2P");
     var_dump($place);
 
-#### Pegar dados de um usuário com as avaliações:
+#### Pegar dados de um local com as avaliações:
 
     $place = $placeRepository->byId("UCV34B2P")
     ->withReviews()
     ->get();
     var_dump($place);
 
-#### Pegar dados de um usuário com as fotos:
+#### Pegar dados de um local com as fotos:
 
     $place = $placeRepository->byId("UCV34B2P")
     ->withPhotos()
