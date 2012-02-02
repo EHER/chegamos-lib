@@ -2,6 +2,7 @@
 
 namespace chegamos\entity\repository;
 
+use chegamos\entity\Address;
 use chegamos\entity\factory\PlaceFactory;
 use chegamos\entity\factory\PlaceListFactory;
 
@@ -68,18 +69,43 @@ class PlaceRepository
         return $this;
     }
 
+    public function byZipcode($zipcode)
+    {
+        $this->requestType = 'placesByZipcode';
+        $this->query['zipcode'] = $zipcode;
+        return $this;
+    }
+
     public function byAddress(Address $address)
     {
         $this->requestType = 'placesByAddress';
-        $this->query['city'] = $address->getCity();
-        $this->query['state'] = $address->getState();
+        $this->query['city'] = $address->getCity()->getName();
+        $this->query['state'] = $address->getCity()->getState();
         return $this;
     }
 
     public function byName($name)
     {
         $this->requestType = 'placesByName';
-        $this->query['name'] = $name;
+        $this->query['q'] = $name;
+        return $this;
+    }
+
+    public function withName($name)
+    {
+        $this->query['term'] = $name;
+        return $this;
+    }
+
+    public function withCategoryId($categoryId)
+    {
+        $this->query['category_id'] = $categoryId;
+        return $this;
+    }
+
+    public function withSubcategoryId($subcategoryId)
+    {
+        $this->query['subcategory_id'] = $subcategoryId;
         return $this;
     }
 
@@ -108,6 +134,9 @@ class PlaceRepository
 
         case 'details':
             $path = "places/" . $this->param['id'];
+            break;
+        case 'placesByZipcode':
+            $path = "search/places/byzipcode";
             break;
         case 'placesByAddress':
             $path = "search/places/byaddress";

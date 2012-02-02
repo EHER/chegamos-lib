@@ -20,6 +20,7 @@ Os exemplos esperam que você tenha um Autoloader configurado e que tenha suas c
     $restClient = new RestClient("http://api.apontador.com.br/v1/");
     $restClient->setAuth($key, $secret);
 
+
 ### Repositório de locais
 
     $placeRepository = new PlaceRepository($restClient);
@@ -42,6 +43,47 @@ Os exemplos esperam que você tenha um Autoloader configurado e que tenha suas c
     ->withPhotos()
     ->get();
     var_dump($place);
+
+#### Listar locais perto de um endereço (CEP)
+
+    $places = $placeRepository->byZipcode("18040690")
+    ->getAll();
+    var_dump($places);
+
+#### Listar locais perto de um endereço (CEP) filtrando por categoria
+
+    $places = $placeRepository->byZipcode("18040690")
+    ->withCategoryId("043") // Associacoes E Sindicatos
+    ->getAll();
+    var_dump($places);
+
+#### Listar locais perto de um endereço (CEP) filtrando por subcategoria
+
+    $places = $placeRepository->byZipcode("18040690")
+    ->withSubcategoryId("6661") // Associacoes Beneficentes
+    ->getAll();
+    var_dump($places);
+
+#### Listar locais perto de um endereço (CEP) filtrando por nome
+
+    $places = $placeRepository->byZipcode("18040690")
+    ->withName("Cafe")
+    ->getAll();
+    var_dump($places);
+
+#### Listar locais de uma cidade (Cidade, UF)
+
+    $city = new City();
+    $city->setName("São Paulo");
+    $city->setState("SP");
+
+    $address = new Address();
+    $address->setCity($city);
+
+    $places = $placeRepository->byAddress($address)
+    ->getAll();
+    var_dump($places);
+
 
 ### Repositório de usuários
 

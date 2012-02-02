@@ -23,9 +23,24 @@ class PlaceFactory
             $isPhotoList = isset($placeJsonObject->photos);
             $isReviewList = isset($placeJsonObject->reviews);
             $isExtendedPlace = isset($placeJsonObject->extended);
+            $isPlaceList = isset($placeJsonObject->name);
 
             $place = new Place();
             $place->setId($placeJsonObject->id);
+
+            if ($isPlaceList) {
+                $place->setName($placeJsonObject->name);
+                $place->setAverageRating($placeJsonObject->average_rating);
+                $place->setReviewCount($placeJsonObject->review_count);
+                $place->setAddress(new Address($placeJsonObject->address));
+                $place->setPoint(new Point($placeJsonObject->point));
+                $place->setMainUrl($placeJsonObject->main_url);
+                $place->setOtherUrl($placeJsonObject->other_url);
+                $place->setIconUrl($placeJsonObject->icon_url);
+                $place->setCategory(
+                    CategoryFactory::generate($placeJsonObject->category)
+                );
+            }
 
             if ($isFullPlace) {
                 $place->setName($placeJsonObject->name);

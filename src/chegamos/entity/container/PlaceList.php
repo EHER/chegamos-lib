@@ -6,27 +6,6 @@ class PlaceList extends ItemsList
 {
     private $radius;
 
-    public function __construct($data)
-    {
-        $this->populate($data);
-    }
-
-    public function populate($data)
-    {
-        if (isset($data->result_count)) {
-            $this->setNumFound($data->result_count);
-        }
-        if (isset($data->current_page)) {
-            $this->setCurrentPage($data->current_page);
-        }
-
-        if (isset($data->places)) {
-            foreach ($data->places as $place) {
-                $this->add(new Place($place->place));
-            }
-        }
-    }
-
     public function setRadius($radius)
     {
         $this->radius = $radius;
