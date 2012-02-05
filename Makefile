@@ -64,7 +64,7 @@ brew-install:
 
 test:
 	@echo "Rodando testes"
-	phpunit -c config/phpunit.xml
+	php vendor/EHER/PHPUnit/phpunit.php -c config/phpunit.xml
 
 coverage:
 	@echo "Gerando relatório de cobertura de testes"
