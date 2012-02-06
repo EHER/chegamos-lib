@@ -138,7 +138,7 @@ class Address
         return $this->complement;
     }
 
-    public function setDistrict($district) 
+    public function setDistrict($district)
     {
         $this->district = Inflector::formatTitle($district);
     }

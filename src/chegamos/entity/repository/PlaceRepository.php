@@ -2,6 +2,7 @@
 
 namespace chegamos\entity\repository;
 
+use chegamos\entity\Place;
 use chegamos\entity\Address;
 use chegamos\entity\factory\PlaceFactory;
 use chegamos\entity\factory\PlaceListFactory;
@@ -43,6 +44,50 @@ class PlaceRepository
 
         $placeListJsonObject = json_decode($placeListJsonString); 
         return PlaceListFactory::generate($placeListJsonObject->search);
+    }
+
+    public function save(Place $place)
+    {
+        $this->requestType = 'save';
+
+        $this->query['name'] = $place->getName();
+        $this->query['address_street'] = $place->getAddress()->getStreet();
+        $this->query['address_number'] = $place->getAddress()->getNumber();
+        $this->query['address_complement'] = $place->getAddress()
+            ->getComplement();
+        $this->query['address_district'] = $place->getAddress()
+            ->getDistrict();
+        $this->query['address_city_name'] = $place->getAddress()
+            ->getCity()->getName();
+        $this->query['address_city_state'] = $place->getAddress()
+            ->getCity()->getState();
+        $this->query['address_city_country'] = $place->getAddress()
+            ->getCity()->getCountry();
+        $this->query['point_lat'] = $place->getPoint()->getLat();
+        $this->query['point_lng'] = $place->getPoint()->getLng();
+        //$this->query['phone_country'] = $place->getPhone()
+        //->getCountry();
+        //$this->query['phone_area'] = $place->getPhone()
+        //->getArea();
+        $this->query['phone_number'] = $place->getPhone();
+        $this->query['category_id'] = $place->getCategory()->getId();
+        $this->query['subcategory_id'] = $place->getCategory()
+            ->getSubcategory()->getId();
+        $this->query['description'] = $place->getDescription();
+        $this->query['icon_url'] = $place->getIconUrl();
+        $this->query['other_url'] = $place->getOtherUrl();
+
+
+        $placeJsonString = $this->restClient->put(
+            $this->getPath() . '?' . $this->getQueryString()
+        );
+        $this->setup();
+
+        var_dump($placeJsonString);
+        exit;
+
+        $placeJsonObject = json_decode($placeJsonString);
+        return PlaceFactory::generate($placeJsonObject->place);
     }
 
     public function withDetails()
@@ -132,6 +177,9 @@ class PlaceRepository
     {
         switch ($this->requestType) {
 
+        case 'save':
+            $path = "places/create";
+            break;
         case 'details':
             $path = "places/" . $this->param['id'];
             break;
