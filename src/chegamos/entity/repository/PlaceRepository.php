@@ -109,6 +109,12 @@ class PlaceRepository
         return $this;
     }
 
+    public function withListId($listId)
+    {
+        $this->query['list_id'] = $listId;
+        return $this;
+    }
+
     public function page($page)
     {
         $this->query['page'] = $page;
