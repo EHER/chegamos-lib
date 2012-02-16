@@ -3,6 +3,7 @@
 namespace chegamos\entity\repository;
 
 use chegamos\entity\Address;
+use chegamos\entity\Point;
 use chegamos\entity\factory\PlaceFactory;
 use chegamos\entity\factory\PlaceListFactory;
 
@@ -84,6 +85,14 @@ class PlaceRepository
         return $this;
     }
 
+    public function byPoint(Point $point)
+    {
+        $this->requestType = 'placesByPoint';
+        $this->query['lat'] = $point->getLat();
+        $this->query['lng'] = $point->getLng();
+        return $this;
+    }
+
     public function byName($name)
     {
         $this->requestType = 'placesByName';
@@ -146,6 +155,9 @@ class PlaceRepository
             break;
         case 'placesByAddress':
             $path = "search/places/byaddress";
+            break;
+        case 'placesByPoint':
+            $path = "search/places/bypoint";
             break;
         case 'reviews':
             $path = "places/" . $this->param['id'] . '/reviews';
