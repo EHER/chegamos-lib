@@ -88,10 +88,7 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
             "Self Service",
             (string) $this->place->getCategory()->getSubcategory()
         );
-        $this->assertEquals(
-            "chegamos\entity\Address",
-            \get_class((object) $this->place->getAddress())
-        );
+        $this->assertTrue($this->place->getAddress() instanceof Address);
         $this->assertEquals(
             "Rua Funchal, 129 - Vila Olimpia<br/>São Paulo - SP",
             (string) $this->place->getAddress()
@@ -115,10 +112,7 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("Description", $this->place->getDescription());
         $this->assertEquals("01/12/2010 16:19", $this->place->getCreated());
         $this->assertEquals("11 2222-3333", $this->place->getPhone());
-        $this->assertEquals(
-            "chegamos\entity\PlaceInfo",
-            \get_class((object) $this->place->getPlaceInfo())
-        );
+        $this->assertTrue($this->place->getPlaceInfo() instanceof PlaceInfo);
     }
 
     public function testGenerateWithoutData()
