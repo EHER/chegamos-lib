@@ -26,7 +26,7 @@ update: composer-update
 
 get-composer:
 	@echo "Baixando Composer"
-	wget http://getcomposer.org/composer.phar -O composer.phar
+	wget -nc http://getcomposer.org/composer.phar
 
 composer-install:
 	@echo "Instalando dependencias usando o Composer"
