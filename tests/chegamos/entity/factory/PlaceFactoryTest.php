@@ -70,10 +70,7 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(4, $this->place->getAverageRating());
         $this->assertEquals("Bom", $this->place->getAverageRatingString());
         $this->assertEquals(3, $this->place->getReviewCount());
-        $this->assertEquals(
-            "chegamos\entity\Category",
-            \get_class((object) $this->place->getCategory())
-        );
+        $this->assertTrue($this->place->getCategory() instanceof Category);
         $this->assertEquals(
             "12",
             (string) $this->place->getCategory()->getId()
@@ -83,10 +80,6 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
             (string) $this->place->getCategory()
         );
         $this->assertTrue($this->place->getCategory()->getSubcategory() instanceof Subcategory);
-        $this->assertEquals(
-            "chegamos\entity\Subcategory",
-            \get_class((object) $this->place->getCategory()->getSubcategory())
-        );
         $this->assertEquals(
             "1234",
             (string) $this->place->getCategory()->getSubcategory()->getId()

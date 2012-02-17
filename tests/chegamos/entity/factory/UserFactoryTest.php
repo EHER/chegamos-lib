@@ -2,6 +2,9 @@
 
 namespace chegamos\entity\factory;
 
+use chegamos\entity\Review;
+use chegamos\entity\container\ReviewList;
+
 class UserFactoryTest extends \PHPUnit_Framework_TestCase
 {
     private $jsonString;
@@ -602,14 +605,8 @@ JSON;
             "2",
             $user->getReviews()->getCurrentPage()
         );
-        $this->assertEquals(
-            "chegamos\entity\container\ReviewList",
-            get_class($user->getReviews())
-        );
-        $this->assertEquals(
-            "chegamos\entity\Review",
-            get_class($user->getReviews()->getItem())
-        );
+        $this->assertTrue($user->getReviews() instanceof ReviewList);
+        $this->assertTrue($user->getReviews()->getItem() instanceof Review);
         $this->assertEquals(
             "Agora também tem o http://m.apontador.com.br/ para vc acessar do seu celular.... :D",
             $user->getReviews()->getItem(5)->getContent()
