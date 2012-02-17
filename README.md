@@ -84,6 +84,17 @@ Os exemplos esperam que você tenha um Autoloader configurado e que tenha suas c
     ->getAll();
     var_dump($places);
 
+#### Listar locais através de coordenadas geográficas
+
+    $point = new Point();
+    $point->setLat("-23.51241");
+    $point->setLng("-47.46828");
+
+    $places = $placeRepository->byPoint($point)
+    ->withName("Cafe")
+    ->getAll();
+    var_dump($places);
+
 
 ### Repositório de usuários
 
