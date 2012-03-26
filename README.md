@@ -10,7 +10,7 @@ Os exemplos esperam que você tenha um Autoloader configurado e que tenha suas c
 
     <?php
 
-    use chegamos\rest\Curl as RestClient;
+    use chegamos\rest\client\Curl as RestClient;
     use chegamos\entity\repository\UserRepository;
     use chegamos\entity\repository\PlaceRepository;
 
@@ -141,8 +141,8 @@ outro projeto, mas é recomendado usar Guzzle.
 
 Para mudar de Curl para Guzzle basta mudar a linha:
 
-    use chegamos\rest\Curl as RestClient;
+    use chegamos\rest\client\Curl as RestClient;
 
 para
 
-    use chegamos\rest\Guzzle as RestClient;
+    use chegamos\rest\client\Guzzle as RestClient;

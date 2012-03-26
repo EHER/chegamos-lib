@@ -1,6 +1,6 @@
 <?php
 
-namespace chegamos\rest;
+namespace chegamos\rest\client;
 
 abstract class Client
 {
