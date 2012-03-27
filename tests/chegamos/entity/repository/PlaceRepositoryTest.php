@@ -71,9 +71,12 @@ JSON;
             ->will($this->returnValue($placeJson));
 
         $placeRepository = new PlaceRepository($restClient);
-        $place = $placeRepository->get("8972911185");
+        $place = $placeRepository->get("UCV34B2P");
+        $this->assertEquals("Uziel Restaurante - São Paulo", $place->getName());
 
-        //@TODO: Continuar com tdd para extrair o que é request do repository
-        //$this->assertEquals("", $placeRepository->getRequest());
+        $request = $placeRepository->byId("UCV34B2P")->getRequest();
+        $this->assertEquals("chegamos\\rest\\Request", get_class($request));
+        $this->assertEquals("places/UCV34B2P", $request->getPath());
+        $this->assertEquals("type=json", $request->getQueryString());
     }
 }

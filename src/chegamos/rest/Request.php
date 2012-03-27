@@ -5,7 +5,7 @@ namespace chegamos\rest;
 class Request
 {
     private $path;
-    private $query = array(); 
+    private $query = array();
 
     public function setPath($path)
     {
