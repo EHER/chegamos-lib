@@ -2,7 +2,9 @@
 
 namespace chegamos\entity\repository;
 
-use chegamos\rest\Curl as RestClient;
+use chegamos\rest\client\Guzzle;
+use chegamos\entity\Config;
+use chegamos\rest\auth\BasicAuth;
 
 class PlaceRepositoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -70,7 +72,12 @@ JSON;
             ->method("get")
             ->will($this->returnValue($placeJson));
 
-        $placeRepository = new PlaceRepository($restClient);
+        $config = new Config();
+        $config->setBasicAuth(new BasicAuth("MyKey", "MySecret"));
+        $config->setBaseUrl("http://api.apontador.com.br/v1/");
+        $config->setRestClient(new Guzzle());
+
+        $placeRepository = new PlaceRepository($config);
         $place = $placeRepository->get("UCV34B2P");
         $this->assertEquals("Uziel Restaurante - São Paulo", $place->getName());
 
