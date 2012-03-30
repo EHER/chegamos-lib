@@ -27,12 +27,15 @@ class Guzzle extends Client
 
     public function execute(Request $request)
     {
-        echo $url = $request->getBaseUrl() . $request->getPath()
+        $url = $request->getBaseUrl() . $request->getPath()
             . "?" . $request->getQueryString();
 
-        $this->response = $this->client
-            ->get($url)
-            ->send();
+        $this->response = $this->client->get($url);
+        $header = $request->getHeader();
+        if (is_array($header)) {
+            $this->response = $this->response->setHeader($header[0], $header[1]);
+        }
+        $this->response = $this->response->send();
 
         return $this->getBody();
     }

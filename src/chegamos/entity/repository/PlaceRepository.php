@@ -152,8 +152,8 @@ class PlaceRepository
         $this->request->addQueryItem("type", "json");
 
         $basicAuth = $this->config->getBasicAuth();
-        if (!empty($basicAuthi)) {
-            $this->request->setBasicAuth($basicAuth);
+        if (!empty($basicAuth)) {
+            $this->request->setHeader($basicAuth->getHeader());
         }
 
         $this->requestType = "details";

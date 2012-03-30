@@ -22,4 +22,12 @@ class BasicAuth
     {
         return $this->password;
     }
+
+    public function getHeader()
+    {
+        if ($this->username && $this->password) {
+            $base64 = base64_encode($this->username . ":" . $this->password);
+            return array("Authorization", "Basic ". $base64);
+        }
+    }
 }

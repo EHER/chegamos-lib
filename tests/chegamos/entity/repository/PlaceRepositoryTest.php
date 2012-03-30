@@ -67,15 +67,15 @@ class PlaceRepositoryTest extends \PHPUnit_Framework_TestCase
     }
 }
 JSON;
-        $restClient = $this->getMock('RestClient', array("get"));
-        $restClient->expects($this->any())
-            ->method("get")
+        $restClient = $this->getMock('chegamos\rest\client\Guzzle', array("execute"));
+        $restClient->expects($this->once())
+            ->method("execute")
             ->will($this->returnValue($placeJson));
 
         $config = new Config();
         $config->setBasicAuth(new BasicAuth("MyKey", "MySecret"));
         $config->setBaseUrl("http://api.apontador.com.br/v1/");
-        $config->setRestClient(new Guzzle());
+        $config->setRestClient($restClient);
 
         $placeRepository = new PlaceRepository($config);
         $place = $placeRepository->get("UCV34B2P");

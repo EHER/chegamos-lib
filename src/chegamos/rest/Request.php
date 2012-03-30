@@ -9,7 +9,7 @@ class Request
     private $path;
     private $query = array();
     private $param = array();
-    private $basicAuth;
+    private $header;
 
     public function setVerb($verb)
     {
@@ -66,13 +66,13 @@ class Request
         return $this->param[$key];
     }
 
-    public function setBasicAuth(BasicAuth $basicAuth)
+    public function setHeader($header)
     {
-        $this->basicAuth = $basicAuth;
+        $this->header = $header;
     }
 
-    public function getBasicAuth()
+    public function getHeader()
     {
-        return $this->basicAuth;
+        return $this->header;
     }
 }
