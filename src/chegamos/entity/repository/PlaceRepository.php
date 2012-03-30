@@ -151,6 +151,11 @@ class PlaceRepository
         $this->request->setBaseUrl($this->config->getBaseUrl());
         $this->request->addQueryItem("type", "json");
 
+        $basicAuth = $this->config->getBasicAuth();
+        if (!empty($basicAuthi)) {
+            $this->request->setBasicAuth($basicAuth);
+        }
+
         $this->requestType = "details";
         $this->param = array();
     }
