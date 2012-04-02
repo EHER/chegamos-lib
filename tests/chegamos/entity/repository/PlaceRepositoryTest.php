@@ -5,6 +5,7 @@ namespace chegamos\entity\repository;
 use chegamos\rest\client\Guzzle;
 use chegamos\entity\Config;
 use chegamos\rest\auth\BasicAuth;
+use chegamos\rest\auth\OAuth;
 
 class PlaceRepositoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -80,10 +81,45 @@ JSON;
         $placeRepository = new PlaceRepository($config);
         $place = $placeRepository->get("UCV34B2P");
         $this->assertEquals("Uziel Restaurante - São Paulo", $place->getName());
+    }
 
+    public function testGetRequestByPlaceId()
+    {
+        $config = new Config();
+        $config->setBasicAuth(new BasicAuth("MyKey", "MySecret"));
+        $config->setBaseUrl("http://api.apontador.com.br/v1/");
+
+        $placeRepository = new PlaceRepository($config);
         $request = $placeRepository->byId("UCV34B2P")->getRequest();
         $this->assertEquals("chegamos\\rest\\Request", get_class($request));
         $this->assertEquals("places/UCV34B2P", $request->getPath());
         $this->assertEquals("type=json", $request->getQueryString());
+    }
+
+    public function testGetRequestByCreatePlace()
+    {
+        $config = new Config();
+        $config->setBasicAuth(new OAuth("MyKey", "MySecret"));
+        $config->setBaseUrl("http://api.apontador.com.br/v1/");
+
+        $city = new City();
+        $city->setName("Sorocaba");
+        $city->setState("SP");
+        $city->setCountry("BR");
+
+        $address = new Address();
+        $address->setStreet("Rua Aclimação");
+        $address->setNumber(620);
+        $address->setComplement("Esquina");
+        $address->setDistrict("Jardim Paulistano");
+        $address->setZipcode("18040690");
+        $address->setCity($city);
+
+        $place = new Place();
+        $place->setName("Bar Tolomeu");
+        $place->setAddress($address);
+
+        $placeRepository = new PlaceRepository($config);
+        $placeRepository->save($place);
     }
 }
