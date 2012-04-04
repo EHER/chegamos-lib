@@ -2,10 +2,14 @@
 
 namespace chegamos\entity\repository;
 
+use Mockery\Mockery;
 use chegamos\rest\client\Guzzle;
 use chegamos\entity\Config;
 use chegamos\rest\auth\BasicAuth;
 use chegamos\rest\auth\OAuth;
+use chegamos\entity\City;
+use chegamos\entity\Address;
+use chegamos\entity\Place;
 
 class PlaceRepositoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -74,7 +78,9 @@ JSON;
             ->will($this->returnValue($placeJson));
 
         $config = new Config();
-        $config->setBasicAuth(new BasicAuth("MyKey", "MySecret"));
+        $config->setBasicAuth(
+            new BasicAuth("MyKey", "MySecret")
+        );
         $config->setBaseUrl("http://api.apontador.com.br/v1/");
         $config->setRestClient($restClient);
 
@@ -85,10 +91,15 @@ JSON;
 
     public function testGetRequestByPlaceId()
     {
-        $config = new Config();
-        $config->setBasicAuth(new BasicAuth("MyKey", "MySecret"));
-        $config->setBaseUrl("http://api.apontador.com.br/v1/");
-
+        $config = \Mockery::mock("chegamos\\entity\\Config");
+        $config->shouldReceive('getBaseUrl')->once()->andReturn(
+            "http:/api.apontador.com.br/v1/"
+        );
+        $config->shouldReceive('getBasicAuth')
+            ->once()
+            ->andReturn(
+                new BasicAuth("MyKey", "MySecret")
+            );
         $placeRepository = new PlaceRepository($config);
         $request = $placeRepository->byId("UCV34B2P")->getRequest();
         $this->assertEquals("chegamos\\rest\\Request", get_class($request));
@@ -98,9 +109,22 @@ JSON;
 
     public function testGetRequestByCreatePlace()
     {
-        $config = new Config();
-        $config->setBasicAuth(new OAuth("MyKey", "MySecret"));
-        $config->setBaseUrl("http://api.apontador.com.br/v1/");
+        $config = \Mockery::mock("chegamos\\entity\\Config");
+        $config->shouldReceive('getBaseUrl')
+            ->once()
+            ->andReturn(
+                "http:/api.apontador.com.br/v1/"
+            );
+        $config->shouldReceive('getBasicAuth')
+            ->once()
+            ->andReturn(
+                new BasicAuth("MyKey", "MySecret")
+            );
+        $config->shouldReceive('getOAuth')
+            ->once()
+            ->andReturn(
+                new OAuth("MyKey", "MySecret")
+            );
 
         $city = new City();
         $city->setName("Sorocaba");
@@ -120,6 +144,6 @@ JSON;
         $place->setAddress($address);
 
         $placeRepository = new PlaceRepository($config);
-        $placeRepository->save($place);
+        //$placeRepository->save($place);
     }
 }

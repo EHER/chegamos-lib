@@ -2,6 +2,8 @@
 
 namespace chegamos\rest\auth;
 
+use Eher\OAuth\Consumer;
+
 class OAuth
 {
     private $consumer;
