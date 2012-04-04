@@ -118,7 +118,7 @@ JSON;
         $config->shouldReceive('getBasicAuth')
             ->once()
             ->andReturn(
-                new BasicAuth("MyKey", "MySecret")
+                new BasicAuth("User", "Pass")
             );
         $config->shouldReceive('getOAuth')
             ->once()
