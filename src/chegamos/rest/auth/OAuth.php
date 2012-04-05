@@ -7,7 +7,8 @@ use Eher\OAuth\Consumer;
 class OAuth
 {
     private $consumer;
-    private $access;
+    private $requestToken;
+    private $accessToken;
 
     public function __construct($key, $secret)
     {
@@ -24,13 +25,13 @@ class OAuth
         return $this->consumer;
     }
 
-    public function setAccess(Access $access)
+    public function setAccessToken(AccessToken $accessToken)
     {
-        $this->access = $access;
+        $this->AccessToken = $accessToken;
     }
 
-    public function getAccess()
+    public function getAccessToken()
     {
-        return $access;
+        return $accessToken;
     }
 }
