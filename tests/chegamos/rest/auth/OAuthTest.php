@@ -28,6 +28,30 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testGenerateSignature()
+    {
+        $oAuth = new OAuth("Key", "Secret");
+
+        $expectedSignature = "";
+        $this->assertEquals(
+            $expectedSignature,
+            $oAuth->generateSignature(
+                "GET",
+                "http://photos.example.net/photos",
+                array(
+                    "file" => "vacation.jpg",
+                    "oauth_consumer_key" => "dpf43f3p2l4k3l03",
+                    "oauth_nonce" => "kllo9940pd9333jh",
+                    "oauth_signature_method" => "HMAC-SHA1",
+                    "oauth_timestamp" => "1191242096",
+                    "oauth_token" => "nnch734d00sl2jdk",
+                    "oauth_version" => "1.0",
+                    "size" => "original",
+                )
+            )
+        );
+    }
+
     public function testGetHeader()
     {
         $oAuth = new OAuth("Key", "Secret");

@@ -35,6 +35,12 @@ class OAuth
         return $accessToken;
     }
 
+    public function generateSignature($verb, $url, $params)
+    {
+        $baseString = $this->generateSignatureBaseString($verb, $url, $params);
+        return  hash_hmac('sha1', $baseString, $this->consumer->key);
+    }
+
     public function generateSignatureBaseString($verb, $url, $params)
     {
         ksort($params);
