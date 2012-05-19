@@ -55,7 +55,6 @@ pear-config:
 
 pear-install:
 	@echo "Instalando pacotes PEAR"
-	pear install pear.phpunit.de/PHPUnit
 	pear install --alldeps phpmd/PHP_PMD
 	pear install PHP_CodeSniffer-1.3.2
 
@@ -64,11 +63,11 @@ brew-install:
 
 test:
 	@echo "Rodando testes"
-	php vendor/EHER/PHPUnit/phpunit.php -c config/phpunit.xml
+	vendor/bin/phpunit
 
 coverage:
 	@echo "Gerando relatório de cobertura de testes"
-	phpunit -c config/phpunit.xml --coverage-html reports/coverage
+	vendor/bin/phpunit --coverage-html reports/coverage
 
 showcoverage:
 	@echo "Abrindo relatório de cobertura de código"
