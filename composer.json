@@ -8,6 +8,10 @@
         "Respect/Config": "dev-develop",
         "guzzle/guzzle": "2.1.3"
     },
+    "recommends": {
+        "Eher/PHPUnit": "1.3",
+        "mockery/mockery": "0.7.2"
+    },
     "autoload": {
         "psr-0": {
             "chegamos": "src/"

@@ -55,6 +55,17 @@ class PlaceRepository
         return PlaceListFactory::generate($placeListJsonObject->search);
     }
 
+    public function save(Place $place)
+    {
+        $this->getPath();
+
+        $placeJsonString = $this->config
+            ->getRestClient()
+            ->execute($this->request);
+        $this->setup();
+
+    }
+
     public function withDetails()
     {
         $this->requestType = 'details';

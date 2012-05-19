@@ -2,9 +2,14 @@
 
 namespace chegamos\entity\repository;
 
+use Mockery\Mockery;
 use chegamos\rest\client\Guzzle;
 use chegamos\entity\Config;
 use chegamos\rest\auth\BasicAuth;
+use chegamos\rest\auth\OAuth;
+use chegamos\entity\City;
+use chegamos\entity\Address;
+use chegamos\entity\Place;
 
 class PlaceRepositoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -73,17 +78,72 @@ JSON;
             ->will($this->returnValue($placeJson));
 
         $config = new Config();
-        $config->setBasicAuth(new BasicAuth("MyKey", "MySecret"));
+        $config->setBasicAuth(
+            new BasicAuth("MyKey", "MySecret")
+        );
         $config->setBaseUrl("http://api.apontador.com.br/v1/");
         $config->setRestClient($restClient);
 
         $placeRepository = new PlaceRepository($config);
         $place = $placeRepository->get("UCV34B2P");
         $this->assertEquals("Uziel Restaurante - São Paulo", $place->getName());
+    }
 
+    public function testGetRequestByPlaceId()
+    {
+        $config = \Mockery::mock("chegamos\\entity\\Config");
+        $config->shouldReceive('getBaseUrl')->once()->andReturn(
+            "http:/api.apontador.com.br/v1/"
+        );
+        $config->shouldReceive('getBasicAuth')
+            ->once()
+            ->andReturn(
+                new BasicAuth("MyKey", "MySecret")
+            );
+        $placeRepository = new PlaceRepository($config);
         $request = $placeRepository->byId("UCV34B2P")->getRequest();
         $this->assertEquals("chegamos\\rest\\Request", get_class($request));
         $this->assertEquals("places/UCV34B2P", $request->getPath());
         $this->assertEquals("type=json", $request->getQueryString());
+    }
+
+    public function testGetRequestByCreatePlace()
+    {
+        $config = \Mockery::mock("chegamos\\entity\\Config");
+        $config->shouldReceive('getBaseUrl')
+            ->once()
+            ->andReturn(
+                "http:/api.apontador.com.br/v1/"
+            );
+        $config->shouldReceive('getBasicAuth')
+            ->once()
+            ->andReturn(
+                new BasicAuth("User", "Pass")
+            );
+        $config->shouldReceive('getOAuth')
+            ->once()
+            ->andReturn(
+                new OAuth("MyKey", "MySecret")
+            );
+
+        $city = new City();
+        $city->setName("Sorocaba");
+        $city->setState("SP");
+        $city->setCountry("BR");
+
+        $address = new Address();
+        $address->setStreet("Rua Aclimação");
+        $address->setNumber(620);
+        $address->setComplement("Esquina");
+        $address->setDistrict("Jardim Paulistano");
+        $address->setZipcode("18040690");
+        $address->setCity($city);
+
+        $place = new Place();
+        $place->setName("Bar Tolomeu");
+        $place->setAddress($address);
+
+        $placeRepository = new PlaceRepository($config);
+        //$placeRepository->save($place);
     }
 }
