@@ -2,7 +2,7 @@
 
 namespace chegamos\entity\repository;
 
-use Mockery\Mockery;
+use Mockery;
 use chegamos\rest\client\Guzzle;
 use chegamos\entity\Config;
 use chegamos\rest\auth\BasicAuth;
@@ -91,7 +91,7 @@ JSON;
 
     public function testGetRequestByPlaceId()
     {
-        $config = \Mockery::mock("chegamos\\entity\\Config");
+        $config = Mockery::mock("chegamos\\entity\\Config");
         $config->shouldReceive('getBaseUrl')->once()->andReturn(
             "http:/api.apontador.com.br/v1/"
         );
@@ -109,7 +109,7 @@ JSON;
 
     public function testGetRequestByCreatePlace()
     {
-        $config = \Mockery::mock("chegamos\\entity\\Config");
+        $config = Mockery::mock("chegamos\\entity\\Config");
         $config->shouldReceive('getBaseUrl')
             ->once()
             ->andReturn(
