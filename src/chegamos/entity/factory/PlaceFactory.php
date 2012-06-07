@@ -40,6 +40,7 @@ class PlaceFactory
                 $place->setCategory(
                     CategoryFactory::generate($placeJsonObject->category)
                 );
+                $place->setPhone($placeJsonObject->phone);
             }
 
             if ($isFullPlace) {
