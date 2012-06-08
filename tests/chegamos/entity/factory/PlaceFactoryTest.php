@@ -58,7 +58,10 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
         $data->icon_url = "http://chegamos.com/img/icon.png";
         $data->description = "Description";
         $data->created = "01/12/2010 16:19";
-        $data->phone = "11 2222-3333";
+        $data->phone = new \stdclass();
+        $data->phone->country = "55";
+        $data->phone->area = "11";
+        $data->phone->number = "22223333";
         $data->extended = $extended;
         $data->num_visitors = 1024;
         $data->num_photos = 5;
@@ -111,7 +114,10 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals("Description", $this->place->getDescription());
         $this->assertEquals("01/12/2010 16:19", $this->place->getCreated());
-        $this->assertEquals("11 2222-3333", $this->place->getPhone());
+        $this->assertEquals(
+            "+55 (11) 2222-3333",
+            $this->place->getPhone()->toString()
+        );
         $this->assertTrue($this->place->getPlaceInfo() instanceof PlaceInfo);
     }
 
@@ -120,7 +126,10 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
         try {
             PlaceFactory::generate(null);
         } catch(ChegamosException $e) {
-            $this->assertEquals("Parâmetro data não é um objeto.", $e->getMessage());
+            $this->assertEquals(
+                "Parâmetro data não é um objeto.",
+                $e->getMessage()
+            );
             return;
         }
         $this->fail('An expected exception has not been raised.');

@@ -40,7 +40,7 @@ class PlaceFactory
                 $place->setCategory(
                     CategoryFactory::generate($placeJsonObject->category)
                 );
-                $place->setPhone($placeJsonObject->phone);
+                $place->setPhone(PhoneFactory::generate($placeJsonObject->phone));
             }
 
             if ($isFullPlace) {
@@ -57,7 +57,7 @@ class PlaceFactory
                 );
                 $place->setDescription($placeJsonObject->description);
                 $place->setCreated($placeJsonObject->created);
-                $place->setPhone($placeJsonObject->phone);
+                $place->setPhone(PhoneFactory::generate($placeJsonObject->phone));
             }
 
             if ($isPhotoList) {

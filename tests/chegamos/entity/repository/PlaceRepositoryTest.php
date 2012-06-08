@@ -2,7 +2,10 @@
 
 namespace chegamos\entity\repository;
 
-use chegamos\rest\Curl as RestClient;
+use chegamos\rest\Curl as RestClient,
+    chegamos\entity\Address,
+    chegamos\entity\City,
+    chegamos\entity\State;
 
 class PlaceRepositoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -78,5 +81,89 @@ JSON;
         $this->assertEquals("chegamos\\rest\\Request", get_class($request));
         $this->assertEquals("places/UCV34B2P", $request->getPath());
         $this->assertEquals("type=json", $request->getQueryString());
+    }
+
+    /**
+    * @ignore
+    */
+    public function testByAddress()
+    {
+        $placeListJson = <<<JSON
+{"search":{
+    "result_count":"525341",
+    "current_page":"1",
+    
+    "places":[
+    {"place": {
+        "id":"JZRRQ52V",
+        "name":"Ag\u00EAncia Dos Correios - Vila Maria",
+        "average_rating":"1",
+        "review_count":"135",
+        "thumbs":{
+            "total":"306",
+            "up":"72"
+        },
+        "category":{
+            "id":"31",
+            "name":"CORREIOS",
+            "subcategory":{
+                "id":"31",
+                "name":"Correios"
+                }
+            },
+        "address":{
+            "street":"Av Guilherme Cotching",
+            "number":"1225",
+            "district":"Vila Maria",
+            "zipcode":"",
+            "complement":"",
+            "city":{
+                "country":"BR",
+                "state":"SP",
+                "name":"Sao Paulo"
+                }
+            },
+        "phone":{
+            "country":"55",
+            "area":"11",
+            "number":"26363509"
+        },
+        "point":{
+            "lat":"-23.51822",
+            "lng":"-46.58972"
+            },
+        "main_url":"http://www.apontador.com.br/local/sp/sao_paulo/correios/JZRRQ52V/agancia_dos_correios___vila_maria.html",
+        "icon_url":"http://apontador.s3.amazonaws.com/img_2XA36T3X_L.jpg",
+        "other_url":"http://www.correios.com.br",
+        "small_photo_url":""
+        }
+    }
+    ]
+    }
+}
+JSON;
+
+        $restClient = $this->getMock('RestClient', array("get"));
+        $restClient->expects($this->any())
+            ->method("get")
+            ->will($this->returnValue($placeListJson));
+
+        $city = new City();
+        $city->setName("São Paulo");
+        $city->setState("SP");
+
+        $address = new Address();
+        $address->setCity($city);
+
+        $placeRepository = new PlaceRepository($restClient);
+        $place = $placeRepository->byAddress($address)->getAll();
+        $this->assertEquals(
+            "Agência Dos Correios - Vila Maria",
+            $place->getItem(0)->getName()
+        );
+        $this->assertEquals(
+            "+55 (11) 2636-3509",
+            $place->getItem(0)->getPhone()->toString()
+        );
     }
 }
