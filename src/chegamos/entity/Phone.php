@@ -8,7 +8,7 @@ class Phone
     private $area;
     private $number;
 
-    public function toString()
+    public function __toString()
     {
         $phoneString = "";
         $phoneString .= "+";
