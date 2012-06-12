@@ -55,6 +55,7 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
         $data->point->lat = "-23.529366";
         $data->point->lng = "-47.467117";
         $data->main_url = "http://chegamos.com/";
+        $data->small_photo_url = "http://www.apontador.com.br/small_photo";
         $data->other_url = "http://chegamos.com.br/";
         $data->icon_url = "http://chegamos.com/img/icon.png";
         $data->description = "Description";
@@ -66,7 +67,7 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
         $data->extended = $extended;
         $data->num_visitors = 1024;
         $data->num_photos = 5;
-
+        
         $this->place = PlaceFactory::generate($data);
 
         $this->assertEquals(123, $this->place->getId());
@@ -121,6 +122,11 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
             $this->place->getPhone()
         );
         $this->assertTrue($this->place->getPlaceInfo() instanceof PlaceInfo);
+        
+        $this->assertEquals(
+        	"http://www.apontador.com.br/small_photo",
+        	$this->place->getSmallPhotoUrl()
+        );
     }
 
     public function testGenerateWithoutData()

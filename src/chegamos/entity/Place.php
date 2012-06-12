@@ -17,6 +17,7 @@ class Place
     private $mainUrl = "";
     private $iconUrl = "";
     private $otherUrl = "";
+    private $smallPhotoUrl = "";
     private $description = "";
     private $created = null;
     private $phone = null;
@@ -206,6 +207,16 @@ class Place
     public function getShortPlaceUrl()
     {
         return ROOT_URL . 'places/show/' . $this->getId();
+    }
+    
+    public function getSmallPhotoUrl()
+    {
+    	return $this->smallPhotoUrl;
+    }
+    
+    public function setSmallPhotoUrl($smallPhotourl)
+    {
+    	$this->smallPhotoUrl = $smallPhotourl;
     }
 
     public function getPlaceUrl()

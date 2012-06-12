@@ -22,12 +22,17 @@ class PlaceFactory
             $isPhotoList = isset($placeJsonObject->photos);
             $isReviewList = isset($placeJsonObject->reviews);
             $isExtendedPlace = isset($placeJsonObject->extended);
-            $isPlaceList = isset($placeJsonObject->name);
+            $isPlaceListOrFullPlace = isset($placeJsonObject->name);
+            $isPlaceList = isset($placeJsonObject->small_photo_url);
 
             $place = new Place();
             $place->setId($placeJsonObject->id);
 
             if ($isPlaceList) {
+            	$place->setSmallPhotoUrl($placeJsonObject->small_photo_url);
+            }
+            
+            if ($isPlaceListOrFullPlace) {
                 $place->setName($placeJsonObject->name);
                 $place->setAverageRating($placeJsonObject->average_rating);
                 $place->setReviewCount($placeJsonObject->review_count);
@@ -41,22 +46,10 @@ class PlaceFactory
                 );
                 $place->setPhone(PhoneFactory::generate($placeJsonObject->phone));
             }
-
+            
             if ($isFullPlace) {
-                $place->setName($placeJsonObject->name);
-                $place->setAverageRating($placeJsonObject->average_rating);
-                $place->setReviewCount($placeJsonObject->review_count);
-                $place->setAddress(new Address($placeJsonObject->address));
-                $place->setPoint(PointFactory::generate($placeJsonObject->point));
-                $place->setMainUrl($placeJsonObject->main_url);
-                $place->setOtherUrl($placeJsonObject->other_url);
-                $place->setIconUrl($placeJsonObject->icon_url);
-                $place->setCategory(
-                    CategoryFactory::generate($placeJsonObject->category)
-                );
                 $place->setDescription($placeJsonObject->description);
                 $place->setCreated($placeJsonObject->created);
-                $place->setPhone(PhoneFactory::generate($placeJsonObject->phone));
             }
 
             if ($isPhotoList) {
