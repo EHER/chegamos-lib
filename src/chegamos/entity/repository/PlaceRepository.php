@@ -2,6 +2,7 @@
 
 namespace chegamos\entity\repository;
 
+use chegamos\entity\Config;
 use chegamos\entity\Address;
 use chegamos\entity\Point;
 use chegamos\entity\factory\PlaceFactory;
@@ -10,15 +11,19 @@ use chegamos\rest\Request;
 
 class PlaceRepository
 {
+    private $config;
     private $restClient;
     private $requestType;
     private $query;
     private $param;
     private $request;
 
-    public function __construct($restClient)
+    public function __construct(Config $config)
     {
-        $this->restClient = $restClient;
+        if (!empty($config)) {
+            $this->config = $config;
+        }
+
         $this->setup();
     }
 
@@ -28,9 +33,11 @@ class PlaceRepository
             $this->byId($id);
         }
 
-        $placeJsonString = $this->restClient->get(
-            $this->getPath() . '?' . $this->getQueryString()
-        );
+        $this->getPath();
+
+        $placeJsonString = $this->config
+            ->getRestClient()
+            ->execute($this->request);
         $this->setup();
 
         $placeJsonObject = json_decode($placeJsonString);
@@ -46,6 +53,17 @@ class PlaceRepository
 
         $placeListJsonObject = json_decode($placeListJsonString); 
         return PlaceListFactory::generate($placeListJsonObject->search);
+    }
+
+    public function save(Place $place)
+    {
+        $this->getPath();
+
+        $placeJsonString = $this->config
+            ->getRestClient()
+            ->execute($this->request);
+        $this->setup();
+
     }
 
     public function withDetails()
@@ -68,7 +86,7 @@ class PlaceRepository
 
     public function byId($id)
     {
-        $this->param['id'] = $id;
+        $this->request->addParam('id', $id);
         return $this;
     }
 
@@ -140,9 +158,16 @@ class PlaceRepository
 
     private function setup()
     {
-        $this->requestType = "details";
         $this->request = new Request();
+        $this->request->setBaseUrl($this->config->getBaseUrl());
         $this->request->addQueryItem("type", "json");
+
+        $basicAuth = $this->config->getBasicAuth();
+        if (!empty($basicAuth)) {
+            $this->request->setHeader($basicAuth->getHeader());
+        }
+
+        $this->requestType = "details";
         $this->param = array();
     }
 
@@ -156,7 +181,7 @@ class PlaceRepository
         switch ($this->requestType) {
 
         case 'details':
-            $this->request->setPath("places/" . $this->param['id']);
+            $this->request->setPath("places/" . $this->request->getParam('id'));
             break;
         case 'placesByZipcode':
             $this->request->setPath("search/places/byzipcode");

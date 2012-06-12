@@ -2,24 +2,40 @@
 
 namespace chegamos\rest\client;
 
+use chegamos\rest\Request;
 use chegamos\exception\ChegamosRestException;
 
 class Curl extends Client
 {
     private $client;
     private $url;
+    private $request;
     private $response;
 
     public function __construct($url)
     {
+        $this->request = new Request();
+        $this->request->setBaseUrl($url);
+
         $this->url = $url;
         $this->client = curl_init($this->url);
         curl_setopt($this->client, CURLOPT_RETURNTRANSFER, 1);
     }
 
-    public function setAuth($user, $password)
+    public function execute(Request $request)
     {
-        curl_setopt($this->client, CURLOPT_USERPWD, $user . ':' . $password);
+        curl_setopt($this->client, CURLOPT_URL, $this->request->getBaseUrl() . $request->getPath());
+        curl_setopt($this->client, CURLOPT_CUSTOMREQUEST, $request->getVerb());
+        $basicAuth = $this->basicAuth;
+        if (!empty($basicAuth)) {
+            $user = $this->basicAuth->getUsername();
+            $password = $this->basicAuth->getPassword();
+            curl_setopt($this->client, CURLOPT_USERPWD, $user . ':' . $password);
+        }
+        $this->response = curl_exec($this->client);
+        $this->validateResponse();
+        curl_close($this->client);
+        return $this->getBody();
     }
 
     public function getBody()
@@ -34,27 +50,42 @@ class Curl extends Client
 
     public function get($path)
     {
-        return $this->request($path, 'GET');
+        $request = new Request();
+        $request->setVerb("GET");
+        $request->setPath($path);
+        return $this->execute($request);
     }
 
     public function post($path)
     {
-        return $this->request($path, 'POST');
+        $request = new Request();
+        $request->setVerb("POST");
+        $request->setPath($path);
+        return $this->execute($request);
     }
 
     public function delete($path)
     {
-        return $this->request($path, 'DELETE');
+        $request = new Request();
+        $request->setVerb("DELETE");
+        $request->setPath($path);
+        return $this->execute($request);
     }
 
     public function head($path)
     {
-        return $this->request($path, 'HEAD');
+        $request = new Request();
+        $request->setVerb("HEAD");
+        $request->setPath($path);
+        return $this->execute($request);
     }
 
     public function put($path)
     {
-        return $this->request($path, 'PUT');
+        $request = new Request();
+        $request->setVerb("PUT");
+        $request->setPath($path);
+        return $this->execute($request);
     }
 
     private function request($path, $verb='GET')
