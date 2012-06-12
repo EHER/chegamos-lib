@@ -73,6 +73,10 @@ class PlaceListFactoryTest extends \PHPUnit_Framework_TestCase
     	                   {
     	                       "name": "nova gerti",
     	                       "count": "1"
+    	                   },
+    	                   {
+    	                       "name": "teste são paulo",
+    	                       "count": "1000"
     	                   }
                        
 	           ]
@@ -149,8 +153,16 @@ JSON;
     	);
     	
     	$this->assertEquals(
-    			array('nova gerti' => 1),
+    			array(
+    					'nova gerti' => 1,
+    					'teste são paulo' => 1000
+    			),
     			$facets[0]->getData()
+    	);
+    	
+    	$this->assertEquals(
+    			array('sao caetano do sul' => 1),
+    			$facets[1]->getData()
     	);
     }
 
