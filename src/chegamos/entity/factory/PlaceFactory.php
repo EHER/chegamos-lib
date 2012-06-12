@@ -6,7 +6,6 @@ use chegamos\entity\Place;
 use chegamos\entity\Category;
 use chegamos\entity\Subcategory;
 use chegamos\entity\Address;
-use chegamos\entity\Point;
 use chegamos\entity\PlaceInfo;
 use chegamos\entity\factory\PhotoListFactory;
 use chegamos\entity\factory\ReviewListFactory;
@@ -33,7 +32,7 @@ class PlaceFactory
                 $place->setAverageRating($placeJsonObject->average_rating);
                 $place->setReviewCount($placeJsonObject->review_count);
                 $place->setAddress(new Address($placeJsonObject->address));
-                $place->setPoint(new Point($placeJsonObject->point));
+                $place->setPoint(PointFactory::generate($placeJsonObject->point));
                 $place->setMainUrl($placeJsonObject->main_url);
                 $place->setOtherUrl($placeJsonObject->other_url);
                 $place->setIconUrl($placeJsonObject->icon_url);
@@ -48,7 +47,7 @@ class PlaceFactory
                 $place->setAverageRating($placeJsonObject->average_rating);
                 $place->setReviewCount($placeJsonObject->review_count);
                 $place->setAddress(new Address($placeJsonObject->address));
-                $place->setPoint(new Point($placeJsonObject->point));
+                $place->setPoint(PointFactory::generate($placeJsonObject->point));
                 $place->setMainUrl($placeJsonObject->main_url);
                 $place->setOtherUrl($placeJsonObject->other_url);
                 $place->setIconUrl($placeJsonObject->icon_url);

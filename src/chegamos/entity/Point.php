@@ -4,22 +4,16 @@ namespace chegamos\entity;
 
 class Point
 {
-
     private $lat;
     private $lng;
 
-    function __construct($data=null)
+    function __construct($lat = null, $lng = null)
     {
-        $this->populate($data);
-    }
-
-    public function populate($data)
-    {
-        if (isset($data->lat)) {
-            $this->setLat($data->lat);
+   		if (isset($lat)) {
+            $this->setLat($lat);
         }
-        if (isset($data->lng)) {
-            $this->setLng($data->lng);
+        if (isset($lng)) {
+            $this->setLng($lng);
         }
     }
 
