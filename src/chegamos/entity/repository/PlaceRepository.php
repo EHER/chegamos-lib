@@ -125,6 +125,18 @@ class PlaceRepository
         $this->request->addQueryItem("list_id", $listId);
         return $this;
     }
+    
+	public function withRadius($radius)
+    {
+    	$this->request->addQueryItem("radius_mt", $radius);
+    	return $this;
+    }
+    
+    public function withFacets()
+    {
+    	$this->request->addQueryItem("facets", "1");
+    	return $this;
+    }
 
     public function page($page)
     {

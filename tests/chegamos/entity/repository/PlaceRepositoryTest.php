@@ -2,7 +2,9 @@
 
 namespace chegamos\entity\repository;
 
-use chegamos\rest\Curl as RestClient,
+use chegamos\entity\Point;
+
+use chegamos\rest\client\Curl as RestClient,
     chegamos\entity\Address,
     chegamos\entity\City,
     chegamos\entity\State;
@@ -165,5 +167,22 @@ JSON;
             "+55 (11) 2636-3509",
             $place->getItem(0)->getPhone()
         );
+    }
+    
+    public function testGetAllWithRadius()
+    {
+    	$key = "Fyv0OXk18MaiQeW3AFTSBXSvcvJxw055I8M7MbknqiA~";
+		$secret = "TH589sna592YfUrzCwdwRlVwnbk~";
+    	
+    	$restClient = new RestClient("http://api.apontador.com.br/v1/");
+    	$restClient->setAuth($key, $secret);
+    	
+    	$placeRepository = new PlaceRepository($restClient);
+    	
+    	$places = $placeRepository->byPoint(new Point("-23.529366", "-47.467117"))
+    		->withRadius(1000000)
+    		->withListId("24")
+    		->withFacets()
+			->getAll();
     }
 }

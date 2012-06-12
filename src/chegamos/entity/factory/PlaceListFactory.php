@@ -16,6 +16,7 @@ class PlaceListFactory
             foreach ($placeListJsonObject->places as $place) {
                 $placeList->add(PlaceFactory::generate($place->place));
             }
+            
             return $placeList;
         } else {
             throw new ChegamosException("Parâmetro passado não é um objeto.");
