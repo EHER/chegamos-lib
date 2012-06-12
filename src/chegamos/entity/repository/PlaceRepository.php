@@ -3,6 +3,7 @@
 namespace chegamos\entity\repository;
 
 use chegamos\entity\Config;
+use chegamos\entity\Place;
 use chegamos\entity\Address;
 use chegamos\entity\Point;
 use chegamos\entity\factory\PlaceFactory;
@@ -12,7 +13,6 @@ use chegamos\rest\Request;
 class PlaceRepository
 {
     private $config;
-    private $restClient;
     private $requestType;
     private $query;
     private $param;
@@ -46,7 +46,7 @@ class PlaceRepository
 
     public function getAll()
     {
-        $placeListJsonString = $this->restClient->get(
+        $placeListJsonString = $this->config->getRestClient()->get(
             $this->getPath() . '?' . $this->getQueryString()
         );
         $this->setup();
@@ -64,6 +64,8 @@ class PlaceRepository
             ->execute($this->request);
         $this->setup();
 
+        $placeJsonObject = json_decode($placeJsonString);
+        return PlaceFactory::generate($placeJsonObject->place);
     }
 
     public function withDetails()
@@ -168,7 +170,6 @@ class PlaceRepository
         }
 
         $this->requestType = "details";
-        $this->param = array();
     }
 
     private function getQueryString()

@@ -9,7 +9,6 @@ use chegamos\rest\client\Client;
 class Config
 {
     private $basicAuth;
-    private $oAuth;
     private $restClient;
     private $baseUrl;
 
@@ -21,16 +20,6 @@ class Config
     public function getBasicAuth()
     {
         return $this->basicAuth;
-    }
-
-    public function setOAuth(OAuth $oAuth)
-    {
-        $this->oAuth = $oAuth;
-    }
-
-    public function getOAuth()
-    {
-        return $this->oAuth;
     }
 
     public function setRestClient(Client $restClient)
