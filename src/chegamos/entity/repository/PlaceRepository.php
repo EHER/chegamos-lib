@@ -14,8 +14,6 @@ class PlaceRepository
 {
     private $config;
     private $requestType;
-    private $query;
-    private $param;
     private $request;
 
     public function __construct(Config $config)
@@ -34,6 +32,7 @@ class PlaceRepository
         }
 
         $this->getPath();
+        $this->request->setVerb('GET');
 
         $placeJsonString = $this->config
             ->getRestClient()
@@ -46,9 +45,12 @@ class PlaceRepository
 
     public function getAll()
     {
-        $placeListJsonString = $this->config->getRestClient()->get(
-            $this->getPath() . '?' . $this->getQueryString()
-        );
+        $this->getPath();
+        $this->request->setVerb('GET');
+
+        $placeListJsonString = $this->config
+            ->getRestClient()
+            ->execute($this->request);
         $this->setup();
 
         $placeListJsonObject = json_decode($placeListJsonString); 
@@ -172,11 +174,6 @@ class PlaceRepository
         $this->requestType = "details";
     }
 
-    private function getQueryString()
-    {
-        return $this->request->getQueryString();
-    }
-
     private function getPath()
     {
         switch ($this->requestType) {
@@ -194,10 +191,10 @@ class PlaceRepository
             $this->request->setPath("search/places/bypoint");
             break;
         case 'reviews':
-            $this->request->setPath("places/" . $this->param['id'] . '/reviews');
+            $this->request->setPath("places/" . $this->request->getParam('id') . '/reviews');
             break;
         case 'photos':
-            $this->request->setPath("places/" . $this->param['id'] . '/photos');
+            $this->request->setPath("places/" . $this->request->getParam('id') . '/photos');
             break;
         }
         return $this->request->getPath();

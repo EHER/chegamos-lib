@@ -13,7 +13,7 @@ class Request
 
     public function setVerb($verb)
     {
-        $this->path = $path;
+        $this->verb = $verb;
     }
 
     public function getVerb()
@@ -74,5 +74,11 @@ class Request
     public function getHeader()
     {
         return $this->header;
+    }
+
+    public function getUrlWithQueryString()
+    {
+        return $this->getBaseUrl() . $this->getPath()
+            . "?" . $this->getQueryString();
     }
 }

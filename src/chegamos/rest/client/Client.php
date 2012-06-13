@@ -9,7 +9,6 @@ abstract class Client
 {
     private $basicAuth;
 
-    public abstract function __construct($url);
     public abstract function getBody();
     public abstract function execute(Request $request);
 

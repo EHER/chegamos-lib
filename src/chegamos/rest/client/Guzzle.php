@@ -7,35 +7,27 @@ use chegamos\rest\Request;
 
 class Guzzle extends Client
 {
-    private $client;
     private $response;
-
-    public function __construct()
-    {
-        $this->client = new GuzzleClient();
-    }
 
     public function getBody()
     {
         return (string) $this->response->getBody();
     }
 
-    public function setClient($client)
-    {
-        $this->client = $client;
-    }
-
     public function execute(Request $request)
     {
-        $url = $request->getBaseUrl() . $request->getPath()
-            . "?" . $request->getQueryString();
+        $guzzle = new GuzzleClient();
 
-        $this->response = $this->client->get($url);
-        $header = $request->getHeader();
-        if (is_array($header)) {
-            $this->response = $this->response->setHeader($header[0], $header[1]);
+        if ($request->getVerb() == 'GET') {
+            $guzzleRequest = $guzzle->get($request->getUrlWithQueryString());
         }
-        $this->response = $this->response->send();
+
+        if ($request->getHeader()) {
+            list ($headerName, $headerValue) = $request->getHeader();
+            $guzzleRequest->setHeader($headerName, $headerValue);
+        }
+
+        $this->response = $guzzleRequest->send();
 
         return $this->getBody();
     }
