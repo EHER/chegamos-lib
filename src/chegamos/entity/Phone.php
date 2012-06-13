@@ -30,15 +30,18 @@ class Phone
             return "";
         }
 
-        $phoneData = "(" . $this->area . ") ";
-        $phoneData .= substr($this->number, 0, 4) . "-" . substr($this->number, 4, 4);;
+        $phoneData = "(" . $this->area . ") "
+                    . substr($this->number, 0, 4) 
+                    . "-" 
+                    . substr($this->number, 4, 4);
 
         return $phoneData;
     }
 
     private function isValidNumber()
     {
-        return isset($this->area) && isset($this->number);
+        return isset($this->area) && !empty($this->area)
+            && isset($this->number) && !empty($this->number);
     }
 
     public function setCountry($country)
