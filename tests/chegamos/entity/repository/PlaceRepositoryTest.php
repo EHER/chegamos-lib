@@ -208,7 +208,7 @@ JSON;
         );
         $this->assertEquals(
             "+55 (11) 2636-3509",
-            $place->getItem(0)->getPhone()
+            $place->getItem(0)->getPhone()->toInternationalStandard()
         );
     }
 
