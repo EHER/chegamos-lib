@@ -10,16 +10,35 @@ class Phone
 
     public function __toString()
     {
-        $phoneString = "";
-        $phoneString .= "+";
-        $phoneString .= $this->country;
-        $phoneString .= " (";
-        $phoneString .= $this->area;
-        $phoneString .= ") ";
-        $phoneString .= substr($this->number, 0, 4);
-        $phoneString .= "-";
-        $phoneString .= substr($this->number, 4, 4);
-        return $phoneString;
+        return $this->toBrazilianStandard();
+    }
+
+    public function toInternationalStandard()
+    {
+        if (!$this->isValidNumber()) {
+            return "";
+        }
+        
+        $countryInfo = isset($this->country) ? "+" . $this->country . " " : "+55 ";
+        
+        return $countryInfo . $this->toBrazilianStandard();
+    }
+
+    public function toBrazilianStandard()
+    {
+        if (!$this->isValidNumber()) {
+            return "";
+        }
+
+        $phoneData = "(" . $this->area . ") ";
+        $phoneData .= substr($this->number, 0, 4) . "-" . substr($this->number, 4, 4);;
+
+        return $phoneData;
+    }
+
+    private function isValidNumber()
+    {
+        return isset($this->area) && isset($this->number);
     }
 
     public function setCountry($country)

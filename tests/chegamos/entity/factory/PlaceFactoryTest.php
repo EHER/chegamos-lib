@@ -67,7 +67,7 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("01/12/2010 16:19", $this->place->getCreated());
         $this->assertTrue($this->place->getPhone() instanceof Phone);
         $this->assertEquals(
-            "+55 (11) 2222-3333",
+            "(11) 2222-3333",
             $this->place->getPhone()
         );
         $this->assertTrue($this->place->getPlaceInfo() instanceof PlaceInfo);
