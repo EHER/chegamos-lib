@@ -142,7 +142,7 @@ JSON;
     	
     	$this->assertEquals(
     			"+55 (11) 4238-4913",
-    			$places->getItem(0)->getPhone()->__toString()
+    			$places->getItem(0)->getPhone()->toInternationalStandard()
     	);
     	
     	$facets = $places->getFacets();
