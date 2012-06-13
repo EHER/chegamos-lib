@@ -13,62 +13,11 @@ use chegamos\exception\ChegamosException;
 
 class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    public function testGenerate()
+	public function testGenerate()
     {
-        $city = new \stdClass();
-        $city->country = "Brasil";
-        $city->state = "SP";
-        $city->name = "São Paulo";
-
-        $address = new \stdClass();
-        $address->city = $city;
-        $address->complement = "1 Andar";
-        $address->district = "Vila Olimpia";
-        $address->number = 129;
-        $address->street = "Rua Funchal";
-        $address->zipcode = "04551-069";
-
-        $gasStation = new \stdClass();
-        $gasStation->price_gas = 1.23;
-        $gasStation->price_vodka = 23.45;
-
-        $extended = new \stdClass();
-        $extended->gas_station = $gasStation;
-
-        $subcategory = new \stdClass();
-        $subcategory->id = 1234;
-        $subcategory->name = "Self Service";
-
-        $category = new \stdClass();
-        $category->id = 12;
-        $category->name = "Restaurantes";
-        $category->subcategory = $subcategory;
-
-        $data = new \stdClass();
-        $data->id = 123;
-        $data->name = "Chegamos!";
-        $data->average_rating = 4;
-        $data->review_count = 3;
-        $data->category = $category;
-        $data->address = $address;
-        $data->point = new \stdClass();
-        $data->point->lat = "-23.529366";
-        $data->point->lng = "-47.467117";
-        $data->main_url = "http://chegamos.com/";
-        $data->small_photo_url = "http://www.apontador.com.br/small_photo";
-        $data->other_url = "http://chegamos.com.br/";
-        $data->icon_url = "http://chegamos.com/img/icon.png";
-        $data->description = "Description";
-        $data->created = "01/12/2010 16:19";
-        $data->phone = new \stdclass();
-        $data->phone->country = "55";
-        $data->phone->area = "11";
-        $data->phone->number = "22223333";
-        $data->extended = $extended;
-        $data->num_visitors = 1024;
-        $data->num_photos = 5;
+    	$data = $this->getPlaceJsonData();
         
-        $this->place = PlaceFactory::generate($data);
+    	$this->place = PlaceFactory::generate($data);
 
         $this->assertEquals(123, $this->place->getId());
         $this->assertEquals("Chegamos!", $this->place->getName());
@@ -127,6 +76,64 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
         	"http://www.apontador.com.br/small_photo",
         	$this->place->getSmallPhotoUrl()
         );
+    }
+    
+    public function getPlaceJsonData()
+    {
+    	$city = new \stdClass();
+    	$city->country = "Brasil";
+    	$city->state = "SP";
+    	$city->name = "São Paulo";
+    
+    	$address = new \stdClass();
+    	$address->city = $city;
+    	$address->complement = "1 Andar";
+    	$address->district = "Vila Olimpia";
+    	$address->number = 129;
+    	$address->street = "Rua Funchal";
+    	$address->zipcode = "04551-069";
+    
+    	$gasStation = new \stdClass();
+    	$gasStation->price_gas = 1.23;
+    	$gasStation->price_vodka = 23.45;
+    
+    	$extended = new \stdClass();
+    	$extended->gas_station = $gasStation;
+    
+    	$subcategory = new \stdClass();
+    	$subcategory->id = 1234;
+    	$subcategory->name = "Self Service";
+    
+    	$category = new \stdClass();
+    	$category->id = 12;
+    	$category->name = "Restaurantes";
+    	$category->subcategory = $subcategory;
+    
+    	$data = new \stdClass();
+    	$data->id = 123;
+    	$data->name = "Chegamos!";
+    	$data->average_rating = 4;
+    	$data->review_count = 3;
+    	$data->category = $category;
+    	$data->address = $address;
+    	$data->point = new \stdClass();
+    	$data->point->lat = "-23.529366";
+    	$data->point->lng = "-47.467117";
+    	$data->main_url = "http://chegamos.com/";
+    	$data->small_photo_url = "http://www.apontador.com.br/small_photo";
+    	$data->other_url = "http://chegamos.com.br/";
+    	$data->icon_url = "http://chegamos.com/img/icon.png";
+    	$data->description = "Description";
+    	$data->created = "01/12/2010 16:19";
+    	$data->phone = new \stdclass();
+    	$data->phone->country = "55";
+    	$data->phone->area = "11";
+    	$data->phone->number = "22223333";
+    	$data->extended = $extended;
+    	$data->num_visitors = 1024;
+    	$data->num_photos = 5;
+    
+    	return $data;
     }
 
     public function testGenerateWithoutData()
