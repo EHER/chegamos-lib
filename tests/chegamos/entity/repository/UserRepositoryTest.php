@@ -2,11 +2,30 @@
 
 namespace chegamos\entity\repository;
 
-use chegamos\rest\Guzzle;
+use Mockery;
+use chegamos\entity\Config;
+use chegamos\rest\auth\BasicAuth;
 
 class UserRepositoryTest extends \PHPUnit_Framework_TestCase
 {
     private $userRepository;
+
+    private function getConfigMock($json)
+    {
+        $restClient = Mockery::mock("chegamos\\rest\\client\\Guzzle");
+        $restClient->shouldReceive('execute')
+            ->once()
+            ->andReturn($json);
+
+        $config = new Config();
+        $config->setBaseUrl('http://api.apontador.com.br/v1/');
+        $config->setBasicAuth(
+            new BasicAuth("User", "Pass")
+        );
+        $config->setRestClient($restClient);
+
+        return $config;
+    }
 
     protected function Setup()
     {
@@ -30,13 +49,9 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
 	}	
 }
 JSON;
-
-        $restClient = $this->getMock('Guzzle', array('get'));
-        $restClient->expects($this->any())
-            ->method('get')
-            ->will($this->returnValue($userJsonString));
-
-        $this->userRepository = new UserRepository($restClient);
+        $this->userRepository = new UserRepository(
+            $this->getConfigMock($userJsonString)
+        );
     }
 
     protected function TearDown()

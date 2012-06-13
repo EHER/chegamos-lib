@@ -2,18 +2,34 @@
 
 namespace chegamos\entity\repository;
 
-use chegamos\rest\Curl as RestClient;
 use Mockery;
-use chegamos\rest\client\Guzzle;
 use chegamos\entity\Config;
 use chegamos\rest\auth\BasicAuth;
 use chegamos\entity\City;
 use chegamos\entity\Address;
 use chegamos\entity\Place;
 use chegamos\entity\State;
+use chegamos\entity\Point;
 
 class PlaceRepositoryTest extends \PHPUnit_Framework_TestCase
 {
+    private function getConfigMock($json)
+    {
+        $restClient = Mockery::mock("chegamos\\rest\\client\\Guzzle");
+        $restClient->shouldReceive('execute')
+            ->once()
+            ->andReturn($json);
+
+        $config = new Config();
+        $config->setBaseUrl('http://api.apontador.com.br/v1/');
+        $config->setBasicAuth(
+            new BasicAuth("User", "Pass")
+        );
+        $config->setRestClient($restClient);
+
+        return $config;
+    }
+
     public function testGetPlaceById()
     {
         $placeJson = <<<JSON
@@ -108,16 +124,12 @@ JSON;
         $this->assertEquals("type=json", $request->getQueryString());
     }
 
-    /**
-    * @ignore
-    */
     public function testByAddress()
     {
         $placeListJson = <<<JSON
 {"search":{
     "result_count":"525341",
     "current_page":"1",
-    
     "places":[
     {"place": {
         "id":"JZRRQ52V",
@@ -169,7 +181,7 @@ JSON;
 JSON;
 
         $restClient = Mockery::mock("chegamos\\rest\\client\\Guzzle");
-        $restClient->shouldReceive('get')
+        $restClient->shouldReceive('execute')
             ->once()
             ->andReturn($placeListJson);
 
@@ -258,18 +270,6 @@ JSON;
     }
 }
 JSON;
-        $restClient = Mockery::mock("chegamos\\rest\\client\\Guzzle");
-        $restClient->shouldReceive('execute')
-            ->once()
-            ->andReturn($placeJson);
-
-        $config = new Config();
-        $config->setBaseUrl('http://api.apontador.com.br/v1/');
-        $config->setBasicAuth(
-            new BasicAuth("User", "Pass")
-        );
-        $config->setRestClient($restClient);
-
         $city = new City();
         $city->setName("Sorocaba");
         $city->setState("SP");
@@ -287,9 +287,126 @@ JSON;
         $place->setName("Bar Tolomeu");
         $place->setAddress($address);
 
-        $placeRepository = new PlaceRepository($config);
+        $placeRepository = new PlaceRepository(
+            $this->getConfigMock($placeJson)
+        );
         $savedPlace = $placeRepository->save($place);
         $this->assertEquals("NOVOID", $savedPlace->getId());
         $this->assertEquals("Bar Tolomeu", $savedPlace->getName());
+    }
+
+    public function testGetAllWithRadius()
+    {
+        $placeListJson = <<<JSON
+{
+    "search": {
+        "result_count": "1",
+        "current_page": "1",
+        "places": [
+            {
+            "place": {
+                "id": "X58D9K6B",
+                "name": "Haro's Buffet",
+                "average_rating": "0",
+                "review_count": "0",
+                "thumbs": {
+                "total": "3",
+                "up": "3"
+            },
+            "category": {
+                "id": "20",
+                "name": "BUFFETS",
+                "subcategory": {
+                    "id": "20",
+                    "name": "Buffets e Recepções"
+                }
+            },
+            "address": {
+                "street": "R. MARLENE",
+                "number": "327",
+                "district": "Nova Gerti",
+                "zipcode": "",
+                "complement": "",
+                "city": {
+                    "country": "BR",
+                    "state": "SP",
+                    "name": "Sao Caetano Do Sul"
+                }
+            },
+            "phone": {
+                "country": "55",
+                "area": "11",
+                "number": "42384913"
+            },
+            "point": {
+                "lat": "-23.64255",
+                "lng": "-46.56799"
+            },
+            "main_url": "http://www.apontador.com.br/local/sp/sao_caetano_do_sul/buffets/X58D9K6B/haro_s_buffet.html",
+            "icon_url": "",
+            "other_url": "http://www.harosbuffet.com.br/",
+            "small_photo_url": ""
+            }
+            }
+        ],
+        "facets": [
+        {
+        "name": "district",
+        "data": [
+        {
+        "name": "nova gerti",
+        "count": "1"
+        }
+        ]
+        },
+        {
+        "name": "city",
+        "data": [
+        {
+        "name": "sao caetano do sul",
+        "count": "1"
+        }
+        ]
+        },
+        {
+        "name": "state",
+        "data": [
+        {
+        "name": "sp",
+        "count": "1"
+        }
+        ]
+        },
+        {
+        "name": "categoryid",
+        "data": [
+        {
+        "name": "20",
+        "count": "1"
+        }
+        ]
+        },
+        {
+        "name": "subcategoryid",
+        "data": [
+        {
+        "name": "20",
+        "count": "1"
+        }
+        ]
+        }
+        ]
+    }
+}
+JSON;
+        $placeRepository = new PlaceRepository(
+            $this->getConfigMock($placeListJson)
+        );
+
+        $places = $placeRepository->byPoint(new Point("-23.529366", "-47.467117"))
+            ->withRadius(1000000)
+            ->withListId("24")
+            ->withFacets()
+            ->getAll();
     }
 }

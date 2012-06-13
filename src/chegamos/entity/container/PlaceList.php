@@ -5,6 +5,7 @@ namespace chegamos\entity\container;
 class PlaceList extends ItemsList
 {
     private $radius;
+    private $facets;
 
     public function setRadius($radius)
     {
@@ -14,6 +15,16 @@ class PlaceList extends ItemsList
     public function getRadius()
     {
         return $this->radius;
+    }
+    
+    public function setFacets($facets)
+    {
+    	$this->facets = $facets;
+    }
+    
+    public function getFacets()
+    {
+    	return $this->facets;
     }
 
     public function addUnique($newItem)

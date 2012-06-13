@@ -17,6 +17,7 @@ class Place
     private $mainUrl = "";
     private $iconUrl = "";
     private $otherUrl = "";
+    private $smallPhotoUrl = "";
     private $description = "";
     private $created = null;
     private $phone = null;
@@ -97,19 +98,19 @@ class Place
     public function getAverageRatingString()
     {
         switch ($this->getAverageRating()) {
-        case 1:
-            return "Péssimo";
-        case 2:
-            return "Ruim";
-        case 3:
-            return "Regular";
-        case 4:
-            return "Bom";
-        case 5:
-            return "Excelente";
-        default:
-            return '';
-            break;
+            case 1:
+                return "Péssimo";
+            case 2:
+                return "Ruim";
+            case 3:
+                return "Regular";
+            case 4:
+                return "Bom";
+            case 5:
+                return "Excelente";
+            default:
+                return '';
+                break;
         }
     }
 
@@ -208,6 +209,16 @@ class Place
         return ROOT_URL . 'places/show/' . $this->getId();
     }
 
+    public function getSmallPhotoUrl()
+    {
+        return $this->smallPhotoUrl;
+    }
+
+    public function setSmallPhotoUrl($smallPhotourl)
+    {
+        $this->smallPhotoUrl = $smallPhotourl;
+    }
+
     public function getPlaceUrl()
     {
         $state = \strtolower($this->getAddress()->getCity()->getState());
@@ -219,7 +230,7 @@ class Place
         $id = $this->getId();
 
         return ROOT_URL .  $state .  '/' . $city .  '/' .
-            $category.  '/' . $name .  '/' . $id .  '.html';
+                $category.  '/' . $name .  '/' . $id .  '.html';
     }
 
     public function getMapUrl()
