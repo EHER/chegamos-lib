@@ -110,7 +110,7 @@ JSON;
     {
         $config = Mockery::mock("chegamos\\entity\\Config");
         $config->shouldReceive('getBaseUrl')->once()->andReturn(
-            "http:/api.apontador.com.br/v1/"
+            "http://api.apontador.com.br/v1/"
         );
         $config->shouldReceive('getBasicAuth')
             ->once()
@@ -120,6 +120,7 @@ JSON;
         $placeRepository = new PlaceRepository($config);
         $request = $placeRepository->byId("UCV34B2P")->getRequest();
         $this->assertEquals("chegamos\\rest\\Request", get_class($request));
+        $this->assertEquals("GET", $request->getVerb());
         $this->assertEquals("places/UCV34B2P", $request->getPath());
         $this->assertEquals("type=json", $request->getQueryString());
     }

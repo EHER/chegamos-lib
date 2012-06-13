@@ -37,6 +37,7 @@ class UserRepository
         $this->setup();
 
         $userJsonObject = json_decode($userJsonString);
+
         return UserFactory::generate($userJsonObject->user);
     }
 
@@ -51,24 +52,28 @@ class UserRepository
         $this->setup();
 
         $userListJsonObject = json_decode($userListJsonString);
+
         return UserListFactory::generate($userListJsonObject->search);
     }
 
     public function withDetails()
     {
         $this->requestType = 'details';
+
         return $this;
     }
 
     public function withReviews()
     {
         $this->requestType = 'reviews';
+
         return $this;
     }
 
     public function byId($id)
     {
         $this->request->addParam('id', $id);
+
         return $this;
     }
 
@@ -76,6 +81,7 @@ class UserRepository
     {
         $this->requestType = 'usersByName';
         $this->request->addQueryItem("name", $name);
+
         return $this;
     }
 
@@ -83,12 +89,14 @@ class UserRepository
     {
         $this->requestType = 'usersByEmail';
         $this->request->addQueryItem("email", $email);
+
         return $this;
     }
 
     public function page($page)
     {
         $this->request->addQueryItem("page", $page);
+
         return $this;
     }
 
@@ -125,9 +133,12 @@ class UserRepository
             $this->request->setPath("users/" . $this->request->getParam('id'));
             break;
         case 'reviews':
-            $this->request->setPath("users/" . $this->request->getParam('id') . '/reviews');
+            $this->request->setPath(
+                "users/" . $this->request->getParam('id') . '/reviews'
+            );
             break;
         }
-        return $path;
+
+        return $this->request->getPath();
     }
 }
