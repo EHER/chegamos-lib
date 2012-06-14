@@ -2,7 +2,7 @@
 
 namespace chegamos\entity\container;
 
-class ItemsList
+class ItemsList implements \IteratorAggregate
 {
     protected $items = array();
     protected $numFound = 0;
@@ -17,6 +17,11 @@ class ItemsList
     public function getNumFound()
     {
         return $this->numFound;
+    }
+
+    public function getIterator()
+    {
+        return new ItemsIterator($this);
     }
 
     public function setNumFound($numFound)
