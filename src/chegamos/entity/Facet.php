@@ -4,8 +4,8 @@ namespace chegamos\entity;
 
 class Facet
 {
-	private $data;
-	private $name;
+    private $data;
+    private $name;
 
     public function __construct($name)
     {
@@ -17,14 +17,14 @@ class Facet
     {
         $this->data[$name] = (int) $value;
     }
-    
+
     public function getName()
     {
-    	return $this->name;
+        return $this->name;
     }
-    
+
     public function getData()
     {
-    	return $this->data;
+        return $this->data;
     }
 }

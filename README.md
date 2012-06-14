@@ -11,19 +11,31 @@ Os exemplos esperam que você tenha um Autoloader configurado e que tenha suas c
     <?php
 
     use chegamos\rest\client\Curl as RestClient;
+    use chegamos\rest\auth\BasicAuth;
+    use chegamos\entity\Config;
     use chegamos\entity\repository\UserRepository;
     use chegamos\entity\repository\PlaceRepository;
 
-    $key = "MinhaConsumerKey";
-    $secret = "MinhaConsumerSecret";
+    use chegamos\entity\City;
+    use chegamos\entity\Address;
+    use chegamos\entity\Point;
 
-    $restClient = new RestClient("http://api.apontador.com.br/v1/");
-    $restClient->setAuth($key, $secret);
+    $key = "ConsumerKey";
+    $secret = "ConsumerSecret";
+
+    $config = new Config();
+    $config->setBaseUrl("http://api.apontador.com.br/v1/");
+    $config->setBasicAuth(
+        new BasicAuth($key, $secret)
+    );
+    $config->setRestClient(
+        new RestClient()
+    );
 
 
 ### Repositório de locais
 
-    $placeRepository = new PlaceRepository($restClient);
+    $placeRepository = new PlaceRepository($config);
 
 #### Pegar dados de um local:
 
@@ -98,7 +110,7 @@ Os exemplos esperam que você tenha um Autoloader configurado e que tenha suas c
 
 ### Repositório de usuários
 
-    $userRepository = new UserRepository($restClient);
+    $userRepository = new UserRepository($config);
 
 #### Pegar dados de um usuário:
 

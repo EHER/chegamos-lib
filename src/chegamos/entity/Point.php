@@ -9,7 +9,7 @@ class Point
 
     function __construct($lat = null, $lng = null)
     {
-   		if (isset($lat)) {
+        if (isset($lat)) {
             $this->setLat($lat);
         }
         if (isset($lng)) {

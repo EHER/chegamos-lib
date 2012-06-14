@@ -4,8 +4,32 @@ namespace chegamos\rest;
 
 class Request
 {
+    private $verb;
+    private $baseUrl;
     private $path;
     private $query = array();
+    private $param = array();
+    private $header;
+
+    public function setVerb($verb)
+    {
+        $this->verb = $verb;
+    }
+
+    public function getVerb()
+    {
+        return $this->verb;
+    }
+
+    public function setBaseUrl($baseUrl)
+    {
+        $this->baseUrl = $baseUrl;
+    }
+
+    public function getBaseUrl()
+    {
+        return $this->baseUrl;
+    }
 
     public function setPath($path)
     {
@@ -30,5 +54,31 @@ class Request
     public function getQueryString()
     {
         return http_build_query($this->query);
+    }
+
+    public function addParam($key, $value)
+    {
+        $this->param[$key] = $value;
+    }
+
+    public function getParam($key)
+    {
+        return $this->param[$key];
+    }
+
+    public function setHeader($header)
+    {
+        $this->header = $header;
+    }
+
+    public function getHeader()
+    {
+        return $this->header;
+    }
+
+    public function getUrlWithQueryString()
+    {
+        return $this->getBaseUrl() . $this->getPath()
+            . "?" . $this->getQueryString();
     }
 }

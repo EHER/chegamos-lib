@@ -3,79 +3,32 @@
 namespace chegamos\rest\client;
 
 use Guzzle\Service\Client as GuzzleClient ;
+use chegamos\rest\Request;
 
 class Guzzle extends Client
 {
-    private $client;
-    private $url;
-    private $user;
-    private $password;
     private $response;
-
-    public function __construct($url)
-    {
-        $this->url = $url;
-        $this->client = new GuzzleClient($url);
-    }
-
-    public function setAuth($user, $password)
-    {
-        $this->user = $user;
-        $this->password = $password;
-    }
 
     public function getBody()
     {
         return (string) $this->response->getBody();
     }
 
-    public function setClient($client)
+    public function execute(Request $request)
     {
-        $this->client = $client;
-    }
+        $guzzle = new GuzzleClient();
 
-    public function get($path)
-    {
-        $this->response = $this->client
-            ->get($path)
-            ->setAuth($this->user, $this->password)
-            ->send();
-        return $this->getBody();
-    }
+        if ($request->getVerb() == 'GET') {
+            $guzzleRequest = $guzzle->get($request->getUrlWithQueryString());
+        }
 
-    public function post($path)
-    {
-        $this->response = $this->client
-            ->post($path)
-            ->setAuth($this->user, $this->password)
-            ->send();
-        return $this->getBody();
-    }
+        if ($request->getHeader()) {
+            list ($headerName, $headerValue) = $request->getHeader();
+            $guzzleRequest->setHeader($headerName, $headerValue);
+        }
 
-    public function delete($path)
-    {
-        $this->response = $this->client
-            ->delete($path)
-            ->setAuth($this->user, $this->password)
-            ->send();
-        return $this->getBody();
-    }
+        $this->response = $guzzleRequest->send();
 
-    public function head($path)
-    {
-        $this->response = $this->client
-            ->head($path)
-            ->setAuth($this->user, $this->password)
-            ->send();
-        return $this->getBody();
-    }
-
-    public function put($path)
-    {
-        $this->response = $this->client
-            ->put($path)
-            ->setAuth($this->user, $this->password)
-            ->send();
         return $this->getBody();
     }
 }

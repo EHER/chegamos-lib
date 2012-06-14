@@ -16,11 +16,13 @@ class PlaceListFactory
             foreach ($placeListJsonObject->places as $place) {
                 $placeList->add(PlaceFactory::generate($place->place));
             }
-            
+
             if (isset($placeListJsonObject->facets)) {
-            	$placeList->setFacets(FacetsFactory::generate($placeListJsonObject->facets));
+                $placeList->setFacets(
+                    FacetsFactory::generate($placeListJsonObject->facets)
+                );
             }
-            
+
             return $placeList;
         } else {
             throw new ChegamosException("Parâmetro passado não é um objeto.");

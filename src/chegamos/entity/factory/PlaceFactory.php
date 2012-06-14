@@ -15,58 +15,116 @@ use chegamos\exception\ChegamosException;
 
 class PlaceFactory
 {
+    private static $placeJsonObject;
+
     public static function generate($placeJsonObject)
     {
         if (is_object($placeJsonObject)) {
-            $isFullPlace = isset($placeJsonObject->description);
-            $isPhotoList = isset($placeJsonObject->photos);
-            $isReviewList = isset($placeJsonObject->reviews);
-            $isExtendedPlace = isset($placeJsonObject->extended);
-            $isPlaceListOrFullPlace = isset($placeJsonObject->name);
-            $isPlaceList = isset($placeJsonObject->small_photo_url);
-
-            $place = new Place();
-            $place->setId($placeJsonObject->id);
-
-            if ($isPlaceList) {
-            	$place->setSmallPhotoUrl($placeJsonObject->small_photo_url);
-            }
-            
-            if ($isPlaceListOrFullPlace) {
-                $place->setName($placeJsonObject->name);
-                $place->setAverageRating($placeJsonObject->average_rating);
-                $place->setReviewCount($placeJsonObject->review_count);
-                $place->setAddress(new Address($placeJsonObject->address));
-                $place->setPoint(PointFactory::generate($placeJsonObject->point));
-                $place->setMainUrl($placeJsonObject->main_url);
-                $place->setOtherUrl($placeJsonObject->other_url);
-                $place->setIconUrl($placeJsonObject->icon_url);
-                $place->setCategory(
-                    CategoryFactory::generate($placeJsonObject->category)
-                );
-                $place->setPhone(PhoneFactory::generate($placeJsonObject->phone));
-            }
-            
-            if ($isFullPlace) {
-                $place->setDescription($placeJsonObject->description);
-                $place->setCreated($placeJsonObject->created);
-            }
-
-            if ($isPhotoList) {
-                $place->setPhotos(PhotoListFactory::generate($placeJsonObject));
-            }
-
-            if ($isReviewList) {
-                $place->setReviews(ReviewListFactory::generate($placeJsonObject));
-            }
-
-            if ($isExtendedPlace) {
-                $place->setPlaceInfo(new PlaceInfo($placeJsonObject->extended));
-            }
-
-            return $place;
-        } else {
-            throw new ChegamosException("Parâmetro data não é um objeto.");
+            return self::createAndPopulatePlace($placeJsonObject);
         }
+
+        throw new ChegamosException("Parâmetro data não é um objeto.");
+    }
+
+    private static function createAndPopulatePlace($placeJsonObject)
+    {
+        self::$placeJsonObject = $placeJsonObject;
+
+        $place = new Place();
+        $place->setId(self::$placeJsonObject->id);
+
+        self::populatePlaceWhenIsAPlaceList($place);
+        self::populatePlaceWhenIsAPlaceListOrFullPlace($place);
+        self::populatePlaceWhenIsAFullPlace($place);
+        self::populatePlaceWhenIsAPhotoList($place);
+        self::populatePlaceWhenIsAReviewList($place);
+        self::populatePlaceWhenIsExtendedPlace($place);
+
+        return $place;
+    }
+
+    private static function populatePlaceWhenIsAPlaceList($place)
+    {
+        if (self::isPlaceList()) {
+            $place->setSmallPhotoUrl(self::$placeJsonObject->small_photo_url);
+        }
+    }
+
+    private static function isPlaceList()
+    {
+        return isset(self::$placeJsonObject->small_photo_url);
+    }
+
+    private static function populatePlaceWhenIsAPlaceListOrFullPlace($place)
+    {
+        if (self::isPlaceListOrFullPlace()) {
+            $place->setName(self::$placeJsonObject->name);
+            $place->setAverageRating(self::$placeJsonObject->average_rating);
+            $place->setReviewCount(self::$placeJsonObject->review_count);
+            $place->setAddress(new Address(self::$placeJsonObject->address));
+            $place->setPoint(PointFactory::generate(self::$placeJsonObject->point));
+            $place->setMainUrl(self::$placeJsonObject->main_url);
+            $place->setOtherUrl(self::$placeJsonObject->other_url);
+            $place->setIconUrl(self::$placeJsonObject->icon_url);
+
+            $place->setCategory(
+                CategoryFactory::generate(self::$placeJsonObject->category)
+            );
+            $place->setPhone(PhoneFactory::generate(self::$placeJsonObject->phone));
+        }
+    }
+
+    private static function isPlaceListOrfullPlace()
+    {
+        return isset(self::$placeJsonObject->name);
+    }
+
+    private static function populatePlaceWhenIsAFullPlace($place)
+    {
+        if (self::isFullPlace()) {
+            $place->setDescription(self::$placeJsonObject->description);
+            $place->setCreated(self::$placeJsonObject->created);
+        }
+    }
+
+    private static function isFullPlace()
+    {
+        return isset(self::$placeJsonObject->description);
+    }
+
+    private static function populatePlaceWhenIsAPhotoList($place)
+    {
+        if (self::isPhotoList()) {
+            $place->setPhotos(PhotoListFactory::generate(self::$placeJsonObject));
+        }
+    }
+
+    private static function isPhotoList()
+    {
+        return isset(self::$placeJsonObject->photos);
+    }
+
+    private static function populatePlaceWhenIsAReviewList($place)
+    {
+        if (self::isReviewList()) {
+            $place->setReviews(ReviewListFactory::generate(self::$placeJsonObject));
+        }
+    }
+
+    private static function isReviewList()
+    {
+        return isset(self::$placeJsonObject->reviews);
+    }
+
+    private static function populatePlaceWhenIsExtendedPlace($place)
+    {
+        if (self::isExtendedPlace()) {
+            $place->setPlaceInfo(new PlaceInfo(self::$placeJsonObject->extended));
+        }
+    }
+
+    private static function isExtendedPlace()
+    {
+        return isset(self::$placeJsonObject->extended);
     }
 }

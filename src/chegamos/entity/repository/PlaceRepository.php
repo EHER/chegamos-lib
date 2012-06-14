@@ -2,6 +2,8 @@
 
 namespace chegamos\entity\repository;
 
+use chegamos\entity\Config;
+use chegamos\entity\Place;
 use chegamos\entity\Address;
 use chegamos\entity\Point;
 use chegamos\entity\factory\PlaceFactory;
@@ -10,15 +12,16 @@ use chegamos\rest\Request;
 
 class PlaceRepository
 {
-    private $restClient;
+    private $config;
     private $requestType;
-    private $query;
-    private $param;
     private $request;
 
-    public function __construct($restClient)
+    public function __construct(Config $config)
     {
-        $this->restClient = $restClient;
+        if (!empty($config)) {
+            $this->config = $config;
+        }
+
         $this->setup();
     }
 
@@ -28,47 +31,72 @@ class PlaceRepository
             $this->byId($id);
         }
 
-        $placeJsonString = $this->restClient->get(
-            $this->getPath() . '?' . $this->getQueryString()
-        );
+        $this->getPath();
+
+        $placeJsonString = $this->config
+            ->getRestClient()
+            ->execute($this->request);
         $this->setup();
 
         $placeJsonObject = json_decode($placeJsonString);
+
         return PlaceFactory::generate($placeJsonObject->place);
     }
 
     public function getAll()
     {
-        $placeListJsonString = $this->restClient->get(
-            $this->getPath() . '?' . $this->getQueryString()
-        );
+        $this->getPath();
+
+        $placeListJsonString = $this->config
+            ->getRestClient()
+            ->execute($this->request);
         $this->setup();
 
-        $placeListJsonObject = json_decode($placeListJsonString); 
+        $placeListJsonObject = json_decode($placeListJsonString);
+
         return PlaceListFactory::generate($placeListJsonObject->search);
+    }
+
+    public function save(Place $place)
+    {
+        $this->requestType = 'savePlace';
+        $this->getPath();
+
+        $placeJsonString = $this->config
+            ->getRestClient()
+            ->execute($this->request);
+        $this->setup();
+
+        $placeJsonObject = json_decode($placeJsonString);
+
+        return PlaceFactory::generate($placeJsonObject->place);
     }
 
     public function withDetails()
     {
         $this->requestType = 'details';
+
         return $this;
     }
 
     public function withReviews()
     {
         $this->requestType = 'reviews';
+
         return $this;
     }
 
     public function withPhotos()
     {
         $this->requestType = 'photos';
+
         return $this;
     }
 
     public function byId($id)
     {
-        $this->param['id'] = $id;
+        $this->request->addParam('id', $id);
+
         return $this;
     }
 
@@ -76,6 +104,7 @@ class PlaceRepository
     {
         $this->requestType = 'placesByZipcode';
         $this->request->addQueryItem("zipcode", $zipcode);
+
         return $this;
     }
 
@@ -84,6 +113,7 @@ class PlaceRepository
         $this->requestType = 'placesByAddress';
         $this->request->addQueryItem("city", $address->getCity()->getName());
         $this->request->addQueryItem("state", $address->getCity()->getState());
+
         return $this;
     }
 
@@ -92,6 +122,7 @@ class PlaceRepository
         $this->requestType = 'placesByPoint';
         $this->request->addQueryItem("lat", $point->getLat());
         $this->request->addQueryItem("lng", $point->getLng());
+
         return $this;
     }
 
@@ -99,48 +130,56 @@ class PlaceRepository
     {
         $this->requestType = 'placesByName';
         $this->request->addQueryItem("q", $name);
+
         return $this;
     }
 
     public function withName($name)
     {
         $this->request->addQueryItem("term", $name);
+
         return $this;
     }
 
     public function withCategoryId($categoryId)
     {
         $this->request->addQueryItem("category_id", $categoryId);
+
         return $this;
     }
 
     public function withSubcategoryId($subcategoryId)
     {
         $this->request->addQueryItem("subcategory_id", $subcategoryId);
+
         return $this;
     }
 
     public function withListId($listId)
     {
         $this->request->addQueryItem("list_id", $listId);
+
         return $this;
     }
-    
-	public function withRadius($radius)
+
+    public function withRadius($radius)
     {
-    	$this->request->addQueryItem("radius_mt", $radius);
-    	return $this;
+        $this->request->addQueryItem("radius_mt", $radius);
+
+        return $this;
     }
-    
+
     public function withFacets()
     {
-    	$this->request->addQueryItem("facets", "1");
-    	return $this;
+        $this->request->addQueryItem("facets", "1");
+
+        return $this;
     }
 
     public function page($page)
     {
         $this->request->addQueryItem("page", $page);
+
         return $this;
     }
 
@@ -152,15 +191,17 @@ class PlaceRepository
 
     private function setup()
     {
-        $this->requestType = "details";
         $this->request = new Request();
+        $this->request->setBaseUrl($this->config->getBaseUrl());
         $this->request->addQueryItem("type", "json");
-        $this->param = array();
-    }
+        $this->request->setVerb('GET');
 
-    private function getQueryString()
-    {
-        return $this->request->getQueryString();
+        $basicAuth = $this->config->getBasicAuth();
+        if (!empty($basicAuth)) {
+            $this->request->setHeader($basicAuth->getHeader());
+        }
+
+        $this->requestType = "details";
     }
 
     private function getPath()
@@ -168,7 +209,7 @@ class PlaceRepository
         switch ($this->requestType) {
 
         case 'details':
-            $this->request->setPath("places/" . $this->param['id']);
+            $this->request->setPath("places/" . $this->request->getParam('id'));
             break;
         case 'placesByZipcode':
             $this->request->setPath("search/places/byzipcode");
@@ -180,12 +221,17 @@ class PlaceRepository
             $this->request->setPath("search/places/bypoint");
             break;
         case 'reviews':
-            $this->request->setPath("places/" . $this->param['id'] . '/reviews');
+            $this->request->setPath(
+                "places/" . $this->request->getParam('id') . '/reviews'
+            );
             break;
         case 'photos':
-            $this->request->setPath("places/" . $this->param['id'] . '/photos');
+            $this->request->setPath(
+                "places/" . $this->request->getParam('id') . '/photos'
+            );
             break;
         }
+
         return $this->request->getPath();
     }
 }

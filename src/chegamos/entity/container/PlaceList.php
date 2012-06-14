@@ -16,15 +16,15 @@ class PlaceList extends ItemsList
     {
         return $this->radius;
     }
-    
+
     public function setFacets($facets)
     {
-    	$this->facets = $facets;
+        $this->facets = $facets;
     }
-    
+
     public function getFacets()
     {
-    	return $this->facets;
+        return $this->facets;
     }
 
     public function addUnique($newItem)

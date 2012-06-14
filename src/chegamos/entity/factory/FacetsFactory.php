@@ -11,13 +11,13 @@ class FacetsFactory
     {
         if (is_array($jsonObject)) {
             $facets = array();
-            
-            foreach($jsonObject as $facetObject) {
-            	$facet = new Facet($facetObject->name);
-            	foreach ($facetObject->data as $data) {
-            		$facet->add($data->name, $data->count);
-            	}
-            	$facets[] = $facet;
+
+            foreach ($jsonObject as $facetObject) {
+                $facet = new Facet($facetObject->name);
+                foreach ($facetObject->data as $data) {
+                    $facet->add($data->name, $data->count);
+                }
+                $facets[] = $facet;
             }
             return $facets;
         } else {

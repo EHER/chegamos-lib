@@ -208,15 +208,15 @@ class Place
     {
         return ROOT_URL . 'places/show/' . $this->getId();
     }
-    
+
     public function getSmallPhotoUrl()
     {
-    	return $this->smallPhotoUrl;
+        return $this->smallPhotoUrl;
     }
-    
+
     public function setSmallPhotoUrl($smallPhotourl)
     {
-    	$this->smallPhotoUrl = $smallPhotourl;
+        $this->smallPhotoUrl = $smallPhotourl;
     }
 
     public function getPlaceUrl()

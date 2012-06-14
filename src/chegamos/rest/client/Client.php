@@ -2,15 +2,29 @@
 
 namespace chegamos\rest\client;
 
+use chegamos\rest\Request;
+use chegamos\rest\auth\BasicAuth;
+
 abstract class Client
 {
-    public abstract function __construct($url);
-    public abstract function setAuth($user, $password);
+    private $basicAuth;
+
     public abstract function getBody();
-    public abstract function get($path);
-    public abstract function post($path);
-    public abstract function delete($path);
-    public abstract function head($path);
-    public abstract function put($path);
+    public abstract function execute(Request $request);
+
+    public function setBasicAuth(BasicAuth $basicAuth)
+    {
+        $this->basicAuth = $basicAuth;
+    }
+
+    public function getBasicAuth()
+    {
+        return $this->basicAuth;
+    }
+
+    public function getOAuth()
+    {
+        return $this->oAuth;
+    }
 }
 
