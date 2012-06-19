@@ -117,6 +117,13 @@ class PlaceRepository
         return $this;
     }
 
+    public function byListId($listId) {
+        $this->request->addParam('listId', $listId);
+        $this->requestType = 'placesByListId';
+
+        return $this;
+    }
+
     public function byPoint(Point $point)
     {
         $this->requestType = 'placesByPoint';
@@ -165,6 +172,27 @@ class PlaceRepository
     public function withRadius($radius)
     {
         $this->request->addQueryItem("radius_mt", $radius);
+
+        return $this;
+    }
+
+    public function withState($state)
+    {
+        $this->request->addQueryItem("state", $state);
+
+        return $this;
+    }
+
+    public function withCity($city)
+    {
+        $this->request->addQueryItem("city", $city);
+
+        return $this;
+    }
+
+    public function withDistrict($district)
+    {
+        $this->request->addQueryItem("district", $district);
 
         return $this;
     }
@@ -219,6 +247,9 @@ class PlaceRepository
             break;
         case 'placesByPoint':
             $this->request->setPath("search/places/bypoint");
+            break;
+        case 'placesByListId':
+            $this->request->setPath("places/list/" . $this->request->getParam('listId'));
             break;
         case 'reviews':
             $this->request->setPath(

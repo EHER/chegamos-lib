@@ -10,6 +10,7 @@ use chegamos\entity\Address;
 use chegamos\entity\Place;
 use chegamos\entity\State;
 use chegamos\entity\Point;
+use chegamos\rest\client\Guzzle;
 
 class PlaceRepositoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -35,7 +36,7 @@ class PlaceRepositoryTest extends \PHPUnit_Framework_TestCase
         $placeJson = <<<JSON
 {"place": {
     "id":"UCV34B2P",
-    "name":"Uziel Restaurante - S\u00E3o Paulo",
+    "name":"Uziel Restaurante - Sao Paulo",
     "description": "Um bom restaurante",
     "review_count":"52",
     "average_rating":"4",
@@ -103,7 +104,7 @@ JSON;
 
         $placeRepository = new PlaceRepository($config);
         $place = $placeRepository->get("UCV34B2P");
-        $this->assertEquals("Uziel Restaurante - São Paulo", $place->getName());
+        $this->assertEquals("Uziel Restaurante - Sao Paulo", $place->getName());
     }
 
     public function testGetRequestByPlaceId()
@@ -134,7 +135,7 @@ JSON;
     "places":[
     {"place": {
         "id":"JZRRQ52V",
-        "name":"Ag\u00EAncia Dos Correios - Vila Maria",
+        "name":"Agencia Dos Correios - Vila Maria",
         "average_rating":"1",
         "review_count":"135",
         "thumbs":{
@@ -203,7 +204,7 @@ JSON;
         $placeRepository = new PlaceRepository($config);
         $place = $placeRepository->byAddress($address)->getAll();
         $this->assertEquals(
-            "Agência Dos Correios - Vila Maria",
+            "Agencia Dos Correios - Vila Maria",
             $place->getItem(0)->getName()
         );
         $this->assertEquals(
@@ -409,5 +410,72 @@ JSON;
             ->withListId("24")
             ->withFacets()
             ->getAll();
+    }
+
+    private function getPlaceRepo() {
+        $restClient = new Guzzle();
+        
+        $config = new Config();
+        $config->setBaseUrl('http://api.apontador.com.br/v1/');
+        $config->setBasicAuth(
+            new BasicAuth("User", "Pass")
+        );
+        $config->setRestClient($restClient);
+
+        return new PlaceRepository($config);
+    }
+
+    public function testSearchPlacesByListId() {
+        $request = $this->getPlaceRepo()
+            ->byListId("21")
+            ->withFacets()
+            ->getRequest()->getUrlWithQueryString();
+
+        $this->assertEquals(
+            "http://api.apontador.com.br/v1/places/list/21?type=json&facets=1", 
+            $request
+        );
+    }
+
+    public function testSearchPlacesByListIdWithState() {
+        $request = $this->getPlaceRepo()
+            ->byListId("21")
+            ->withState('sp')
+            ->withFacets()
+            ->getRequest()->getUrlWithQueryString();
+
+        $this->assertEquals(
+            "http://api.apontador.com.br/v1/places/list/21?type=json&state=sp&facets=1", 
+            $request
+        );
+    }
+
+    public function testSearchPlacesByListIdWithStateAndCity() {
+        $request = $this->getPlaceRepo()
+            ->byListId("21")
+            ->withState('sp')
+            ->withCity('São Paulo')
+            ->withFacets()
+            ->getRequest()->getUrlWithQueryString();
+
+        $this->assertEquals(
+            "http://api.apontador.com.br/v1/places/list/21?type=json&state=sp&city=S%C3%A3o+Paulo&facets=1", 
+            $request
+        );
+    }
+
+    public function testSearchPlacesByListIdWithStateCityAndDistrict() {
+        $request = $this->getPlaceRepo()
+            ->byListId("21")
+            ->withState('SP')
+            ->withCity('Guarujá')
+            ->withDistrict('Vila Luis Antonio')
+            ->withFacets()
+            ->getRequest()->getUrlWithQueryString();
+
+        $this->assertEquals(
+            "http://api.apontador.com.br/v1/places/list/21?type=json&state=SP&city=Guaruj%C3%A1&district=Vila+Luis+Antonio&facets=1", 
+            $request
+        );
     }
 }
