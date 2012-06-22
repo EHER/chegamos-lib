@@ -169,6 +169,13 @@ class PlaceRepository
         return $this;
     }
 
+    public function withLimit($limit)
+    {
+        $this->request->addQueryItem("limit", $limit);
+
+        return $this;
+    }
+
     public function withRadius($radius)
     {
         $this->request->addQueryItem("radius_mt", $radius);
