@@ -30,11 +30,11 @@ get-composer:
 
 composer-install:
 	@echo "Instalando dependencias usando o Composer"
-	php composer.phar install
+	php composer.phar install --dev
 
 composer-update:
 	@echo "Atualizando dependencias usando o Composer"
-	php composer.phar update
+	php composer.phar update --dev
 
 docblox-config:
 	@echo "Configurando Template do Docblox"
