@@ -2,7 +2,7 @@
 
 namespace chegamos\entity\container;
 
-class ItemsIterator implements \Iterator, \Countable
+class ItemsIterator extends \ArrayIterator
 {
     protected $items = array();
 
