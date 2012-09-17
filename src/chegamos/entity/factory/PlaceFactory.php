@@ -33,6 +33,8 @@ class PlaceFactory
         $place = new Place();
         $place->setId(self::$placeJsonObject->id);
 
+        self::populateUtilities($place);
+
         self::populatePlaceWhenIsAPlaceList($place);
         self::populatePlaceWhenIsAPlaceListOrFullPlace($place);
         self::populatePlaceWhenIsAFullPlace($place);
@@ -41,6 +43,31 @@ class PlaceFactory
         self::populatePlaceWhenIsExtendedPlace($place);
 
         return $place;
+    }
+
+    private static function populateUtilities(Place $place)
+    {
+        if (empty(self::$placeJsonObject->utilities)) {
+            return;
+        }
+
+        $utilities = new UtilityList();
+        foreach (self::$placeJsonObject->utilities as $item) {
+            $utility = new Utility();
+
+            // php as vezes chateia-nos... :/
+            $type = isset($item->type) ? $item->type: '';
+            $partnerToken = isset($item->partnerToken) ? $item->partnerToken : '';
+            $endPointUrl = isset($item->endpoint_url) ? $item->endpoint_url : '';
+
+            $utility->setType($type)
+                ->setPartnerToken($partnerToken)
+                ->setEndPointUrl($endPointUrl);
+
+            $utilities->add($utility);
+        }
+
+        $place->setUtilities($utilities);
     }
 
     private static function populatePlaceWhenIsAPlaceList($place)

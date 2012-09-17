@@ -24,6 +24,7 @@ class Place
     private $placeInfo = null;
     private $reviews = null;
     private $photos = null;
+    private $utilities;
 
     public function setId($id)
     {
@@ -217,6 +218,16 @@ class Place
     public function setSmallPhotoUrl($smallPhotourl)
     {
         $this->smallPhotoUrl = $smallPhotourl;
+    }
+
+    public function setUtilities($utilities)
+    {
+        $this->utilities = $utilities;
+    }
+
+    public function getUtilities()
+    {
+        return $this->utilities;
     }
 
     public function getPlaceUrl()

@@ -41,5 +41,35 @@ class ItemsIterator extends \ArrayIterator
         return count($this->items);
     }
 
+    public function setItems(array $items)
+    {
+        $this->items = $items;
+    }
 
+    public function getArrayCopy()
+    {
+        return $this->items;
+    }
+
+    public function offsetExists($index)
+    {
+        return isset($this->items[$index]);
+    }
+
+    public function offsetGet($index)
+    {
+        if ($this->offsetExists($index)) {
+            return $this->items[$index];
+        }
+    }
+
+    public function offsetSet($index, $value)
+    {
+        $this->items[$index] = $value;
+    }
+
+    public function offsetUnset($index)
+    {
+        unset($this->items[$index]);
+    }
 }

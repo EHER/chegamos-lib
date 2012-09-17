@@ -113,7 +113,7 @@ class PlaceRepository
         $this->requestType = 'placesByAddress';
         $this->request->addQueryItem("city", $address->getCity()->getName());
         $this->request->addQueryItem("state", $address->getCity()->getState());
-
+        
         return $this;
     }
 
@@ -208,6 +208,17 @@ class PlaceRepository
     {
         $this->request->addQueryItem("facets", "1");
 
+        return $this;
+    }
+
+    public function withFacilities()
+    {
+        return $this->withUtilities();
+    }
+
+    public function withUtilities()
+    {
+        $this->request->addQueryItem('utilities', '1');
         return $this;
     }
 
