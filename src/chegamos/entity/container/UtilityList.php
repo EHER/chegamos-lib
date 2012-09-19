@@ -2,8 +2,9 @@
 
 namespace chegamos\entity\container;
 use chegamos\entity\Utility;
+use chegamos\entity\container\ItemsList;
 
-class UtilityList extends ItemList
+class UtilityList extends ItemsList
 {
     private $utilities = array();
 
