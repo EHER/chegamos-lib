@@ -164,7 +164,7 @@ class PlaceRepository
 
     public function withListId($listId)
     {
-        $this->request->addQueryItem("list_id", $listId);
+        $this->request->addQueryItem("listid", $listId);
 
         return $this;
     }
@@ -211,14 +211,15 @@ class PlaceRepository
         return $this;
     }
 
-    public function withFacilities()
-    {
-        return $this->withUtilities();
-    }
-
     public function withUtilities()
     {
         $this->request->addQueryItem('utilities', '1');
+        return $this;
+    }
+
+    public function withRecommendations()
+    {
+        $this->request->addQueryItem('qt', 'recomendados');
         return $this;
     }
 

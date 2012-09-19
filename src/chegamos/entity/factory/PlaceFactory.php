@@ -12,6 +12,8 @@ use chegamos\entity\factory\ReviewListFactory;
 use chegamos\entity\factory\CategoryFactory;
 use chegamos\util\Inflector;
 use chegamos\exception\ChegamosException;
+use chegamos\entity\container\UtilityList;
+use chegamos\entity\Utility;
 
 class PlaceFactory
 {
