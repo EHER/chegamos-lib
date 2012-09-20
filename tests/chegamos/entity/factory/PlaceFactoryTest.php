@@ -13,11 +13,11 @@ use chegamos\exception\ChegamosException;
 
 class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
 {
-	public function testGenerate()
+    public function testGenerate()
     {
-    	$data = $this->getPlaceJsonData();
-        
-    	$this->place = PlaceFactory::generate($data);
+        $data = $this->getPlaceJsonData();
+
+        $this->place = PlaceFactory::generate($data);
 
         $this->assertEquals(123, $this->place->getId());
         $this->assertEquals("Chegamos!", $this->place->getName());
@@ -77,8 +77,8 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
         	$this->place->getSmallPhotoUrl()
         );
     }
-    
-    public function getPlaceJsonData()
+
+    private function getPlaceJsonData()
     {
     	$city = new \stdClass();
     	$city->country = "Brasil";
