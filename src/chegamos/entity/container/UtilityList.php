@@ -10,11 +10,11 @@ class UtilityList extends ItemsList
 
     public function add($utility)
     {
-    	if (!$utility instanceof Utility) {
-    		throw new \InvalidArgumentException(
-    			'to add an utility it must be instance of chegamos\entity\Utility'
-			);
-    	}
+        if (!$utility instanceof Utility) {
+            throw new \InvalidArgumentException(
+                'to add an utility it must be instance of chegamos\entity\Utility'
+            );
+        }
         $this->utilities[] = $utility;
     }
 
