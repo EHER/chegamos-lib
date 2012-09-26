@@ -113,11 +113,14 @@ class PlaceRepository
         $this->requestType = 'placesByAddress';
         $this->request->addQueryItem("city", $address->getCity()->getName());
         $this->request->addQueryItem("state", $address->getCity()->getState());
-        
+        $this->request->addQueryItem("street", $address->getStreet());
+        $this->request->addQueryItem("number", $address->getNumber());
+
         return $this;
     }
 
-    public function byListId($listId) {
+    public function byListId($listId)
+    {
         $this->request->addParam('listId', $listId);
         $this->requestType = 'placesByListId';
 
@@ -223,6 +226,12 @@ class PlaceRepository
         return $this;
     }
 
+    public function sortByDistance()
+    {
+        $this->request->addQueryItem('sort_by', 'distance');
+        return $this;
+    }
+
     public function page($page)
     {
         $this->request->addQueryItem("page", $page);
@@ -268,7 +277,9 @@ class PlaceRepository
             $this->request->setPath("search/places/bypoint");
             break;
         case 'placesByListId':
-            $this->request->setPath("places/list/" . $this->request->getParam('listId'));
+            $this->request->setPath(
+                "places/list/" . $this->request->getParam('listId')
+            );
             break;
         case 'reviews':
             $this->request->setPath(

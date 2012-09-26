@@ -478,4 +478,25 @@ JSON;
             $request
         );
     }
+
+    public function testSearchPlacesNearAnAddress() {
+        $city = new City();
+        $city->setName("Sorocaba");
+        $city->setState("SP");
+
+        $address = new Address();
+        $address->setCity($city);
+        $address->setStreet("Av. Barão de Tatuí");
+        $address->setNumber("145");
+
+        $request = $this->getPlaceRepo()
+            ->byAddress($address)
+            ->sortByDistance()
+            ->getRequest()->getUrlWithQueryString();
+
+        $this->assertEquals(
+            "http://api.apontador.com.br/v1/search/places/byaddress?type=json&city=Sorocaba&state=SP&street=Av.+Bar%C3%A3o+de+Tatu%C3%AD&number=145&sort_by=distance",
+            $request
+        );
+    }
 }
