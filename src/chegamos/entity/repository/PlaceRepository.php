@@ -164,7 +164,7 @@ class PlaceRepository
 
     public function withListId($listId)
     {
-        $this->request->addQueryItem("listid", $listId);
+        $this->request->addQueryItem("list_id", $listId);
 
         return $this;
     }
