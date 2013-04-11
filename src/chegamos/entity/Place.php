@@ -18,6 +18,7 @@ class Place
     private $iconUrl = "";
     private $otherUrl = "";
     private $smallPhotoUrl = "";
+    private $mediumPhotoUrl = "";
     private $description = "";
     private $created = null;
     private $phone = null;
@@ -218,6 +219,16 @@ class Place
     public function setSmallPhotoUrl($smallPhotourl)
     {
         $this->smallPhotoUrl = $smallPhotourl;
+    }
+
+    public function getMediumPhotoUrl()
+    {
+        return $this->mediumPhotoUrl;
+    }
+
+    public function setMediumPhotoUrl($mediumPhotoUrl)
+    {
+        $this->mediumPhotoUrl = $mediumPhotoUrl;
     }
 
     public function setUtilities($utilities)

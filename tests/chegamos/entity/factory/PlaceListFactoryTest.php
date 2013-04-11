@@ -62,7 +62,8 @@ class PlaceListFactoryTest extends \PHPUnit_Framework_TestCase
 		"main_url":"http://www.apontador.com.br/local/sp/sao_caetano_do_sul/buffets/X58D9K6B/haro_s_buffet.html",
 		"icon_url":"",
 		"other_url":"http://www.harosbuffet.com.br/",
-		"small_photo_url":""
+		"small_photo_url":"",
+		"medium_photo_url":""
 		}
 	}
 	]

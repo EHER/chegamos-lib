@@ -76,6 +76,11 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
         	"http://www.apontador.com.br/small_photo",
         	$this->place->getSmallPhotoUrl()
         );
+
+        $this->assertEquals(
+        	"http://www.apontador.com.br/medium_photo",
+        	$this->place->getMediumPhotoUrl()
+        );
     }
 
     private function getPlaceJsonData()
@@ -121,6 +126,7 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
     	$data->point->lng = "-47.467117";
     	$data->main_url = "http://chegamos.com/";
     	$data->small_photo_url = "http://www.apontador.com.br/small_photo";
+    	$data->medium_photo_url = "http://www.apontador.com.br/medium_photo";
     	$data->other_url = "http://chegamos.com.br/";
     	$data->icon_url = "http://chegamos.com/img/icon.png";
     	$data->description = "Description";

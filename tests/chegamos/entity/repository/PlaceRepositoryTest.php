@@ -174,7 +174,8 @@ JSON;
         "main_url":"http://www.apontador.com.br/local/sp/sao_paulo/correios/JZRRQ52V/agancia_dos_correios___vila_maria.html",
         "icon_url":"http://apontador.s3.amazonaws.com/img_2XA36T3X_L.jpg",
         "other_url":"http://www.correios.com.br",
-        "small_photo_url":""
+        "small_photo_url":"",
+        "medium_photo_url":""
         }
     }
     ]
@@ -347,7 +348,8 @@ JSON;
             "main_url": "http://www.apontador.com.br/local/sp/sao_caetano_do_sul/buffets/X58D9K6B/haro_s_buffet.html",
             "icon_url": "",
             "other_url": "http://www.harosbuffet.com.br/",
-            "small_photo_url": ""
+            "small_photo_url": "",
+            "medium_photo_url": ""
             }
             }
         ],

@@ -76,6 +76,7 @@ class PlaceFactory
     {
         if (self::isPlaceList()) {
             $place->setSmallPhotoUrl(self::$placeJsonObject->small_photo_url);
+            $place->setMediumPhotoUrl(self::$placeJsonObject->medium_photo_url);
         }
     }
 
