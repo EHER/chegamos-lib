@@ -7,14 +7,13 @@ class Inflector
 
     protected static function my_ucwords($string)
     {
-
         $invalid_characters = array('"', '\(', '\[', '\/', '<.*?>', '<\/.*?>', '-'); 
 
         foreach ($invalid_characters as $regex) {
             $string = preg_replace('/('.$regex.')/', '$1 ', $string); 
         }
 
-        $string=ucwords(mb_convert_case($string, MB_CASE_LOWER, "UTF-8"));
+        $string = mb_convert_case($string, MB_CASE_TITLE, "UTF-8");
 
         foreach ($invalid_characters as $regex) {
             $string = preg_replace('/('.$regex.') /', '$1', $string); 
@@ -32,7 +31,7 @@ class Inflector
         $words = explode(' ', $title);
         foreach ($words as $key => $word) {
             if ($key == 0 or !in_array($word, $smallwordsarray)) {
-                $words[$key] = self::my_ucwords(strtolower($word));
+                $words[$key] = self::my_ucwords($word);
             }
         }
 
