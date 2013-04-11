@@ -33,7 +33,9 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
             "Restaurantes - Self Service",
             (string) $this->place->getCategory()
         );
-        $this->assertTrue($this->place->getCategory()->getSubcategory() instanceof Subcategory);
+        $this->assertTrue(
+            $this->place->getCategory()->getSubcategory() instanceof Subcategory
+        );
         $this->assertEquals(
             "1234",
             (string) $this->place->getCategory()->getSubcategory()->getId()
@@ -71,82 +73,82 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
             $this->place->getPhone()
         );
         $this->assertTrue($this->place->getPlaceInfo() instanceof PlaceInfo);
-        
+
         $this->assertEquals(
-        	"http://www.apontador.com.br/small_photo",
-        	$this->place->getSmallPhotoUrl()
+            "http://www.apontador.com.br/small_photo",
+            $this->place->getSmallPhotoUrl()
         );
 
         $this->assertEquals(
-        	"http://www.apontador.com.br/medium_photo",
-        	$this->place->getMediumPhotoUrl()
+            "http://www.apontador.com.br/medium_photo",
+            $this->place->getMediumPhotoUrl()
         );
     }
 
     private function getPlaceJsonData()
     {
-    	$city = new \stdClass();
-    	$city->country = "Brasil";
-    	$city->state = "SP";
-    	$city->name = "São Paulo";
-    
-    	$address = new \stdClass();
-    	$address->city = $city;
-    	$address->complement = "1 Andar";
-    	$address->district = "Vila Olimpia";
-    	$address->number = 129;
-    	$address->street = "Rua Funchal";
-    	$address->zipcode = "04551-069";
-    
-    	$gasStation = new \stdClass();
-    	$gasStation->price_gas = 1.23;
-    	$gasStation->price_vodka = 23.45;
-    
-    	$extended = new \stdClass();
-    	$extended->gas_station = $gasStation;
-    
-    	$subcategory = new \stdClass();
-    	$subcategory->id = 1234;
-    	$subcategory->name = "Self Service";
-    
-    	$category = new \stdClass();
-    	$category->id = 12;
-    	$category->name = "Restaurantes";
-    	$category->subcategory = $subcategory;
-    
-    	$data = new \stdClass();
-    	$data->id = 123;
-    	$data->name = "Chegamos!";
-    	$data->average_rating = 4;
-    	$data->review_count = 3;
-    	$data->category = $category;
-    	$data->address = $address;
-    	$data->point = new \stdClass();
-    	$data->point->lat = "-23.529366";
-    	$data->point->lng = "-47.467117";
-    	$data->main_url = "http://chegamos.com/";
-    	$data->small_photo_url = "http://www.apontador.com.br/small_photo";
-    	$data->medium_photo_url = "http://www.apontador.com.br/medium_photo";
-    	$data->other_url = "http://chegamos.com.br/";
-    	$data->icon_url = "http://chegamos.com/img/icon.png";
-    	$data->description = "Description";
-    	$data->created = "01/12/2010 16:19";
-    	$data->phone = new \stdclass();
-    	$data->phone->country = "55";
-    	$data->phone->area = "11";
-    	$data->phone->number = "22223333";
-    	$data->extended = $extended;
-    	$data->num_visitors = 1024;
-    	$data->num_photos = 5;
-    
-    	return $data;
+        $city = new \stdClass();
+        $city->country = "Brasil";
+        $city->state = "SP";
+        $city->name = "São Paulo";
+
+        $address = new \stdClass();
+        $address->city = $city;
+        $address->complement = "1 Andar";
+        $address->district = "Vila Olimpia";
+        $address->number = 129;
+        $address->street = "Rua Funchal";
+        $address->zipcode = "04551-069";
+
+        $gasStation = new \stdClass();
+        $gasStation->price_gas = 1.23;
+        $gasStation->price_vodka = 23.45;
+
+        $extended = new \stdClass();
+        $extended->gas_station = $gasStation;
+
+        $subcategory = new \stdClass();
+        $subcategory->id = 1234;
+        $subcategory->name = "Self Service";
+
+        $category = new \stdClass();
+        $category->id = 12;
+        $category->name = "Restaurantes";
+        $category->subcategory = $subcategory;
+
+        $data = new \stdClass();
+        $data->id = 123;
+        $data->name = "Chegamos!";
+        $data->average_rating = 4;
+        $data->review_count = 3;
+        $data->category = $category;
+        $data->address = $address;
+        $data->point = new \stdClass();
+        $data->point->lat = "-23.529366";
+        $data->point->lng = "-47.467117";
+        $data->main_url = "http://chegamos.com/";
+        $data->small_photo_url = "http://www.apontador.com.br/small_photo";
+        $data->medium_photo_url = "http://www.apontador.com.br/medium_photo";
+        $data->other_url = "http://chegamos.com.br/";
+        $data->icon_url = "http://chegamos.com/img/icon.png";
+        $data->description = "Description";
+        $data->created = "01/12/2010 16:19";
+        $data->phone = new \stdclass();
+        $data->phone->country = "55";
+        $data->phone->area = "11";
+        $data->phone->number = "22223333";
+        $data->extended = $extended;
+        $data->num_visitors = 1024;
+        $data->num_photos = 5;
+
+        return $data;
     }
 
     public function testGenerateWithoutData()
     {
         try {
             PlaceFactory::generate(null);
-        } catch(ChegamosException $e) {
+        } catch (ChegamosException $e) {
             $this->assertEquals(
                 "Parâmetro data não é um objeto.",
                 $e->getMessage()
