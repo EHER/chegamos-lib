@@ -12,19 +12,17 @@ use chegamos\rest\Request;
 
 class PlaceRepository extends AbstractRepository
 {
-    private $requestType = 'details';
-
-    public function get($id = null)
+    public function __construct(Config $config)
     {
-        if (!empty($id)) {
-            $this->byId($id);
-        }
+        parent::__construct($config);
+        $this->request->setPath('places/{id}');
+    }
 
-        $this->getPath();
+    public function get($id)
+    {
+        $this->byId($id);
 
-        $placeJsonString = $this->config
-            ->getRestClient()
-            ->execute($this->request);
+        $placeJsonString = $this->config->getRestClient()->execute($this->request);
         $this->resetRequest();
 
         $placeJsonObject = json_decode($placeJsonString);
@@ -34,11 +32,7 @@ class PlaceRepository extends AbstractRepository
 
     public function getAll()
     {
-        $this->getPath();
-
-        $placeListJsonString = $this->config
-            ->getRestClient()
-            ->execute($this->request);
+        $placeListJsonString = $this->config->getRestClient()->execute($this->request);
         $this->resetRequest();
 
         $placeListJsonObject = json_decode($placeListJsonString);
@@ -49,11 +43,8 @@ class PlaceRepository extends AbstractRepository
     public function save(Place $place)
     {
         $this->requestType = 'savePlace';
-        $this->getPath();
 
-        $placeJsonString = $this->config
-            ->getRestClient()
-            ->execute($this->request);
+        $placeJsonString = $this->config->getRestClient()->execute($this->request);
         $this->resetRequest();
 
         $placeJsonObject = json_decode($placeJsonString);
@@ -63,21 +54,21 @@ class PlaceRepository extends AbstractRepository
 
     public function withDetails()
     {
-        $this->requestType = 'details';
+        $this->request->setPath('places/{id}');
 
         return $this;
     }
 
     public function withReviews()
     {
-        $this->requestType = 'reviews';
+        $this->request->setPath('places/{id}/reviews');
 
         return $this;
     }
 
     public function withPhotos()
     {
-        $this->requestType = 'photos';
+        $this->request->setPath('places/{id}/photos');
 
         return $this;
     }
@@ -91,19 +82,19 @@ class PlaceRepository extends AbstractRepository
 
     public function byZipcode($zipcode)
     {
-        $this->requestType = 'placesByZipcode';
-        $this->request->addQueryItem("zipcode", $zipcode);
+        $this->request->setPath('search/places/byzipcode');
+        $this->request->addQueryItem('zipcode', $zipcode);
 
         return $this;
     }
 
     public function byAddress(Address $address)
     {
-        $this->requestType = 'placesByAddress';
-        $this->request->addQueryItem("city", $address->getCity()->getName());
-        $this->request->addQueryItem("state", $address->getCity()->getState());
-        $this->request->addQueryItem("street", $address->getStreet());
-        $this->request->addQueryItem("number", $address->getNumber());
+        $this->request->setPath('search/places/byaddress');
+        $this->request->addQueryItem('city', $address->getCity()->getName());
+        $this->request->addQueryItem('state', $address->getCity()->getState());
+        $this->request->addQueryItem('street', $address->getStreet());
+        $this->request->addQueryItem('number', $address->getNumber());
 
         return $this;
     }
@@ -111,16 +102,16 @@ class PlaceRepository extends AbstractRepository
     public function byListId($listId)
     {
         $this->request->addParam('listId', $listId);
-        $this->requestType = 'placesByListId';
+        $this->request->setPath('places/list/{listId}');
 
         return $this;
     }
 
     public function byPoint(Point $point)
     {
-        $this->requestType = 'placesByPoint';
-        $this->request->addQueryItem("lat", $point->getLat());
-        $this->request->addQueryItem("lng", $point->getLng());
+        $this->request->setPath('search/places/bypoint');
+        $this->request->addQueryItem('lat', $point->getLat());
+        $this->request->addQueryItem('lng', $point->getLng());
 
         return $this;
     }
@@ -128,77 +119,77 @@ class PlaceRepository extends AbstractRepository
     public function byName($name)
     {
         $this->requestType = 'placesByName';
-        $this->request->addQueryItem("q", $name);
+        $this->request->addQueryItem('q', $name);
 
         return $this;
     }
 
     public function withName($name)
     {
-        $this->request->addQueryItem("term", $name);
+        $this->request->addQueryItem('term', $name);
 
         return $this;
     }
 
     public function withCategoryId($categoryId)
     {
-        $this->request->addQueryItem("category_id", $categoryId);
+        $this->request->addQueryItem('category_id', $categoryId);
 
         return $this;
     }
 
     public function withSubcategoryId($subcategoryId)
     {
-        $this->request->addQueryItem("subcategory_id", $subcategoryId);
+        $this->request->addQueryItem('subcategory_id', $subcategoryId);
 
         return $this;
     }
 
     public function withListId($listId)
     {
-        $this->request->addQueryItem("list_id", $listId);
+        $this->request->addQueryItem('list_id', $listId);
 
         return $this;
     }
 
     public function withLimit($limit)
     {
-        $this->request->addQueryItem("limit", $limit);
+        $this->request->addQueryItem('limit', $limit);
 
         return $this;
     }
 
     public function withRadius($radius)
     {
-        $this->request->addQueryItem("radius_mt", $radius);
+        $this->request->addQueryItem('radius_mt', $radius);
 
         return $this;
     }
 
     public function withState($state)
     {
-        $this->request->addQueryItem("state", $state);
+        $this->request->addQueryItem('state', $state);
 
         return $this;
     }
 
     public function withCity($city)
     {
-        $this->request->addQueryItem("city", $city);
+        $this->request->addQueryItem('city', $city);
 
         return $this;
     }
 
     public function withDistrict($district)
     {
-        $this->request->addQueryItem("district", $district);
+        $this->request->addQueryItem('district', $district);
 
         return $this;
     }
 
     public function withFacets()
     {
-        $this->request->addQueryItem("facets", "1");
+        $this->request->addQueryItem('facets', '1');
 
         return $this;
     }
@@ -223,50 +214,13 @@ class PlaceRepository extends AbstractRepository
 
     public function page($page)
     {
-        $this->request->addQueryItem("page", $page);
+        $this->request->addQueryItem('page', $page);
 
         return $this;
     }
 
     public function getRequest()
     {
-        $this->getPath();
         return $this->request;
-    }
-
-
-    private function getPath()
-    {
-        switch ($this->requestType) {
-            case 'details':
-                $this->request->setPath("places/" . $this->request->getParam('id'));
-                break;
-            case 'placesByZipcode':
-                $this->request->setPath("search/places/byzipcode");
-                break;
-            case 'placesByAddress':
-                $this->request->setPath("search/places/byaddress");
-                break;
-            case 'placesByPoint':
-                $this->request->setPath("search/places/bypoint");
-                break;
-            case 'placesByListId':
-                $this->request->setPath(
-                    "places/list/" . $this->request->getParam('listId')
-                );
-                break;
-            case 'reviews':
-                $this->request->setPath(
-                    "places/" . $this->request->getParam('id') . '/reviews'
-                );
-                break;
-            case 'photos':
-                $this->request->setPath(
-                    "places/" . $this->request->getParam('id') . '/photos'
-                );
-                break;
-        }
-
-        return $this->request->getPath();
     }
 }

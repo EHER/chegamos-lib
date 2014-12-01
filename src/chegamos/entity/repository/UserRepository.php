@@ -9,14 +9,9 @@ use chegamos\rest\Request;
 
 class UserRepository extends AbstractRepository
 {
-    private $requestType = 'details';
-
     public function get($id)
     {
         $this->byId($id);
-
-        $this->getPath();
-        $this->request->setVerb('GET');
 
         $userJsonString = $this->config->getRestClient()->execute($this->request);
         $this->resetRequest();
@@ -28,8 +23,7 @@ class UserRepository extends AbstractRepository
 
     public function getAll()
     {
-        $this->getPath();
-        $this->request->setVerb('GET');
+        $this->request->setPath('search/users');
 
         $userListJsonString = $this->config->getRestClient()->execute($this->request);
         $this->resetRequest();
@@ -41,14 +35,14 @@ class UserRepository extends AbstractRepository
 
     public function withDetails()
     {
-        $this->requestType = 'details';
+        $this->request->setPath('users/{id}');
 
         return $this;
     }
 
     public function withReviews()
     {
-        $this->requestType = 'reviews';
+        $this->request->setPath('users/{id}/reviews');
 
         return $this;
     }
@@ -56,52 +50,31 @@ class UserRepository extends AbstractRepository
     public function byId($id)
     {
         $this->request->addParam('id', $id);
+        $this->request->setPath('users/{id}');
 
         return $this;
     }
 
     public function byName($name)
     {
-        $this->requestType = 'usersByName';
-        $this->request->addQueryItem("name", $name);
+        $this->request->setPath('search/users/byname');
+        $this->request->addQueryItem('name', $name);
 
         return $this;
     }
 
     public function byEmail($email)
     {
-        $this->requestType = 'usersByEmail';
-        $this->request->addQueryItem("email", $email);
+        $this->request->setPath('search/users/byemail');
+        $this->request->addQueryItem('email', $email);
 
         return $this;
     }
 
     public function page($page)
     {
-        $this->request->addQueryItem("page", $page);
+        $this->request->addQueryItem('page', $page);
 
         return $this;
-    }
-
-    private function getPath()
-    {
-        switch ($this->requestType) {
-            case 'usersByName':
-                $this->request->setPath("search/users/byname");
-                break;
-            case 'usersByEmail':
-                $this->request->setPath("search/users/byemail");
-                break;
-            case 'details':
-                $this->request->setPath("users/" . $this->request->getParam('id'));
-                break;
-            case 'reviews':
-                $this->request->setPath(
-                    "users/" . $this->request->getParam('id') . '/reviews'
-                );
-                break;
-        }
-
-        return $this->request->getPath();
     }
 }

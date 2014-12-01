@@ -38,6 +38,9 @@ class Request
 
     public function getPath()
     {
+        foreach ($this->param as $search => $replace) {
+            $this->path = str_replace('{' . $search . '}', $replace, $this->path);
+        }
         return $this->path;
     }
 
