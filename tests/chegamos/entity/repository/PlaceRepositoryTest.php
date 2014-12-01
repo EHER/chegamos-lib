@@ -10,8 +10,8 @@ use chegamos\entity\Config;
 use chegamos\entity\Place;
 use chegamos\entity\Point;
 use chegamos\entity\State;
-use chegamos\rest\auth\BasicAuth;
 use chegamos\rest\client\Guzzle;
+use chegamos\rest\auth\AccessToken;
 
 class PlaceRepositoryTest extends PHPUnit_Framework_TestCase
 {
@@ -187,11 +187,9 @@ class PlaceRepositoryTest extends PHPUnit_Framework_TestCase
             ->andReturn($json);
 
         $config = new Config();
-        $config->setBaseUrl('https://api.apontador.com.br/v2/');
-        $config->setBasicAuth(
-            new BasicAuth('User', 'Pass')
-        );
+        $config->setAccessToken(new AccessToken('MyAccessToken'));
         $config->setRestClient($restClient);
+        $config->setBaseUrl('https://api.apontador.com.br/v2/');
 
         return new PlaceRepository($config);
     }

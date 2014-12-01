@@ -1,0 +1,19 @@
+{ "user":{
+        "id":"8972911185",
+        "name":"Eher",
+        "birthday":"1983-07-02",
+        "gender":"M",
+        "privileges":"0",
+        "photo_large_url":"http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_b.jpg",
+        "photo_url":"http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_b.jpg",
+        "photo_medium_url":"http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_m.jpg",
+        "photo_small_url":"http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_s.jpg",
+        "stats":{
+            "places":"61",
+            "photos":"263",
+            "reviews":"104",
+            "visits":"1,152"
+        }
+    }
+}
+

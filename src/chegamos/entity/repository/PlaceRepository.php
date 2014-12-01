@@ -10,20 +10,9 @@ use chegamos\entity\factory\PlaceFactory;
 use chegamos\entity\factory\PlaceListFactory;
 use chegamos\rest\Request;
 
-class PlaceRepository
+class PlaceRepository extends AbstractRepository
 {
-    private $config;
-    private $requestType;
-    private $request;
-
-    public function __construct(Config $config)
-    {
-        if (!empty($config)) {
-            $this->config = $config;
-        }
-
-        $this->setup();
-    }
+    private $requestType = 'details';
 
     public function get($id = null)
     {
@@ -36,7 +25,7 @@ class PlaceRepository
         $placeJsonString = $this->config
             ->getRestClient()
             ->execute($this->request);
-        $this->setup();
+        $this->resetRequest();
 
         $placeJsonObject = json_decode($placeJsonString);
 
@@ -50,7 +39,7 @@ class PlaceRepository
         $placeListJsonString = $this->config
             ->getRestClient()
             ->execute($this->request);
-        $this->setup();
+        $this->resetRequest();
 
         $placeListJsonObject = json_decode($placeListJsonString);
 
@@ -65,7 +54,7 @@ class PlaceRepository
         $placeJsonString = $this->config
             ->getRestClient()
             ->execute($this->request);
-        $this->setup();
+        $this->resetRequest();
 
         $placeJsonObject = json_decode($placeJsonString);
 
@@ -245,20 +234,6 @@ class PlaceRepository
         return $this->request;
     }
 
-    private function setup()
-    {
-        $this->request = new Request();
-        $this->request->setBaseUrl($this->config->getBaseUrl());
-        $this->request->addQueryItem("type", "json");
-        $this->request->setVerb('GET');
-
-        $basicAuth = $this->config->getBasicAuth();
-        if (!empty($basicAuth)) {
-            $this->request->setHeader($basicAuth->getHeader());
-        }
-
-        $this->requestType = "details";
-    }
 
     private function getPath()
     {

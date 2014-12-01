@@ -2,24 +2,23 @@
 
 namespace chegamos\entity;
 
-use chegamos\rest\auth\BasicAuth;
-use chegamos\rest\auth\OAuth;
+use chegamos\rest\auth\AccessToken;
 use chegamos\rest\client\Client;
 
 class Config
 {
-    private $basicAuth;
+    private $accessToken;
     private $restClient;
     private $baseUrl;
 
-    public function setBasicAuth(BasicAuth $basicAuth)
+    public function setAccessToken(AccessToken $accessToken)
     {
-        $this->basicAuth = $basicAuth;
+        $this->accessToken = $accessToken;
     }
 
-    public function getBasicAuth()
+    public function getAccessToken()
     {
-        return $this->basicAuth;
+        return $this->accessToken;
     }
 
     public function setRestClient(Client $restClient)

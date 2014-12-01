@@ -3,109 +3,88 @@
 namespace chegamos\entity\repository;
 
 use Mockery;
+use PHPUnit_Framework_TestCase;
 use chegamos\entity\Config;
+use chegamos\rest\auth\AccessToken;
 use chegamos\rest\auth\BasicAuth;
 
-class UserRepositoryTest extends \PHPUnit_Framework_TestCase
+class UserRepositoryTest extends PHPUnit_Framework_TestCase
 {
     private $userRepository;
 
-    private function getConfigMock($json)
+    protected function setUp()
     {
-        $restClient = Mockery::mock("chegamos\\rest\\client\\Guzzle");
-        $restClient->shouldReceive('execute')
+        $restClient = Mockery::mock('chegamos\rest\client\Guzzle');
+        $restClient
+            ->shouldReceive('execute')
             ->once()
-            ->andReturn($json);
+            ->andReturn($this->loadJsonFor('user'));
 
         $config = new Config();
-        $config->setBaseUrl('http://api.apontador.com.br/v1/');
-        $config->setBasicAuth(
-            new BasicAuth("User", "Pass")
-        );
+        $config->setAccessToken(new AccessToken('MyAccessToken'));
         $config->setRestClient($restClient);
+        $config->setBaseUrl('https://api.apontador.com.br/v2/');
 
-        return $config;
+        $this->userRepository = new UserRepository($config);
     }
 
-    protected function Setup()
-    {
-        $userJsonString = <<<JSON
-{"user":{
-	"id":"8972911185",
-	"name":"Eher",
-	"birthday":"1983-07-02",
-	"gender":"M",
-	"privileges":"0",
-	"photo_large_url":"http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_b.jpg",
-	"photo_url":"http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_b.jpg",
-	"photo_medium_url":"http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_m.jpg",
-	"photo_small_url":"http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_s.jpg",
-	"stats":{
-		"places":"61",
-		"photos":"263",
-		"reviews":"104",
-		"visits":"1,152"
-		}
-	}	
-}
-JSON;
-        $this->userRepository = new UserRepository(
-            $this->getConfigMock($userJsonString)
-        );
-    }
-
-    protected function TearDown()
+    protected function tearDown()
     {
         unset($this->UserRepository);
     }
 
     public function testGetUserById()
     {
-        $user = $this->userRepository->get("8972911185");
-        $this->assertEquals("8972911185", $user->getId());
-        $this->assertEquals("Eher", $user->getName());
-        $this->assertEquals("02/07/83", $user->getBirthday());
-        $this->assertEquals("Masculino", $user->getGender());
+        $user = $this->userRepository->get('8972911185');
+        $this->assertEquals('8972911185', $user->getId());
+        $this->assertEquals('Eher', $user->getName());
+        $this->assertEquals('02/07/83', $user->getBirthday());
+        $this->assertEquals('Masculino', $user->getGender());
         $this->assertEquals(
-            "http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_b.jpg", 
+            'http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_b.jpg',
             $user->getPhotoUrl()
         );
         $this->assertEquals(
-            "http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_m.jpg", 
+            'http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_m.jpg',
             $user->getPhotoMediumUrl()
         );
         $this->assertEquals(
-            "http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_s.jpg", 
+            'http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_s.jpg',
             $user->getPhotoSmallUrl()
         );
-        $this->assertEquals("61", $user->getStats()->getPlaces());
-        $this->assertEquals("263", $user->getStats()->getPhotos());
-        $this->assertEquals("104", $user->getStats()->getReviews());
+        $this->assertEquals('61', $user->getStats()->getPlaces());
+        $this->assertEquals('263', $user->getStats()->getPhotos());
+        $this->assertEquals('104', $user->getStats()->getReviews());
     }
 
     public function testGetUserWithReviewsById()
     {
         $user = $this->userRepository
             ->withReviews()
-            ->get("8972911185");
-        $this->assertEquals("8972911185", $user->getId());
-        $this->assertEquals("Eher", $user->getName());
-        $this->assertEquals("02/07/83", $user->getBirthday());
-        $this->assertEquals("Masculino", $user->getGender());
+            ->get('8972911185');
+        $this->assertEquals('8972911185', $user->getId());
+        $this->assertEquals('Eher', $user->getName());
+        $this->assertEquals('02/07/83', $user->getBirthday());
+        $this->assertEquals('Masculino', $user->getGender());
         $this->assertEquals(
-            "http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_b.jpg", 
+            'http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_b.jpg',
             $user->getPhotoUrl()
         );
         $this->assertEquals(
-            "http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_m.jpg", 
+            'http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_m.jpg',
             $user->getPhotoMediumUrl()
         );
         $this->assertEquals(
-            "http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_s.jpg", 
+            'http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_s.jpg',
             $user->getPhotoSmallUrl()
         );
-        $this->assertEquals("61", $user->getStats()->getPlaces());
-        $this->assertEquals("263", $user->getStats()->getPhotos());
-        $this->assertEquals("104", $user->getStats()->getReviews());
+        $this->assertEquals('61', $user->getStats()->getPlaces());
+        $this->assertEquals('263', $user->getStats()->getPhotos());
+        $this->assertEquals('104', $user->getStats()->getReviews());
+    }
+
+    private function loadJsonFor($fileName)
+    {
+        return file_get_contents(__DIR__ . '/../../../fixtures/' . $fileName . '.json');
     }
 }

@@ -7,34 +7,19 @@ use chegamos\entity\factory\UserFactory;
 use chegamos\entity\factory\UserListFactory;
 use chegamos\rest\Request;
 
-class UserRepository
+class UserRepository extends AbstractRepository
 {
-    private $config;
-    private $requestType;
-    private $request;
+    private $requestType = 'details';
 
-    public function __construct(Config $config)
+    public function get($id)
     {
-        if (!empty($config)) {
-            $this->config = $config;
-        }
-
-        $this->setup();
-    }
-
-    public function get($id = null)
-    {
-        if (!empty($id)) {
-            $this->byId($id);
-        }
+        $this->byId($id);
 
         $this->getPath();
         $this->request->setVerb('GET');
 
-        $userJsonString = $this->config
-            ->getRestClient()
-            ->execute($this->request);
-        $this->setup();
+        $userJsonString = $this->config->getRestClient()->execute($this->request);
+        $this->resetRequest();
 
         $userJsonObject = json_decode($userJsonString);
 
@@ -46,10 +31,8 @@ class UserRepository
         $this->getPath();
         $this->request->setVerb('GET');
 
-        $userListJsonString = $this->config
-            ->getRestClient()
-            ->execute($this->request);
-        $this->setup();
+        $userListJsonString = $this->config->getRestClient()->execute($this->request);
+        $this->resetRequest();
 
         $userListJsonObject = json_decode($userListJsonString);
 
@@ -100,43 +83,23 @@ class UserRepository
         return $this;
     }
 
-    private function setup()
-    {
-        $this->request = new Request();
-        $this->request->setBaseUrl($this->config->getBaseUrl());
-        $this->request->addQueryItem("type", "json");
-
-        $basicAuth = $this->config->getBasicAuth();
-        if (!empty($basicAuth)) {
-            $this->request->setHeader($basicAuth->getHeader());
-        }
-
-        $this->requestType = "details";
-    }
-
-    private function getQueryString()
-    {
-        return http_build_query($this->query);
-    }
-
     private function getPath()
     {
         switch ($this->requestType) {
-
-        case 'usersByName':
-            $this->request->setPath("search/users/byname");
-            break;
-        case 'usersByEmail':
-            $this->request->setPath("search/users/byemail");
-            break;
-        case 'details':
-            $this->request->setPath("users/" . $this->request->getParam('id'));
-            break;
-        case 'reviews':
-            $this->request->setPath(
-                "users/" . $this->request->getParam('id') . '/reviews'
-            );
-            break;
+            case 'usersByName':
+                $this->request->setPath("search/users/byname");
+                break;
+            case 'usersByEmail':
+                $this->request->setPath("search/users/byemail");
+                break;
+            case 'details':
+                $this->request->setPath("users/" . $this->request->getParam('id'));
+                break;
+            case 'reviews':
+                $this->request->setPath(
+                    "users/" . $this->request->getParam('id') . '/reviews'
+                );
+                break;
         }
 
         return $this->request->getPath();
