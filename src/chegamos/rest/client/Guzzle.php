@@ -1,34 +1,37 @@
 <?php
-
 namespace chegamos\rest\client;
 
-use Guzzle\Service\Client as GuzzleClient ;
+use Guzzle\Http\Client as GuzzleClient ;
 use chegamos\rest\Request;
 
 class Guzzle extends Client
 {
+    private $client;
     private $response;
 
-    public function getBody()
+    public function __construct(GuzzleClient $client)
     {
-        return (string) $this->response->getBody();
+        $this->client = $client;
     }
 
     public function execute(Request $request)
     {
-        $guzzle = new GuzzleClient();
-
-        if ($request->getVerb() == 'GET') {
-            $guzzleRequest = $guzzle->get($request->getUrlWithQueryString());
+        if ($request->getVerb() === 'GET') {
+            $guzzleRequest = $this->client->get($request->getUrlWithQueryString());
         }
 
         if ($request->getHeader()) {
             list ($headerName, $headerValue) = $request->getHeader();
-            $guzzleRequest->setHeader($headerName, $headerValue);
+            $guzzleRequest = $this->client->setHeader($headerName, $headerValue);
         }
 
-        $this->response = $guzzleRequest->send();
+        $this->response = $this->client->send($guzzleRequest);
 
         return $this->getBody();
+    }
+
+    public function getBody()
+    {
+        return (string) $this->response->getBody();
     }
 }

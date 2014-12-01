@@ -38,4 +38,27 @@ class RequestTest extends \PHPUnit_Framework_TestCase
             $this->request->getPath()
         );
     }
+
+    public function testGetUrlWithQueryString()
+    {
+        $this->request->setBaseUrl('https://api.apontador.com.br/v2/');
+        $this->request->setPath('search');
+        $this->request->addQueryItem('q', 'test');
+
+        $this->assertEquals(
+            'https://api.apontador.com.br/v2/search?q=test',
+            $this->request->getUrlWithQueryString()
+        );
+    }
+
+    public function testGetUrlWithQueryStringWithoutQueryString()
+    {
+        $this->request->setBaseUrl('https://api.apontador.com.br/v2/');
+        $this->request->setPath('places/1234');
+
+        $this->assertEquals(
+            'https://api.apontador.com.br/v2/places/1234',
+            $this->request->getUrlWithQueryString()
+        );
+    }
 }

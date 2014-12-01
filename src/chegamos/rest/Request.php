@@ -4,7 +4,7 @@ namespace chegamos\rest;
 
 class Request
 {
-    private $verb;
+    private $verb = 'GET';
     private $baseUrl;
     private $path;
     private $query = array();
@@ -78,7 +78,9 @@ class Request
 
     public function getUrlWithQueryString()
     {
-        return $this->getBaseUrl() . $this->getPath()
-            . "?" . $this->getQueryString();
+        $url = $this->getBaseUrl() . $this->getPath();
+        $queryString = $this->getQueryString();
+
+        return empty($queryString) ? $url : $url . '?' . $queryString;
     }
 }

@@ -2,9 +2,9 @@
 
 namespace chegamos\entity\repository;
 
+use chegamos\entity\Address;
 use chegamos\entity\Config;
 use chegamos\entity\Place;
-use chegamos\entity\Address;
 use chegamos\entity\Point;
 use chegamos\entity\factory\PlaceFactory;
 use chegamos\entity\factory\PlaceListFactory;
@@ -263,34 +263,33 @@ class PlaceRepository
     private function getPath()
     {
         switch ($this->requestType) {
-
-        case 'details':
-            $this->request->setPath("places/" . $this->request->getParam('id'));
-            break;
-        case 'placesByZipcode':
-            $this->request->setPath("search/places/byzipcode");
-            break;
-        case 'placesByAddress':
-            $this->request->setPath("search/places/byaddress");
-            break;
-        case 'placesByPoint':
-            $this->request->setPath("search/places/bypoint");
-            break;
-        case 'placesByListId':
-            $this->request->setPath(
-                "places/list/" . $this->request->getParam('listId')
-            );
-            break;
-        case 'reviews':
-            $this->request->setPath(
-                "places/" . $this->request->getParam('id') . '/reviews'
-            );
-            break;
-        case 'photos':
-            $this->request->setPath(
-                "places/" . $this->request->getParam('id') . '/photos'
-            );
-            break;
+            case 'details':
+                $this->request->setPath("places/" . $this->request->getParam('id'));
+                break;
+            case 'placesByZipcode':
+                $this->request->setPath("search/places/byzipcode");
+                break;
+            case 'placesByAddress':
+                $this->request->setPath("search/places/byaddress");
+                break;
+            case 'placesByPoint':
+                $this->request->setPath("search/places/bypoint");
+                break;
+            case 'placesByListId':
+                $this->request->setPath(
+                    "places/list/" . $this->request->getParam('listId')
+                );
+                break;
+            case 'reviews':
+                $this->request->setPath(
+                    "places/" . $this->request->getParam('id') . '/reviews'
+                );
+                break;
+            case 'photos':
+                $this->request->setPath(
+                    "places/" . $this->request->getParam('id') . '/photos'
+                );
+                break;
         }
 
         return $this->request->getPath();

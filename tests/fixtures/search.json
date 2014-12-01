@@ -1,0 +1,53 @@
+{"search":{
+    "result_count":"525341",
+    "current_page":"1",
+    "places":[
+    {"place": {
+        "id":"JZRRQ52V",
+        "name":"Agencia Dos Correios - Vila Maria",
+        "average_rating":"1",
+        "review_count":"135",
+        "thumbs":{
+            "total":"306",
+            "up":"72"
+        },
+        "category":{
+            "id":"31",
+            "name":"CORREIOS",
+            "subcategory":{
+                "id":"31",
+                "name":"Correios"
+                }
+            },
+        "address":{
+            "street":"Av Guilherme Cotching",
+            "number":"1225",
+            "district":"Vila Maria",
+            "zipcode":"",
+            "complement":"",
+            "city":{
+                "country":"BR",
+                "state":"SP",
+                "name":"Sao Paulo"
+                }
+            },
+        "phone":{
+            "country":"55",
+            "area":"11",
+            "number":"26363509"
+        },
+        "point":{
+            "lat":"-23.51822",
+            "lng":"-46.58972"
+            },
+        "main_url":"http://www.apontador.com.br/local/sp/sao_paulo/correios/JZRRQ52V/agancia_dos_correios___vila_maria.html",
+        "icon_url":"http://apontador.s3.amazonaws.com/img_2XA36T3X_L.jpg",
+        "other_url":"http://www.correios.com.br",
+        "small_photo_url":"",
+        "medium_photo_url":""
+        }
+    }
+    ]
+    }
+}
+
