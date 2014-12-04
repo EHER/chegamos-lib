@@ -4,14 +4,14 @@ namespace chegamos\entity\container;
 
 class VisitorList extends ItemsList
 {
-    var $placeId = '';
+    public $placeId = '';
 
     public function __construct($data = null)
     {
         if (!empty($data)) {
             $this->setNumFound(count($data));
             foreach ($data as $visitor) {
-                $this->add(New Visitor($visitor->visitor));
+                $this->add(new Visitor($visitor->visitor));
             }
         }
     }

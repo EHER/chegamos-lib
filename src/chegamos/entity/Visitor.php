@@ -4,8 +4,8 @@ namespace chegamos\entity;
 
 class Visitor extends User
 {
-    var $visits = "";
-    var $lastVisit = "";
+    public $visits = "";
+    public $lastVisit = "";
 
     public function __construct($data)
     {

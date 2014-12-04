@@ -7,7 +7,7 @@ class Point
     private $lat;
     private $lng;
 
-    function __construct($lat = null, $lng = null)
+    public function __construct($lat = null, $lng = null)
     {
         if (isset($lat)) {
             $this->setLat($lat);
@@ -20,8 +20,9 @@ class Point
     public function __toString()
     {
         if ($this->getLat() && $this->getLng()) {
-            return $this->getLat() . ',' . $this->getLng();
+            return $this->getLat().','.$this->getLng();
         }
+
         return '';
     }
 

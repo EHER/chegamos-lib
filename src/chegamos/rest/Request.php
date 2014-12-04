@@ -78,7 +78,7 @@ class Request
 
     public function getUrlWithQueryString()
     {
-        return $this->getBaseUrl() . $this->getPath()
-            . "?" . $this->getQueryString();
+        return $this->getBaseUrl().$this->getPath()
+            ."?".$this->getQueryString();
     }
 }

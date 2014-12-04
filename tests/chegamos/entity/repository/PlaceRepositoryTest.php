@@ -414,9 +414,10 @@ JSON;
             ->getAll();
     }
 
-    private function getPlaceRepo() {
+    private function getPlaceRepo()
+    {
         $restClient = new Guzzle();
-        
+
         $config = new Config();
         $config->setBaseUrl('http://api.apontador.com.br/v1/');
         $config->setBasicAuth(
@@ -427,19 +428,21 @@ JSON;
         return new PlaceRepository($config);
     }
 
-    public function testSearchPlacesByListId() {
+    public function testSearchPlacesByListId()
+    {
         $request = $this->getPlaceRepo()
             ->byListId("21")
             ->withFacets()
             ->getRequest()->getUrlWithQueryString();
 
         $this->assertEquals(
-            "http://api.apontador.com.br/v1/places/list/21?type=json&facets=1", 
+            "http://api.apontador.com.br/v1/places/list/21?type=json&facets=1",
             $request
         );
     }
 
-    public function testSearchPlacesByListIdWithState() {
+    public function testSearchPlacesByListIdWithState()
+    {
         $request = $this->getPlaceRepo()
             ->byListId("21")
             ->withState('sp')
@@ -447,12 +450,13 @@ JSON;
             ->getRequest()->getUrlWithQueryString();
 
         $this->assertEquals(
-            "http://api.apontador.com.br/v1/places/list/21?type=json&state=sp&facets=1", 
+            "http://api.apontador.com.br/v1/places/list/21?type=json&state=sp&facets=1",
             $request
         );
     }
 
-    public function testSearchPlacesByListIdWithStateAndCity() {
+    public function testSearchPlacesByListIdWithStateAndCity()
+    {
         $request = $this->getPlaceRepo()
             ->byListId("21")
             ->withState('sp')
@@ -461,12 +465,13 @@ JSON;
             ->getRequest()->getUrlWithQueryString();
 
         $this->assertEquals(
-            "http://api.apontador.com.br/v1/places/list/21?type=json&state=sp&city=S%C3%A3o+Paulo&facets=1", 
+            "http://api.apontador.com.br/v1/places/list/21?type=json&state=sp&city=S%C3%A3o+Paulo&facets=1",
             $request
         );
     }
 
-    public function testSearchPlacesByListIdWithStateCityAndDistrict() {
+    public function testSearchPlacesByListIdWithStateCityAndDistrict()
+    {
         $request = $this->getPlaceRepo()
             ->byListId("21")
             ->withState('SP')
@@ -476,12 +481,13 @@ JSON;
             ->getRequest()->getUrlWithQueryString();
 
         $this->assertEquals(
-            "http://api.apontador.com.br/v1/places/list/21?type=json&state=SP&city=Guaruj%C3%A1&district=Vila+Luis+Antonio&facets=1", 
+            "http://api.apontador.com.br/v1/places/list/21?type=json&state=SP&city=Guaruj%C3%A1&district=Vila+Luis+Antonio&facets=1",
             $request
         );
     }
 
-    public function testSearchPlacesNearAnAddress() {
+    public function testSearchPlacesNearAnAddress()
+    {
         $city = new City();
         $city->setName("Sorocaba");
         $city->setState("SP");

@@ -4,7 +4,6 @@ namespace chegamos\entity;
 
 class PlayerProfile
 {
-
     private $pointsMonth;
     private $pointsWeek;
     private $pointsDay;
@@ -118,5 +117,4 @@ class PlayerProfile
     {
         $this->badges = $badges;
     }
-
 }

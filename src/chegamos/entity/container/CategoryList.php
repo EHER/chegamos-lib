@@ -4,7 +4,6 @@ namespace chegamos\entity\container;
 
 class CategoryList extends ItemsList
 {
-
     public function __construct($data)
     {
         $this->setNumFound(count($data->categories));

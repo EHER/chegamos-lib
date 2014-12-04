@@ -2,7 +2,6 @@
 
 namespace chegamos\entity;
 
-use chegamos\entity\factory\PlaceFactory;
 
 class PlaceTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,7 +9,7 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->place = new Place;
+        $this->place = new Place();
     }
 
     protected function tearDown()
@@ -99,7 +98,7 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
 
         $this->place->setPoint($point);
         $this->assertEquals(
-            "-23.529366,-47.467117", 
+            "-23.529366,-47.467117",
             (string) $this->place->getPoint()
         );
     }
@@ -108,7 +107,7 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
     {
         $this->place->setMainUrl("http://chegamos.com/");
         $this->assertEquals(
-            "http://chegamos.com/", 
+            "http://chegamos.com/",
             $this->place->getMainUrl()
         );
     }
@@ -117,7 +116,7 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
     {
         $this->place->setOtherUrl("http://chegamos.com/");
         $this->assertEquals(
-            "http://chegamos.com/", 
+            "http://chegamos.com/",
             $this->place->getOtherUrl()
         );
     }
@@ -126,7 +125,7 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
     {
         $this->place->setIconUrl("http://chegamos.com/img/logo.jpg");
         $this->assertEquals(
-            "http://chegamos.com/img/logo.jpg", 
+            "http://chegamos.com/img/logo.jpg",
             $this->place->getIconUrl()
         );
     }

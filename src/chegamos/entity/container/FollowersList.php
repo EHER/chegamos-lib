@@ -4,8 +4,8 @@ namespace chegamos\entity\container;
 
 class FollowersList extends ItemsList
 {
-    var $userId = '';
-    var $currentPage = 0;
+    public $userId = '';
+    public $currentPage = 0;
 
     public function __construct($data = null)
     {
@@ -14,7 +14,7 @@ class FollowersList extends ItemsList
             $this->setCurrentPage($data->current_page);
             $this->setUserId($data->id);
             foreach ($data->users as $user) {
-                $this->add(New User($user->user));
+                $this->add(new User($user->user));
             }
         }
     }

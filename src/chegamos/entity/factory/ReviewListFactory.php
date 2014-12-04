@@ -16,6 +16,7 @@ class ReviewListFactory
             foreach ($reviewListJsonObject->reviews as $review) {
                 $reviewList->add(ReviewFactory::generate($review->review));
             }
+
             return $reviewList;
         } else {
             throw new ChegamosException("Parâmetro passado não é um objeto.");

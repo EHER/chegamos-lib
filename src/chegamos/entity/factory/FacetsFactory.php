@@ -19,6 +19,7 @@ class FacetsFactory
                 }
                 $facets[] = $facet;
             }
+
             return $facets;
         } else {
             throw new ChegamosException("Parâmetro inválido.");

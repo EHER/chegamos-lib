@@ -9,8 +9,8 @@ abstract class Client
 {
     private $basicAuth;
 
-    public abstract function getBody();
-    public abstract function execute(Request $request);
+    abstract public function getBody();
+    abstract public function execute(Request $request);
 
     public function setBasicAuth(BasicAuth $basicAuth)
     {
@@ -27,4 +27,3 @@ abstract class Client
         return $this->oAuth;
     }
 }
-

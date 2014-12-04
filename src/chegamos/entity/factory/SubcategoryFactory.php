@@ -14,6 +14,7 @@ class SubcategoryFactory
 
             $subcategory->setId($subcategoryJsonObject->id);
             $subcategory->setName($subcategoryJsonObject->name);
+
             return $subcategory;
         } else {
             throw new ChegamosException("Parâmetro passado não é um objeto.");

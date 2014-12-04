@@ -7,7 +7,6 @@ use chegamos\exception\ChegamosException;
 
 class GasStationItemFactory
 {
-
     private static $gasStationData = array(
         'alcohol' => 'Álcool',
         'biodiesel' => 'Biodiesel',
@@ -61,24 +60,24 @@ class GasStationItemFactory
 
     public static function sanitizeValue($itemName, $data)
     {
-        if (isset($data->{"price_" . $itemName})) {
-            return $data->{"price_" . $itemName};
+        if (isset($data->{"price_".$itemName})) {
+            return $data->{"price_".$itemName};
         }
         throw new ChegamosException("Invalid item name");
     }
 
     public static function sanitizeAverageValue($itemName, $data)
     {
-        if (isset($data->{"average_" . $itemName})) {
-            return $data->{"average_" . $itemName};
+        if (isset($data->{"average_".$itemName})) {
+            return $data->{"average_".$itemName};
         }
         throw new ChegamosException("Invalid item name");
     }
 
     public static function sanitizeCollectDate($itemName, $data)
     {
-        if (isset($data->{"collect_date_" . $itemName})) {
-            return date("d/m H:i", strtotime($data->{"collect_date_" . $itemName}));
+        if (isset($data->{"collect_date_".$itemName})) {
+            return date("d/m H:i", strtotime($data->{"collect_date_".$itemName}));
         }
         throw new ChegamosException("Invalid item name");
     }

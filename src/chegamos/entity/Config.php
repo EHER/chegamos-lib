@@ -3,7 +3,6 @@
 namespace chegamos\entity;
 
 use chegamos\rest\auth\BasicAuth;
-use chegamos\rest\auth\OAuth;
 use chegamos\rest\client\Client;
 
 class Config

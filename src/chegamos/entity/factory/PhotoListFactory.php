@@ -14,6 +14,7 @@ class PhotoListFactory
             foreach ($photoListJsonObject->photo_info as $photo) {
                 $photoList->add(PhotoFactory::generate($photo));
             }
+
             return $photoList;
         } else {
             throw new ChegamosException("Parâmetro passado não é um objeto.");
