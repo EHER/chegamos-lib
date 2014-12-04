@@ -8,7 +8,7 @@ class DealList extends ItemsList
     {
         if (!empty($data)) {
             foreach ($data->deals as $deal) {
-                $this->add(New Deal($deal->deal));
+                $this->add(new Deal($deal->deal));
             }
         }
     }

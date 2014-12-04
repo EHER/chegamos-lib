@@ -2,17 +2,15 @@
 
 namespace chegamos\entity;
 
-use chegamos\util\Inflector;
 
 class City
 {
-
     private $country = "";
     private $state = "";
     private $name = "";
     private $formatter = null;
 
-    public function __construct($data=null)
+    public function __construct($data = null)
     {
         $this->populate($data);
     }
@@ -32,8 +30,9 @@ class City
 
     public function __toString()
     {
-        $state =  $this->getState() ? ' - ' . $this->getState() : '';
-        return $this->format($this->getName()) . $state;
+        $state =  $this->getState() ? ' - '.$this->getState() : '';
+
+        return $this->format($this->getName()).$state;
     }
 
     public function setFormatter($formatter)

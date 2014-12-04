@@ -1,27 +1,45 @@
 <?php
-
 namespace chegamos\rest\client;
 
+use Hamcrest\Core\IsEqual;
+use Mockery;
+use PHPUnit_Framework_TestCase;
 use chegamos\rest\Request;
-use chegamos\rest\auth\BasicAuth;
+use GuzzleHttp\Message\Response;
 
-class GuzzleTest extends \PHPUnit_Framework_TestCase
+class GuzzleTest extends PHPUnit_Framework_TestCase
 {
     public function testExecuteRequest()
     {
-        $basicAuth = new BasicAuth(
-            "MinhaChave",
-            "ESecretTbm"
-        );
+        $guzzleRequestMock = Mockery::mock('GuzzleHttp\Message\RequestInterface');
 
-        $guzzle = new Guzzle("http://api.apontador.com.br/v1/");
-        $guzzle->setBasicAuth($basicAuth);
+        $guzzleClientMock = Mockery::mock('GuzzleHttp\Client');
+        $guzzleClientMock
+            ->shouldReceive('send')
+            ->once()
+            ->with(new IsEqual($guzzleRequestMock))
+            ->andReturn(new Response(200));
+
+        $guzzleClientMock
+            ->shouldReceive('createRequest')
+            ->once()
+            ->with(
+                'GET',
+                'https://api.apontador.com.br/v2/places/1234',
+                [
+                    'headers' => [
+                        ['Authorization', 'Bearer YOUR_ACCESS_TOKEN'],
+                    ]
+                ]
+            )
+            ->andReturn($guzzleRequestMock);
 
         $request = new Request();
-        $request->setPath("users/8972911185");
-        $request->addQueryItem("type", "json");
+        $request->setBaseUrl('https://api.apontador.com.br/v2/');
+        $request->setPath('places/1234');
+        $request->setHeader([['Authorization', 'Bearer YOUR_ACCESS_TOKEN']]);
 
-        //$guzzle->execute($request);
-        //$this->assertEquals("OK", $guzzle->getBody());
+        $guzzle = new Guzzle($guzzleClientMock);
+        $guzzle->execute($request);
     }
 }

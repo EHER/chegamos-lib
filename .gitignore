@@ -1,9 +1,9 @@
 *.swp
-reports
 .DS_Store
-composer.phar
-composer.lock
-vendor
 .buildpath
 .project
 .settings
+bin
+composer.phar
+reports
+vendor

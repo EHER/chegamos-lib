@@ -1,25 +1,27 @@
 {
-    "name": "eher/chegamos-lib",
-    "description": "Core do Chegamos (https://github.com/EHER/chegamos) para ser usado em outros projetos :D",
-    "type": "library",
-    "license": "BSD-3-Clause",
-    "require": {
-        "php": ">=5.3.0",
-        "guzzle/guzzle": "~3.3.1"
-    },
-    "autoload": {
-        "psr-0": {
-            "chegamos": "src/"
-        }
-    },
     "authors": [
         {
             "name": "Alexandre Eher",
             "email": "alexandre@eher.com.br"
         }
     ],
+    "autoload": {
+        "psr-0": { "chegamos": "src/" }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "description": "Core do Chegamos (https://github.com/EHER/chegamos) para ser usado em outros projetos :D",
+    "license": "BSD-3-Clause",
+    "name": "eher/chegamos-lib",
+    "require": {
+        "php": "~5.3",
+        "guzzlehttp/guzzle": "~5.0"
+    },
     "require-dev": {
-        "eher/phpunit": "dev-master",
-        "mockery/mockery": "0.7.2"
-    }
+        "hamcrest/hamcrest-php": "~1.2",
+        "mockery/mockery": "~0.9",
+        "phpunit/phpunit": "~4.3"
+    },
+    "type": "library"
 }

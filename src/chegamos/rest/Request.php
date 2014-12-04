@@ -4,12 +4,12 @@ namespace chegamos\rest;
 
 class Request
 {
-    private $verb;
+    private $verb = 'GET';
     private $baseUrl;
     private $path;
-    private $query = array();
-    private $param = array();
-    private $header;
+    private $query = [];
+    private $param = [];
+    private $header = [];
 
     public function setVerb($verb)
     {
@@ -38,6 +38,9 @@ class Request
 
     public function getPath()
     {
+        foreach ($this->param as $search => $replace) {
+            $this->path = str_replace('{' . $search . '}', $replace, $this->path);
+        }
         return $this->path;
     }
 
@@ -66,7 +69,7 @@ class Request
         return $this->param[$key];
     }
 
-    public function setHeader($header)
+    public function setHeader(array $header)
     {
         $this->header = $header;
     }
@@ -78,7 +81,9 @@ class Request
 
     public function getUrlWithQueryString()
     {
-        return $this->getBaseUrl() . $this->getPath()
-            . "?" . $this->getQueryString();
+        $url = $this->getBaseUrl() . $this->getPath();
+        $queryString = $this->getQueryString();
+
+        return empty($queryString) ? $url : $url . '?' . $queryString;
     }
 }
