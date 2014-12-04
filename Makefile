@@ -33,9 +33,15 @@ composer-update:
 brew-install:
 	brew install GraphViz
 
-test:
-	@echo "Rodando testes"
-	bin/phpunit
+test: unit-tests integration-tests
+
+unit-tests:
+	@echo "Rodando testes unitarios"
+	bin/phpunit --filter '^((?!Integration).)*$$'
+
+integration-tests:
+	@echo "Rodando testes de integracao"
+	bin/phpunit --filter IntegrationTest
 
 coverage:
 	@echo "Gerando relatório de cobertura de testes"
