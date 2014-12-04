@@ -1,14 +1,11 @@
 <?php
 namespace chegamos\rest\client;
 
-use Guzzle\Http\Message\Response;
 use Hamcrest\Core\IsEqual;
 use Mockery;
 use PHPUnit_Framework_TestCase;
-use chegamos\AbstractTestCase;
 use chegamos\rest\Request;
-use chegamos\rest\auth\BasicAuth;
-use chegamos\rest\client\Guzzle;
+use GuzzleHttp\Message\Response;
 
 class GuzzleTest extends PHPUnit_Framework_TestCase
 {
@@ -31,7 +28,7 @@ class GuzzleTest extends PHPUnit_Framework_TestCase
                 'https://api.apontador.com.br/v2/places/1234',
                 [
                     'headers' => [
-                        ['Authorization', 'Bearer YOUR_ACCESS_TOKEN']
+                        ['Authorization', 'Bearer YOUR_ACCESS_TOKEN'],
                     ]
                 ]
             )

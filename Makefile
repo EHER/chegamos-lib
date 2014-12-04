@@ -35,7 +35,7 @@ brew-install:
 
 test:
 	@echo "Rodando testes"
-	vendor/bin/phpunit
+	bin/phpunit
 
 coverage:
 	@echo "Gerando relatório de cobertura de testes"
