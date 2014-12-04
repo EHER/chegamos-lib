@@ -16,6 +16,7 @@ class UserListFactory
             foreach ($userListJsonObject->users as $user) {
                 $userList->add(UserFactory::generate($user->user));
             }
+
             return $userList;
         } else {
             throw new ChegamosException("Parâmetro passado não é um objeto.");

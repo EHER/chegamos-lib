@@ -47,6 +47,7 @@ class User
 
             return $lastVisitInfo;
         }
+
         return false;
     }
 
@@ -83,6 +84,7 @@ class User
     public function getFirstName()
     {
         $name = substr($this->name, 0, strpos($this->name, " "));
+
         return $name != "" ? $name : $this->name;
     }
 
@@ -101,8 +103,10 @@ class User
             } elseif (($month_diff == 0) && ($day_diff < 0)) {
                 $year_diff--;
             }
-            return $year_diff . ' anos';
+
+            return $year_diff.' anos';
         }
+
         return false;
     }
 
@@ -116,6 +120,7 @@ class User
         if ($this->birthday != null) {
             return date("d/m/y", strtotime($this->birthday));
         }
+
         return false;
     }
 
@@ -209,8 +214,9 @@ class User
     public function getMainUrl()
     {
         if ($this->getId()) {
-            return 'http://www.apontador.com.br/profile/' . $this->getId() . '.html';
+            return 'http://www.apontador.com.br/profile/'.$this->getId().'.html';
         }
+
         return false;
     }
 }

@@ -6,12 +6,11 @@ use chegamos\util\Inflector;
 
 class CityTest extends \PHPUnit_Framework_TestCase
 {
-
     protected $city;
 
     protected function setUp()
     {
-        $this->city = new City;
+        $this->city = new City();
     }
 
     protected function tearDown()
@@ -80,9 +79,9 @@ class CityTest extends \PHPUnit_Framework_TestCase
     public function testPopulateWithArrayData()
     {
         $data = array(
-            'City'=>'City',
-            'State'=>'State',
-            'Country'=>'Country'
+            'City' => 'City',
+            'State' => 'State',
+            'Country' => 'Country',
         );
 
         $this->city->populate($data);
@@ -94,7 +93,7 @@ class CityTest extends \PHPUnit_Framework_TestCase
 
     public function testToString()
     {
-        $this->city->setFormatter(New Inflector());
+        $this->city->setFormatter(new Inflector());
         $this->city->setName('city');
         $this->assertEquals('City', (string) $this->city);
         $this->city->setName('CITY');

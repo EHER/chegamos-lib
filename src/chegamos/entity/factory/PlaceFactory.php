@@ -4,13 +4,8 @@ namespace chegamos\entity\factory;
 
 use chegamos\entity\Place;
 use chegamos\entity\Category;
-use chegamos\entity\Subcategory;
 use chegamos\entity\Address;
 use chegamos\entity\PlaceInfo;
-use chegamos\entity\factory\PhotoListFactory;
-use chegamos\entity\factory\ReviewListFactory;
-use chegamos\entity\factory\CategoryFactory;
-use chegamos\util\Inflector;
 use chegamos\exception\ChegamosException;
 use chegamos\entity\container\UtilityList;
 use chegamos\entity\Utility;
@@ -58,7 +53,7 @@ class PlaceFactory
             $utility = new Utility();
 
             // php as vezes chateia-nos... :/
-            $type = isset($item->type) ? $item->type: '';
+            $type = isset($item->type) ? $item->type : '';
             $partnerToken = isset($item->partnerToken) ? $item->partnerToken : '';
             $endPointUrl = isset($item->endpoint_url) ? $item->endpoint_url : '';
 

@@ -130,11 +130,11 @@ class UserRepository
             $this->request->setPath("search/users/byemail");
             break;
         case 'details':
-            $this->request->setPath("users/" . $this->request->getParam('id'));
+            $this->request->setPath("users/".$this->request->getParam('id'));
             break;
         case 'reviews':
             $this->request->setPath(
-                "users/" . $this->request->getParam('id') . '/reviews'
+                "users/".$this->request->getParam('id').'/reviews'
             );
             break;
         }

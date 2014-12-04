@@ -10,7 +10,7 @@ class ReviewFactory
     public static function generate($reviewJsonObject)
     {
         if (is_object($reviewJsonObject)) {
-            $review = new Review;
+            $review = new Review();
 
             $review->setId($reviewJsonObject->id);
             $review->setRating($reviewJsonObject->rating);

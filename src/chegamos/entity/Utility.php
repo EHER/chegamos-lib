@@ -11,6 +11,7 @@ class Utility
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -22,6 +23,7 @@ class Utility
     public function setPartnerToken($token)
     {
         $this->partnerToken = $token;
+
         return $this;
     }
 
@@ -33,6 +35,7 @@ class Utility
     public function setEndPointUrl($url)
     {
         $this->endPointUrl = $url;
+
         return $this;
     }
 

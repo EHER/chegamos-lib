@@ -6,11 +6,10 @@ use chegamos\util\Inflector;
 
 class Subcategory
 {
+    public $id = "";
+    public $name = "";
 
-    var $id = "";
-    var $name = "";
-
-    public function __construct($data=null)
+    public function __construct($data = null)
     {
         $this->populate($data);
     }

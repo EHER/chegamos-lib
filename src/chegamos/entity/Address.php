@@ -6,7 +6,6 @@ use chegamos\util\Inflector;
 
 class Address
 {
-
     private $street = "";
     private $number = 0;
     private $complement = "";
@@ -14,12 +13,12 @@ class Address
     private $zipcode = "";
     private $city = null;
 
-    public function __construct($data=null) 
+    public function __construct($data = null)
     {
         $this->populate($data);
     }
 
-    public function populate($data) 
+    public function populate($data)
     {
         if (isset($data->street)) {
             $this->setStreet($data->street);
@@ -41,32 +40,34 @@ class Address
         }
     }
 
-    public function __toString() 
+    public function __toString()
     {
         $data = $this->getStreet();
-        $data .= $this->getNumber() ? ', ' . $this->getNumber() : '';
-        $data .= $this->getDistrict() ? ' - ' . $this->getDistrict() : '';
-        $data .= $this->getCity() ? '<br/>' . $this->getCity() : '';
+        $data .= $this->getNumber() ? ', '.$this->getNumber() : '';
+        $data .= $this->getDistrict() ? ' - '.$this->getDistrict() : '';
+        $data .= $this->getCity() ? '<br/>'.$this->getCity() : '';
+
         return $data;
     }
 
-    public function toOneLine() 
+    public function toOneLine()
     {
         $addressArray = array_filter($this->toArray());
+
         return implode(', ', $addressArray);
     }
 
-    public function toArray() 
+    public function toArray()
     {
         return array(
             'street' => $this->getStreet(),
             'district' => $this->getDistrict(),
             'city' => $this->getCity() ? $this->getCity()->getName() : null,
-            'state' => $this->getCity() ? $this->getCity()->getState() : null
+            'state' => $this->getCity() ? $this->getCity()->getState() : null,
         );
     }
 
-    public function toJson() 
+    public function toJson()
     {
         $json = new \stdClass();
         if ($this->getStreet()) {
@@ -86,84 +87,87 @@ class Address
         return $json;
     }
 
-    public function getStreetCity() 
+    public function getStreetCity()
     {
         $data = $this->getStreet();
-        $data .= $this->getCity() ? ' em ' . $this->getCity() . '' : '';
+        $data .= $this->getCity() ? ' em '.$this->getCity().'' : '';
+
         return $data;
     }
 
-    public function getDistrictCity() 
+    public function getDistrictCity()
     {
         $data = $this->getDistrict() ? $this->getDistrict() : '';
-        $data .= $this->getCity() ? ' em ' . $this->getCity() . '' : '';
+        $data .= $this->getCity() ? ' em '.$this->getCity().'' : '';
+
         return $data;
     }
 
-    public function setStreet($street) 
+    public function setStreet($street)
     {
         $this->street = Inflector::formatTitle($street);
     }
 
-    public function getRouteAddress() 
+    public function getRouteAddress()
     {
         $data = $this->getStreet();
-        $data .= $this->getNumber() ? ', ' . $this->getNumber() : '';
-        $data .= $this->getCity() ? ', ' . $this->getCity() : '';
+        $data .= $this->getNumber() ? ', '.$this->getNumber() : '';
+        $data .= $this->getCity() ? ', '.$this->getCity() : '';
+
         return $data;
     }
 
-    public function getStreet() 
+    public function getStreet()
     {
         return $this->street;
     }
 
-    public function setNumber($number) 
+    public function setNumber($number)
     {
         $this->number = $number;
     }
 
-    public function getNumber() 
+    public function getNumber()
     {
         return $this->number;
     }
 
-    public function setComplement($complement) 
+    public function setComplement($complement)
     {
         $this->complement = Inflector::formatTitle($complement);
     }
 
-    public function getComplement() 
+    public function getComplement()
     {
         return $this->complement;
     }
 
-    public function setDistrict($district) 
+    public function setDistrict($district)
     {
         $this->district = Inflector::formatTitle($district);
     }
 
-    public function getDistrict() 
+    public function getDistrict()
     {
         return $this->district;
     }
 
-    public function setZipcode($zipcode) 
+    public function setZipcode($zipcode)
     {
         $this->zipcode = $zipcode;
     }
 
-    public function getZipcode() 
+    public function getZipcode()
     {
         return $this->zipcode;
     }
 
-    public function setCity($city) 
+    public function setCity($city)
     {
         $this->city = $city;
     }
 
-    public function getCity() 
+    public function getCity()
     {
         return $this->city;
     }

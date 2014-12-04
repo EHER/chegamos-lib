@@ -6,7 +6,6 @@ use chegamos\util\Inflector;
 
 class Place
 {
-
     private $id = "";
     private $name = "";
     private $averageRating = 0;
@@ -208,7 +207,7 @@ class Place
 
     public function getShortPlaceUrl()
     {
-        return ROOT_URL . 'places/show/' . $this->getId();
+        return ROOT_URL.'places/show/'.$this->getId();
     }
 
     public function getSmallPhotoUrl()
@@ -251,8 +250,8 @@ class Place
         $name = \strtolower(Inflector::slug($this->getName()));
         $id = $this->getId();
 
-        return ROOT_URL .  $state .  '/' . $city .  '/' .
-            $category.  '/' . $name .  '/' . $id .  '.html';
+        return ROOT_URL.$state.'/'.$city.'/'.
+            $category.'/'.$name.'/'.$id.'.html';
     }
 
     public function getMapUrl()
@@ -266,8 +265,9 @@ class Place
             $params['lat'] = $this->getPoint()->getLat();
             $params['lng'] = $this->getPoint()->getLng();
 
-            return $mapUrl . '?' . http_build_query($params);
+            return $mapUrl.'?'.http_build_query($params);
         }
+
         return false;
     }
 
@@ -285,6 +285,6 @@ class Place
             $params['saddr'] = $location->getAddress()->getRouteAddress();
         }
 
-        return $routeUrl . '?' . http_build_query($params);
+        return $routeUrl.'?'.http_build_query($params);
     }
 }
