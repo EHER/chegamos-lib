@@ -7,9 +7,9 @@ class Request
     private $verb = 'GET';
     private $baseUrl;
     private $path;
-    private $query = array();
-    private $param = array();
-    private $header;
+    private $query = [];
+    private $param = [];
+    private $header = [];
 
     public function setVerb($verb)
     {
@@ -69,7 +69,7 @@ class Request
         return $this->param[$key];
     }
 
-    public function setHeader($header)
+    public function setHeader(array $header)
     {
         $this->header = $header;
     }

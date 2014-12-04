@@ -1,7 +1,7 @@
 <?php
 namespace chegamos\rest\client;
 
-use Guzzle\Http\Client as GuzzleClient ;
+use GuzzleHttp\Client as GuzzleClient ;
 use chegamos\rest\Request;
 
 class Guzzle extends Client
@@ -16,14 +16,13 @@ class Guzzle extends Client
 
     public function execute(Request $request)
     {
-        if ($request->getVerb() === 'GET') {
-            $guzzleRequest = $this->client->get($request->getUrlWithQueryString());
-        }
-
-        if ($request->getHeader()) {
-            list ($headerName, $headerValue) = $request->getHeader();
-            $guzzleRequest = $this->client->setHeader($headerName, $headerValue);
-        }
+        $guzzleRequest = $this->client->createRequest(
+            $request->getVerb(),
+            $request->getUrlWithQueryString(),
+            [
+                'headers' => $request->getHeader()
+            ]
+        );
 
         $this->response = $this->client->send($guzzleRequest);
 
