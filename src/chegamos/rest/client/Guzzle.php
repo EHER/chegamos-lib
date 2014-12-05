@@ -1,7 +1,7 @@
 <?php
 namespace chegamos\rest\client;
 
-use GuzzleHttp\Client as GuzzleClient ;
+use GuzzleHttp\Client as GuzzleClient;
 use chegamos\rest\Request;
 
 class Guzzle extends Client

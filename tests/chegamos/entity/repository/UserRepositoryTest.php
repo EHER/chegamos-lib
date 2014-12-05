@@ -6,7 +6,6 @@ use Mockery;
 use PHPUnit_Framework_TestCase;
 use chegamos\entity\Config;
 use chegamos\rest\auth\AccessToken;
-use chegamos\rest\auth\BasicAuth;
 
 class UserRepositoryTest extends PHPUnit_Framework_TestCase
 {
@@ -85,6 +84,6 @@ class UserRepositoryTest extends PHPUnit_Framework_TestCase
 
     private function loadJsonFor($fileName)
     {
-        return file_get_contents(__DIR__ . '/../../../fixtures/' . $fileName . '.json');
+        return file_get_contents(__DIR__.'/../../../fixtures/'.$fileName.'.json');
     }
 }

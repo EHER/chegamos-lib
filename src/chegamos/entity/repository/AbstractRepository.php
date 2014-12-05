@@ -3,8 +3,6 @@
 namespace chegamos\entity\repository;
 
 use chegamos\entity\Config;
-use chegamos\entity\factory\UserFactory;
-use chegamos\entity\factory\UserListFactory;
 use chegamos\rest\Request;
 
 abstract class AbstractRepository

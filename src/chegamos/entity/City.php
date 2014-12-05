@@ -2,7 +2,6 @@
 
 namespace chegamos\entity;
 
-
 class City
 {
     private $country = "";

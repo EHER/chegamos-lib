@@ -2,7 +2,6 @@
 
 namespace chegamos\entity;
 
-
 class PlaceTest extends \PHPUnit_Framework_TestCase
 {
     protected $place;

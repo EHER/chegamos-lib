@@ -196,6 +196,6 @@ class PlaceRepositoryTest extends PHPUnit_Framework_TestCase
 
     private function loadJsonFor($fileName)
     {
-        return file_get_contents(__DIR__ . '/../../../fixtures/' . $fileName . '.json');
+        return file_get_contents(__DIR__.'/../../../fixtures/'.$fileName.'.json');
     }
 }

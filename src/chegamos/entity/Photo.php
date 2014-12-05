@@ -2,7 +2,6 @@
 
 namespace chegamos\entity;
 
-
 class Photo
 {
     private $smallUrl = "";

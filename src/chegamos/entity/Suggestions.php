@@ -2,7 +2,6 @@
 
 namespace chegamos\entity;
 
-
 class Suggestions
 {
     private $suggestions = array();
