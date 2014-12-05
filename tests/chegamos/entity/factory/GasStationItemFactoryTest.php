@@ -101,7 +101,7 @@ JSON;
 
     public function Setup()
     {
-        $this->gasStationItemFactory = new GasStationItemFactory;
+        $this->gasStationItemFactory = new GasStationItemFactory();
     }
 
     public function TearDown()

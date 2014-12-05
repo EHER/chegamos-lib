@@ -11,8 +11,8 @@ class GasStationItem
 
     public function __toString()
     {
-        return $this->getLabel() . ': R$ ' . $this->getValue() . 
-            ' (média R$ ' . $this->getAverageValue() . ')';
+        return $this->getLabel().': R$ '.$this->getValue().
+            ' (média R$ '.$this->getAverageValue().')';
     }
 
     public function setLabel($label)

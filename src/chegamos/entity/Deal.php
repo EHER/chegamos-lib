@@ -4,7 +4,6 @@ namespace chegamos\entity;
 
 class Deal
 {
-
     private $id = "";
     private $place = null;
     private $url = "";

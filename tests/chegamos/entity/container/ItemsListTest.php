@@ -2,11 +2,9 @@
 
 namespace chegamos\entity\container;
 
-use chegamos\entity\container\ItemsList;
 
 class ItemsListTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testGetIterator()
     {
         $list = new ItemsList();

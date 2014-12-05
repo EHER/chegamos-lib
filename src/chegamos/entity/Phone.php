@@ -18,10 +18,10 @@ class Phone
         if (!$this->isValidNumber()) {
             return "";
         }
-        
-        $countryInfo = isset($this->country) ? "+" . $this->country . " " : "+55 ";
-        
-        return $countryInfo . $this->toBrazilianStandard();
+
+        $countryInfo = isset($this->country) ? "+".$this->country." " : "+55 ";
+
+        return $countryInfo.$this->toBrazilianStandard();
     }
 
     public function toBrazilianStandard()
@@ -30,10 +30,10 @@ class Phone
             return "";
         }
 
-        $phoneData = "(" . $this->area . ") "
-                    . substr($this->number, 0, 4) 
-                    . "-" 
-                    . substr($this->number, 4, 4);
+        $phoneData = "(".$this->area.") "
+                    .substr($this->number, 0, 4)
+                    ."-"
+                    .substr($this->number, 4, 4);
 
         return $phoneData;
     }
@@ -74,4 +74,3 @@ class Phone
         return $this->number;
     }
 }
-

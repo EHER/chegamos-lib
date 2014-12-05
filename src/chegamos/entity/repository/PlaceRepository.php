@@ -197,18 +197,21 @@ class PlaceRepository extends AbstractRepository
     public function withUtilities()
     {
         $this->request->addQueryItem('utilities', '1');
+
         return $this;
     }
 
     public function withRecommendations()
     {
         $this->request->addQueryItem('qt', 'recomendados');
+
         return $this;
     }
 
     public function sortByDistance()
     {
         $this->request->addQueryItem('sort_by', 'distance');
+
         return $this;
     }
 
