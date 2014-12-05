@@ -2,8 +2,6 @@
 
 namespace chegamos\entity\factory;
 
-use chegamos\entity\PlaceInfo;
-use chegamos\entity\GasStation;
 use chegamos\entity\Phone;
 use chegamos\entity\Address;
 use chegamos\entity\City;
@@ -150,7 +148,7 @@ JSON;
         $this->assertEquals(
                 array(
                         'nova gerti' => 1,
-                        'teste são paulo' => 1000
+                        'teste são paulo' => 1000,
                 ),
                 $facets[0]->getData()
         );
@@ -170,6 +168,7 @@ JSON;
                 "Parâmetro data não é um objeto.",
                 $e->getMessage()
             );
+
             return;
         }
         $this->fail('An expected exception has not been raised.');

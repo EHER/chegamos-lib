@@ -4,7 +4,7 @@ namespace chegamos\entity\factory;
 
 use chegamos\entity\Phone;
 
-class PhoneRepositoryTest extends \PHPUnit_Framework_TestCase
+class PhoneFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testGenerate()
     {

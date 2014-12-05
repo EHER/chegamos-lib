@@ -4,7 +4,6 @@ namespace chegamos\entity;
 
 class Reward
 {
-
     private $id;
     private $name;
     private $image;
@@ -46,7 +45,7 @@ class Reward
     {
         $this->id = $id;
     }
-    
+
     public function getName()
     {
         return $this->name;
@@ -86,5 +85,4 @@ class Reward
     {
         $this->startPoints = $startPoints;
     }
-
 }

@@ -1,8 +1,8 @@
 <?php
 
 namespace chegamos\entity\container;
+
 use chegamos\entity\Utility;
-use chegamos\entity\container\ItemsList;
 
 class UtilityList extends ItemsList
 {

@@ -28,7 +28,7 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase
 		"reviews":"104",
 		"visits":"1,152"
 		}
-	}	
+	}
 }
 JSON;
         $this->jsonStringReviewList = <<<JSON
@@ -563,15 +563,15 @@ JSON;
         $this->assertEquals("02/07/83", $user->getBirthday());
         $this->assertEquals("Masculino", $user->getGender());
         $this->assertEquals(
-            "http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_b.jpg", 
+            "http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_b.jpg",
             $user->getPhotoUrl()
         );
         $this->assertEquals(
-            "http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_m.jpg", 
+            "http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_m.jpg",
             $user->getPhotoMediumUrl()
         );
         $this->assertEquals(
-            "http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_s.jpg", 
+            "http://aptuser.s3.amazonaws.com/8972911185_11409941208494478_s.jpg",
             $user->getPhotoSmallUrl()
         );
         $this->assertEquals("61", $user->getStats()->getPlaces());
