@@ -2,7 +2,6 @@
 
 namespace chegamos\entity;
 
-use chegamos\util\Inflector;
 
 class Photo
 {

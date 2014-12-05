@@ -7,7 +7,6 @@ use chegamos\entity\User;
 use chegamos\entity\UserStats;
 use chegamos\entity\Place;
 use chegamos\entity\container\PlaceList;
-use chegamos\entity\container\ReviewList;
 
 class UserFactory
 {
@@ -20,7 +19,7 @@ class UserFactory
             $isPlaceList = isset($userJsonObject->places);
             $isPhotoList = isset($userJsonObject->photos);
 
-            $user = new User;
+            $user = new User();
 
             $user->setId($userJsonObject->id);
             $user->setName($userJsonObject->name);

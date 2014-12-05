@@ -217,18 +217,21 @@ class PlaceRepository
     public function withUtilities()
     {
         $this->request->addQueryItem('utilities', '1');
+
         return $this;
     }
 
     public function withRecommendations()
     {
         $this->request->addQueryItem('qt', 'recomendados');
+
         return $this;
     }
 
     public function sortByDistance()
     {
         $this->request->addQueryItem('sort_by', 'distance');
+
         return $this;
     }
 
@@ -242,6 +245,7 @@ class PlaceRepository
     public function getRequest()
     {
         $this->getPath();
+
         return $this->request;
     }
 
@@ -265,7 +269,7 @@ class PlaceRepository
         switch ($this->requestType) {
 
         case 'details':
-            $this->request->setPath("places/" . $this->request->getParam('id'));
+            $this->request->setPath("places/".$this->request->getParam('id'));
             break;
         case 'placesByZipcode':
             $this->request->setPath("search/places/byzipcode");
@@ -278,17 +282,17 @@ class PlaceRepository
             break;
         case 'placesByListId':
             $this->request->setPath(
-                "places/list/" . $this->request->getParam('listId')
+                "places/list/".$this->request->getParam('listId')
             );
             break;
         case 'reviews':
             $this->request->setPath(
-                "places/" . $this->request->getParam('id') . '/reviews'
+                "places/".$this->request->getParam('id').'/reviews'
             );
             break;
         case 'photos':
             $this->request->setPath(
-                "places/" . $this->request->getParam('id') . '/photos'
+                "places/".$this->request->getParam('id').'/photos'
             );
             break;
         }

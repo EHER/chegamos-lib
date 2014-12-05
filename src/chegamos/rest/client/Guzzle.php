@@ -2,7 +2,7 @@
 
 namespace chegamos\rest\client;
 
-use Guzzle\Service\Client as GuzzleClient ;
+use Guzzle\Service\Client as GuzzleClient;
 use chegamos\rest\Request;
 
 class Guzzle extends Client
@@ -23,7 +23,7 @@ class Guzzle extends Client
         }
 
         if ($request->getHeader()) {
-            list ($headerName, $headerValue) = $request->getHeader();
+            list($headerName, $headerValue) = $request->getHeader();
             $guzzleRequest->setHeader($headerName, $headerValue);
         }
 

@@ -4,11 +4,10 @@ namespace chegamos\entity;
 
 class Visit
 {
-
     private $place = null;
     private $date = "";
 
-    public function __construct($data=null)
+    public function __construct($data = null)
     {
         $this->populate($data);
     }

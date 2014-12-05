@@ -17,16 +17,17 @@ class Curl extends Client
         curl_setopt($this->curl, CURLOPT_URL, $request->getUrlWithQueryString());
         curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $request->getVerb());
         if ($request->getHeader()) {
-            list ($headerName, $headerValue) = $request->getHeader();
+            list($headerName, $headerValue) = $request->getHeader();
             curl_setopt(
                 $this->curl,
                 CURLOPT_HTTPHEADER,
-                array($headerName . ": "  . $headerValue)
+                array($headerName.": ".$headerValue)
             );
         }
         $this->response = curl_exec($this->curl);
         $this->validateResponse();
         curl_close($this->curl);
+
         return $this->getBody();
     }
 
@@ -42,11 +43,11 @@ class Curl extends Client
             curl_close($this->curl);
             throw new ChegamosRestException(
                 "A chamada retornou HTTP_CODE "
-                . $info['http_code']
-                . " ao tentar acessar "
-                . $info['url']
-                . "\r\nConteúdo: "
-                . $this->getBody()
+                .$info['http_code']
+                ." ao tentar acessar "
+                .$info['url']
+                ."\r\nConteúdo: "
+                .$this->getBody()
             );
         }
     }

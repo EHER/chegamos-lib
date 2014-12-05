@@ -11,6 +11,7 @@ class ItemsList implements \IteratorAggregate
     public function getItem($index = 0)
     {
         $items = $this->getItems();
+
         return $items[$index];
     }
 

@@ -11,7 +11,7 @@ class CategoryFactoryTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->category = new Category;
+        $this->category = new Category();
     }
 
     protected function tearDown()
@@ -21,10 +21,10 @@ class CategoryFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testGenerate()
     {
-        $data = new \stdClass;
+        $data = new \stdClass();
         $data->id = 123;
         $data->name = "Restaurantes";
-        $data->subcategory = new \stdClass;
+        $data->subcategory = new \stdClass();
         $data->subcategory->id = 321;
         $data->subcategory->name = "Fastfood";
 
@@ -37,12 +37,13 @@ class CategoryFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("Fastfood", $category->getSubcategory()->getName());
     }
 
-    public function testGenerateWithoutData() 
+    public function testGenerateWithoutData()
     {
         try {
             CategoryFactory::generate(null);
-        } catch(ChegamosException $e) {
+        } catch (ChegamosException $e) {
             $this->assertEquals("Parâmetro passado não é um objeto.", $e->getMessage());
+
             return;
         }
         $this->fail('An expected exception has not been raised.');

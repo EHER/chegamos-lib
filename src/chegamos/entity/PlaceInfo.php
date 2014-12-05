@@ -4,10 +4,9 @@ namespace chegamos\entity;
 
 class PlaceInfo
 {
-
     private $gasStation = "";
 
-    public function __construct($data=null)
+    public function __construct($data = null)
     {
         $this->populate($data);
     }

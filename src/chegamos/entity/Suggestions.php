@@ -2,13 +2,12 @@
 
 namespace chegamos\entity;
 
-use chegamos\util\Inflector;
 
 class Suggestions
 {
     private $suggestions = array();
 
-    public function __construct($data=null)
+    public function __construct($data = null)
     {
         $this->setSuggestions($data);
     }
@@ -18,13 +17,13 @@ class Suggestions
         $suggestions = "";
         if (is_array($this->getSuggestions())) {
             foreach ($this->getSuggestions() as $suggestion) {
-                $suggestions .= '<a href="' . ROOT_URL;
-                $suggestions .= 'places/search?q=' . $suggestion . '">';
-                $suggestions .= $suggestion . '</a> ';
+                $suggestions .= '<a href="'.ROOT_URL;
+                $suggestions .= 'places/search?q='.$suggestion.'">';
+                $suggestions .= $suggestion.'</a> ';
             }
         }
-        return $suggestions;
 
+        return $suggestions;
     }
 
     public function setSuggestions($suggestions)

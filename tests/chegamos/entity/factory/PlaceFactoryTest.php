@@ -153,6 +153,7 @@ class PlaceFactoryTest extends \PHPUnit_Framework_TestCase
                 "Parâmetro data não é um objeto.",
                 $e->getMessage()
             );
+
             return;
         }
         $this->fail('An expected exception has not been raised.');
