@@ -4,7 +4,7 @@ namespace chegamos\rest\auth;
 
 class AccessToken
 {
-    private $acessToken;
+    private $accessToken;
 
     public function __construct($accessToken)
     {
