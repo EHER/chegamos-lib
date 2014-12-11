@@ -19,7 +19,6 @@ class PlaceRepositoryIntegrationTest extends PHPUnit_Framework_TestCase
     public function testGetPlaceById()
     {
         $accessToken = new AccessToken(getenv('ACCESS_TOKEN'));
-        var_dump($accessToken);
 
         $config = new Config();
         $config->setAccessToken($accessToken);

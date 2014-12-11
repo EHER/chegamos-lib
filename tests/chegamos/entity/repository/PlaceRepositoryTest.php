@@ -182,7 +182,8 @@ class PlaceRepositoryTest extends PHPUnit_Framework_TestCase
     private function getPlaceRepository($json = '')
     {
         $restClient = Mockery::mock('chegamos\rest\client\Guzzle');
-        $restClient->shouldReceive('execute')
+        $restClient
+            ->shouldReceive('execute')
             ->once()
             ->andReturn($json);
 

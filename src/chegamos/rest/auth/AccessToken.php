@@ -13,6 +13,6 @@ class AccessToken
 
     public function getHeader()
     {
-        return array("Authorization", "Bearer ".$this->accessToken);
+        return ["Authorization" => "Bearer ".$this->accessToken];
     }
 }

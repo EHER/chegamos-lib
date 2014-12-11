@@ -28,7 +28,7 @@ class GuzzleTest extends PHPUnit_Framework_TestCase
                 'https://api.apontador.com.br/v2/places/1234',
                 [
                     'headers' => [
-                        ['Authorization', 'Bearer YOUR_ACCESS_TOKEN'],
+                        'Authorization' => 'Bearer YOUR_ACCESS_TOKEN',
                     ]
                 ]
             )
@@ -37,7 +37,7 @@ class GuzzleTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         $request->setBaseUrl('https://api.apontador.com.br/v2/');
         $request->setPath('places/1234');
-        $request->setHeader([['Authorization', 'Bearer YOUR_ACCESS_TOKEN']]);
+        $request->setHeader(['Authorization' => 'Bearer YOUR_ACCESS_TOKEN']);
 
         $guzzle = new Guzzle($guzzleClientMock);
         $guzzle->execute($request);
