@@ -20,7 +20,6 @@ abstract class AbstractRepository
     {
         $this->request = new Request();
         $this->request->setBaseUrl($this->config->getBaseUrl());
-        $this->request->addQueryItem("type", "json");
 
         $accessToken = $this->config->getAccessToken();
         if (!empty($accessToken)) {

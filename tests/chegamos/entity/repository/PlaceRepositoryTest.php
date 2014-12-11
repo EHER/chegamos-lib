@@ -32,7 +32,6 @@ class PlaceRepositoryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('chegamos\rest\Request', get_class($request));
         $this->assertEquals('GET', $request->getVerb());
         $this->assertEquals('places/UCV34B2P', $request->getPath());
-        $this->assertEquals('type=json', $request->getQueryString());
     }
 
     public function testByAddress()
@@ -105,7 +104,7 @@ class PlaceRepositoryTest extends PHPUnit_Framework_TestCase
             ->getRequest()->getUrlWithQueryString();
 
         $this->assertEquals(
-            'https://api.apontador.com.br/v2/places/list/21?type=json&facets=1',
+            'https://api.apontador.com.br/v2/places/list/21?facets=1',
             $request
         );
     }
@@ -119,7 +118,7 @@ class PlaceRepositoryTest extends PHPUnit_Framework_TestCase
             ->getRequest()->getUrlWithQueryString();
 
         $this->assertEquals(
-            'https://api.apontador.com.br/v2/places/list/21?type=json&state=sp&facets=1',
+            'https://api.apontador.com.br/v2/places/list/21?state=sp&facets=1',
             $request
         );
     }
@@ -134,7 +133,7 @@ class PlaceRepositoryTest extends PHPUnit_Framework_TestCase
             ->getRequest()->getUrlWithQueryString();
 
         $this->assertEquals(
-            'https://api.apontador.com.br/v2/places/list/21?type=json&state=sp&city=S%C3%A3o+Paulo&facets=1',
+            'https://api.apontador.com.br/v2/places/list/21?state=sp&city=S%C3%A3o+Paulo&facets=1',
             $request
         );
     }
@@ -150,8 +149,8 @@ class PlaceRepositoryTest extends PHPUnit_Framework_TestCase
             ->getRequest()->getUrlWithQueryString();
 
         $this->assertEquals(
-            'https://api.apontador.com.br/v2/places/list/21?type=json'.
-            '&state=SP&city=Guaruj%C3%A1&district=Vila+Luis+Antonio&facets=1',
+            'https://api.apontador.com.br/v2/places/list/21?'.
+            'state=SP&city=Guaruj%C3%A1&district=Vila+Luis+Antonio&facets=1',
             $request
         );
     }
@@ -173,8 +172,8 @@ class PlaceRepositoryTest extends PHPUnit_Framework_TestCase
             ->getRequest()->getUrlWithQueryString();
 
         $this->assertEquals(
-            'https://api.apontador.com.br/v2/search/places/byaddress?type=json'.
-            '&city=Sorocaba&state=SP&street=Av.+Bar%C3%A3o+de+Tatu%C3%AD&number=145&sort_by=distance',
+            'https://api.apontador.com.br/v2/search/places/byaddress?'.
+            'city=Sorocaba&state=SP&street=Av.+Bar%C3%A3o+de+Tatu%C3%AD&number=145&sort_by=distance',
             $request
         );
     }
