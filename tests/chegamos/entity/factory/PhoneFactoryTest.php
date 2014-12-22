@@ -13,7 +13,7 @@ class PhoneFactoryTest extends \PHPUnit_Framework_TestCase
         $data->area = "11";
         $data->number = "26363509";
 
-        $phone = PhoneFactory::generate($data);
+        $phone = PhoneFactory::fromStdClass($data);
 
         $this->assertEquals("55", $phone->getCountry());
         $this->assertEquals("11", $phone->getArea());

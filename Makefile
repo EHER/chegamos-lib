@@ -35,7 +35,7 @@ composer-update:
 brew-install:
 	brew install GraphViz
 
-test: unit-tests integration-tests
+test: integration-tests update-fixtures unit-tests
 
 unit-tests:
 	@echo "Rodando testes unitarios"
@@ -70,3 +70,7 @@ save: test cs
 
 build: coverage cs md
 	@echo "Executando tasks do build"
+
+update-fixtures:
+	@echo "Atualizando test fixtures"
+	cd tests/fixtures; ./update-fixtures.sh;

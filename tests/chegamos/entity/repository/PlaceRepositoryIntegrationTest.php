@@ -16,7 +16,9 @@ use GuzzleHttp\Client as GuzzleClient;
 
 class PlaceRepositoryIntegrationTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetPlaceById()
+    private $repository;
+
+    public function setUp()
     {
         $accessToken = new AccessToken(getenv('ACCESS_TOKEN'));
 
@@ -25,9 +27,18 @@ class PlaceRepositoryIntegrationTest extends PHPUnit_Framework_TestCase
         $config->setRestClient(new Guzzle(new GuzzleClient));
         $config->setBaseUrl('https://api.apontador.com.br/v2/');
 
-        $repository = new PlaceRepository($config);
-        $place = $repository->get('A839ALF5');
+        $this->repository = new PlaceRepository($config);
+    }
 
-        var_dump($place);
+    public function testGetPlaceById()
+    {
+        $place = $this->repository->get('A839ALF5');
+        $this->assertEquals('Gpaci Hospital do Cancer Infantil de Sorocaba', $place->getName());
+    }
+
+    public function testSearchPlaceByName()
+    {
+        $placeList = $this->repository->byName('GPACI')->getAll();
+        $this->assertEquals('Gpaci Hospital do Cancer Infantil de Sorocaba', $placeList->getItem()->getName());
     }
 }

@@ -22,34 +22,28 @@ class PlaceRepository extends AbstractRepository
     {
         $this->byId($id);
 
-        $placeJsonString = $this->config->getRestClient()->execute($this->request);
+        $placeJson = $this->config->getRestClient()->execute($this->request);
         $this->resetRequest();
 
-        $placeJsonObject = json_decode($placeJsonString);
-
-        return PlaceFactory::generate($placeJsonObject->place);
+        return PlaceFactory::fromJson($placeJson);
     }
 
     public function getAll()
     {
-        $placeListJsonString = $this->config->getRestClient()->execute($this->request);
+        $placeListJson = $this->config->getRestClient()->execute($this->request);
         $this->resetRequest();
 
-        $placeListJsonObject = json_decode($placeListJsonString);
-
-        return PlaceListFactory::generate($placeListJsonObject->search);
+        return PlaceListFactory::fromJson($placeListJson);
     }
 
     public function save(Place $place)
     {
         $this->requestType = 'savePlace';
 
-        $placeJsonString = $this->config->getRestClient()->execute($this->request);
+        $placeJson = $this->config->getRestClient()->execute($this->request);
         $this->resetRequest();
 
-        $placeJsonObject = json_decode($placeJsonString);
-
-        return PlaceFactory::generate($placeJsonObject->place);
+        return PlaceFactory::fromJson($placeJson);
     }
 
     public function withDetails()
@@ -118,7 +112,7 @@ class PlaceRepository extends AbstractRepository
 
     public function byName($name)
     {
-        $this->requestType = 'placesByName';
+        $this->request->setPath('places/');
         $this->request->addQueryItem('q', $name);
 
         return $this;

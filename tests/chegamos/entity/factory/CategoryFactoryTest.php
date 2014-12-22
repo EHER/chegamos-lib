@@ -19,7 +19,7 @@ class CategoryFactoryTest extends \PHPUnit_Framework_TestCase
         unset($this->category);
     }
 
-    public function testGenerate()
+    public function testfromStdClass()
     {
         $data = new \stdClass();
         $data->id = 123;
@@ -28,24 +28,12 @@ class CategoryFactoryTest extends \PHPUnit_Framework_TestCase
         $data->subcategory->id = 321;
         $data->subcategory->name = "Fastfood";
 
-        $category = CategoryFactory::generate($data);
+        $category = CategoryFactory::fromStdClass($data);
 
         $this->assertEquals(123, $category->getId());
         $this->assertEquals("Restaurantes", $category->getName());
         $this->assertEquals("Fastfood", $category->getSubcategory());
         $this->assertEquals(321, $category->getSubcategory()->getId());
         $this->assertEquals("Fastfood", $category->getSubcategory()->getName());
-    }
-
-    public function testGenerateWithoutData()
-    {
-        try {
-            CategoryFactory::generate(null);
-        } catch (ChegamosException $e) {
-            $this->assertEquals("Parâmetro passado não é um objeto.", $e->getMessage());
-
-            return;
-        }
-        $this->fail('An expected exception has not been raised.');
     }
 }

@@ -20,7 +20,7 @@ class PlaceRepositoryTest extends PHPUnit_Framework_TestCase
         $place = $this
             ->getPlaceRepository($this->loadJsonFor('place'))
             ->get('UCV34B2P');
-        $this->assertEquals('Uziel Restaurante - Sao Paulo', $place->getName());
+        $this->assertEquals('Gpaci Hospital do Cancer Infantil de Sorocaba', $place->getName());
     }
 
     public function testGetRequestByPlaceId()
@@ -49,11 +49,11 @@ class PlaceRepositoryTest extends PHPUnit_Framework_TestCase
             ->getAll();
 
         $this->assertEquals(
-            'Agencia Dos Correios - Vila Maria',
+            'Hospital Gpaci Sorocaba',
             $place->getItem(0)->getName()
         );
         $this->assertEquals(
-            '+55 (11) 2636-3509',
+            '+55 (15) 2101-6555',
             $place->getItem(0)->getPhone()->toInternationalStandard()
         );
     }

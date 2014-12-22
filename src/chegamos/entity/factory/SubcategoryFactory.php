@@ -7,17 +7,12 @@ use chegamos\exception\ChegamosException;
 
 class SubcategoryFactory
 {
-    public static function generate($subcategoryJsonObject)
+    public function fromStdClass(\stdClass $subcategoryObject)
     {
-        if (is_object($subcategoryJsonObject)) {
-            $subcategory = new Subcategory();
+        $subcategory = new Subcategory();
+        $subcategory->setId($subcategoryObject->id);
+        $subcategory->setName($subcategoryObject->name);
 
-            $subcategory->setId($subcategoryJsonObject->id);
-            $subcategory->setName($subcategoryJsonObject->name);
-
-            return $subcategory;
-        } else {
-            throw new ChegamosException("Parâmetro passado não é um objeto.");
-        }
+        return $subcategory;
     }
 }

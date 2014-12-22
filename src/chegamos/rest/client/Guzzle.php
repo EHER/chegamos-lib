@@ -20,7 +20,10 @@ class Guzzle extends Client
             $request->getVerb(),
             $request->getUrlWithQueryString(),
             [
-                'headers' => $request->getHeader()
+                'headers' => array_merge(
+                    $request->getHeader(),
+                    ['Accept' => 'application/json']
+                )
             ]
         );
 

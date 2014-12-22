@@ -29,6 +29,7 @@ class GuzzleTest extends PHPUnit_Framework_TestCase
                 [
                     'headers' => [
                         'Authorization' => 'Bearer YOUR_ACCESS_TOKEN',
+                        'Accept' => 'application/json',
                     ]
                 ]
             )

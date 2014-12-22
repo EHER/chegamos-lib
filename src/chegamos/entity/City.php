@@ -9,24 +9,6 @@ class City
     private $name = "";
     private $formatter = null;
 
-    public function __construct($data = null)
-    {
-        $this->populate($data);
-    }
-
-    public function populate($data)
-    {
-        if (!empty($data->country)) {
-            $this->setCountry($data->country);
-        }
-        if (!empty($data->state)) {
-            $this->setState($data->state);
-        }
-        if (!empty($data->name)) {
-            $this->setName($data->name);
-        }
-    }
-
     public function __toString()
     {
         $state =  $this->getState() ? ' - '.$this->getState() : '';

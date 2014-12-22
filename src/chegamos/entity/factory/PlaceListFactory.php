@@ -7,25 +7,28 @@ use chegamos\entity\container\PlaceList;
 
 class PlaceListFactory
 {
-    public static function generate($placeListJsonObject)
+    public static function fromJson($placeListJson)
     {
-        if (is_object($placeListJsonObject)) {
-            $placeList = new PlaceList();
-            $placeList->setNumFound($placeListJsonObject->result_count);
-            $placeList->setCurrentPage($placeListJsonObject->current_page);
-            foreach ($placeListJsonObject->places as $place) {
-                $placeList->add(PlaceFactory::generate($place->place));
-            }
+        $placeListObject = json_decode($placeListJson);
 
-            if (isset($placeListJsonObject->facets)) {
-                $placeList->setFacets(
-                    FacetsFactory::generate($placeListJsonObject->facets)
-                );
-            }
-
-            return $placeList;
-        } else {
+        if (!is_object($placeListObject)) {
             throw new ChegamosException("Parâmetro passado não é um objeto.");
         }
+
+        $placeList = new PlaceList();
+        $placeList->setNumFound($placeListObject->results->header->found);
+        $placeList->setCurrentPage($placeListObject->results->header->found / $placeListObject->results->header->rows);
+
+        foreach ($placeListObject->results->places as $place) {
+            $placeList->add(PlaceFactory::fromStdClass($place));
+        }
+
+        if (isset($placeListObject->facets)) {
+            $placeList->setFacets(
+                FacetsFactory::generate($placeListObject->facets)
+            );
+        }
+
+        return $placeList;
     }
 }

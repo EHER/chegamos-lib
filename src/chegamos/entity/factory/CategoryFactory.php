@@ -8,19 +8,15 @@ use chegamos\exception\ChegamosException;
 
 class CategoryFactory
 {
-    public static function generate($categoryJsonObject)
+    public static function fromStdClass(\stdClass $jsonObject)
     {
-        if (is_object($categoryJsonObject)) {
-            $category = new Category();
-            $category->setId($categoryJsonObject->id);
-            $category->setName($categoryJsonObject->name);
-            $category->setSubcategory(
-                SubcategoryFactory::generate($categoryJsonObject->subcategory)
-            );
+        $subcategoryFactory = new SubcategoryFactory();
 
-            return $category;
-        } else {
-            throw new ChegamosException("Parâmetro passado não é um objeto.");
-        }
+        $category = new Category();
+        $category->setId($jsonObject->id);
+        $category->setName($jsonObject->name);
+        $category->setSubcategory($subcategoryFactory->fromStdClass($jsonObject->subcategory));
+
+        return $category;
     }
 }
