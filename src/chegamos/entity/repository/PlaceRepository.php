@@ -95,8 +95,8 @@ class PlaceRepository extends AbstractRepository
 
     public function byListId($listId)
     {
-        $this->request->addParam('listId', $listId);
-        $this->request->setPath('places/list/{listId}');
+        $this->request->addQueryItem('fq', 'placeLists.placeList.id:' . $listId);
+        $this->request->setPath('places');
 
         return $this;
     }

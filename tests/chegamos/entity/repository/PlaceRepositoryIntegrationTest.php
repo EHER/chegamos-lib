@@ -41,4 +41,10 @@ class PlaceRepositoryIntegrationTest extends PHPUnit_Framework_TestCase
         $placeList = $this->repository->byName('GPACI')->getAll();
         $this->assertEquals('Gpaci Hospital do Cancer Infantil de Sorocaba', $placeList->getItem()->getName());
     }
+
+    public function testSearchPlaceByListId()
+    {
+        $placeList = $this->repository->byName('GPACI')->withCity('Sorocaba')->withState('SP')->withListId(22)->getAll();
+        $this->assertEquals('Gpaci Hospital do Cancer Infantil de Sorocaba', $placeList->getItem()->getName());
+    }
 }

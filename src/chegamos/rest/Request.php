@@ -87,4 +87,9 @@ class Request
 
         return empty($queryString) ? $url : $url.'?'.$queryString;
     }
+
+    public function __toString()
+    {
+        return "[url=" . $this->getUrlWithQueryString() . "]". PHP_EOL;
+    }
 }

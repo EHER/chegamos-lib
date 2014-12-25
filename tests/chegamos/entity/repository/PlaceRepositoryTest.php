@@ -34,6 +34,15 @@ class PlaceRepositoryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('places/UCV34B2P', $request->getPath());
     }
 
+    public function testGetByList()
+    {
+        $placeList = $this
+            ->getPlaceRepository($this->loadJsonFor('searchByList'))
+            ->withListId(23)
+            ->getAll();
+        $this->assertEquals('Gpaci Hospital do Cancer Infantil de Sorocaba', $placeList->getItem(0)->getName());
+    }
+
     public function testByAddress()
     {
         $city = new City();
@@ -104,7 +113,7 @@ class PlaceRepositoryTest extends PHPUnit_Framework_TestCase
             ->getRequest()->getUrlWithQueryString();
 
         $this->assertEquals(
-            'https://api.apontador.com.br/v2/places/list/21?facets=1',
+            'https://api.apontador.com.br/v2/places?fq=placeLists.placeList.id%3A21&facets=1',
             $request
         );
     }
@@ -118,7 +127,7 @@ class PlaceRepositoryTest extends PHPUnit_Framework_TestCase
             ->getRequest()->getUrlWithQueryString();
 
         $this->assertEquals(
-            'https://api.apontador.com.br/v2/places/list/21?state=sp&facets=1',
+            'https://api.apontador.com.br/v2/places?fq=placeLists.placeList.id%3A21&state=sp&facets=1',
             $request
         );
     }
@@ -133,7 +142,8 @@ class PlaceRepositoryTest extends PHPUnit_Framework_TestCase
             ->getRequest()->getUrlWithQueryString();
 
         $this->assertEquals(
-            'https://api.apontador.com.br/v2/places/list/21?state=sp&city=S%C3%A3o+Paulo&facets=1',
+            'https://api.apontador.com.br/v2/places?' .
+            'fq=placeLists.placeList.id%3A21&state=sp&city=S%C3%A3o+Paulo&facets=1',
             $request
         );
     }
@@ -149,8 +159,8 @@ class PlaceRepositoryTest extends PHPUnit_Framework_TestCase
             ->getRequest()->getUrlWithQueryString();
 
         $this->assertEquals(
-            'https://api.apontador.com.br/v2/places/list/21?'.
-            'state=SP&city=Guaruj%C3%A1&district=Vila+Luis+Antonio&facets=1',
+            'https://api.apontador.com.br/v2/places?'.
+            'fq=placeLists.placeList.id%3A21&state=SP&city=Guaruj%C3%A1&district=Vila+Luis+Antonio&facets=1',
             $request
         );
     }
